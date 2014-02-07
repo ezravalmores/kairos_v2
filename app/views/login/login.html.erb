@@ -1,0 +1,27 @@
+<script>
+  $(document).ready(function() {
+	$('.input-append.date').datepicker({
+       format: "yyyy-mm-dd"
+	});
+});
+</script>
+
+<div id='signin'>
+  <%= bootstrap_flash %>
+  <br/>
+  <div style='margin-left:30px'>		
+  <%= form_tag login_path, :method => 'POST' do %>
+   <fieldset>
+     <legend>Login to Kairos</legend>
+     <label>Username</label>
+     <%= text_field_tag :username,params[:username], :placeholder => 'Username' %>
+   
+     <label>Password</label> 
+     <%= password_field_tag :password,params[:password],:placeholder => 'Password' %>
+
+     <br/>
+     <br/>
+     <%= submit_tag "Login", :class => 'btn btn-primary' %>
+  <% end %>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+Productive: <%= PersonTask.calculate_total_hours(@productive.map {|a| a.id},"hours") %>:<%=       PersonTask.calculate_total_hours(@productive.map {|a| a.id},"minutes") %>:<%= PersonTask.calculate_total_hours(@productive.map {|a| a.id},"seconds") %>
+
+<span style='margin-left:40px'>
+  	Break: <%= PersonTask.calculate_total_hours(@break.map {|a| a.id},"hours") %>:<%=       PersonTask.calculate_total_hours(@break.map {|a| a.id},"minutes") %>:<%= PersonTask.calculate_total_hours(@break.map {|a| a.id},"seconds") %>
+</span>
+
+<span style='margin-left:40px'>
+  	Total: <%= PersonTask.calculate_total_hours(@tasks.map {|a| a.id},"hours") %>:<%=       PersonTask.calculate_total_hours(@tasks.map {|a| a.id},"minutes") %>:<%= PersonTask.calculate_total_hours(@tasks.map {|a| a.id},"seconds") %>
+</span>

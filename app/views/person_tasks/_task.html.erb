@@ -1,0 +1,18 @@
+<tr id ='task_<%= task.id %>'>
+
+    
+     <td><%= task.task.name if !task.task_id.nil?  %></td>
+     <td><%= task.specific_task.name if !task.specific_task_id.nil? %></td>
+     <td><%= task.start.strftime('%l:%M:%S %p').downcase %></td>
+     <td><%= task.end.strftime('%l:%M:%S %p').downcase if !task.task_id.nil?  %></td>
+     <td><%= task.total_time.strftime('%H:%M:%S').downcase if !task.total_time.nil? %> </td>
+ 
+       <% link_to t('.edit', :default => t("helpers.links.edit")),
+                 edit_person_task_path(task), :class => 'btn btn-mini' %>
+       <% link_to t('.destroy', :default => t("helpers.links.destroy")),
+                 person_task_path(task),
+                 :method => :delete,
+                 :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                 :class => 'btn btn-mini btn-danger' %>
+ 
+   </tr>

@@ -1,0 +1,23 @@
+<script>
+  $(document).ready(function() {
+	$('.input-append.date').datepicker({
+	});
+});
+</script>
+<div id='signin'>
+  <%= bootstrap_flash %>
+  <div style='margin-left:30px'>	
+  <%= form_tag set_date_path, :method => 'POST' do %>
+   <fieldset>
+     <br/>
+     <label>Shift Date</label>
+     <div class="input-append date">
+	  <%= text_field_tag :set_date %><span class="add-on"><i class="icon-th"></i></span>
+	</div>
+
+     <br/>
+     <br/>
+     <%= submit_tag "Proceed to tasks manager", :class => 'btn btn-primary' %>
+  <% end %>
+  </div>
+</div>

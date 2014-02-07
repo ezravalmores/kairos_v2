@@ -1,0 +1,24 @@
+<%= render partial: 'submit_form_js' %>
+<div class="span3" style='margin-left:10px'>
+  <div class="well sidebar-nav" id='test'>
+	<div id='spin'>
+	  <%= image_tag 'spin.gif' %>
+	</div>
+	
+	<h5>Select people to notify</h5>
+
+	<% for person in people_that_can_approve do %>
+	
+	  <%= check_box_tag("people[]",person.id,false,{}) %>&nbsp;<span><%= person.first_name + " " + person.last_name %></span></br>
+	
+	<% end %>
+	
+	<br/>
+	
+	<span class="label label-success" id= 's' style='display:none;margin-bottom:20px'>Successfully Submitted</span>
+	
+    <div class = 'btn btn-primary' id='submit_tasks' >
+      Submit Tasks Today
+    </div>
+  </div>
+</div>

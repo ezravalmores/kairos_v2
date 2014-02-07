@@ -1,0 +1,31 @@
+<div class="navbar navbar-inverse navbar-fluid-top" >
+  <div class="navbar-inner" style='border-radius:0px !important;border-top: 0px !important;height:90px'>
+   <div style='color:#fff;font-size:25px;margin-top:20px;float:left'>
+	Kairos<br/><br/>
+	<p><%= current_user.organization.name %> - <%= current_user.department.name %> </p>
+   </div>	
+   <p class="navbar-text navbar-right" style='float:right'>Signed in as <a href="#" class="navbar-link"><%= current_user.first_name %></a> | <%= link_to "Edit Account", '#', :class => 'navbar-link' %>  | <%= link_to "Sign out", logout_url, :class => 'navbar-link' %></p>
+  </div>
+</div>
+
+<div class="navbar navbar-fluid-top" style='margin-top:-20px'>
+  <div class="navbar-inner" style='border-radius:0px !important;border-top: 0px !important'>
+    <ul class="nav">
+      <li><%= link_to 'Dashboard', "#" %></li>
+      <li class='active'><%= link_to ' Task Manager', person_tasks_url %></li>
+      <li class="dropdown">
+	    <a class="dropdown-toggle"
+	       data-toggle="dropdown"
+	       href="#">
+	        Administration
+	        <b class="caret"></b>
+	      </a>
+	    <ul class="dropdown-menu">
+	      <li><%= link_to '  Tasks', "#", :class => 'icon-tasks' %></li>
+	      <li><%= link_to '  People', people_path, :class => 'icon-user' %></li>
+	    </ul>
+	  </li>
+
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<%= render partial: 'progress_bar_js' %>
+<% @hours = PersonTask.calculate_total_hours(@productive.map {|a| a.id},"hours") %>
+<% @minutes = PersonTask.calculate_total_hours(@productive.map {|a| a.id},"minutes") %>  
+<% @rate = compute_utilization_rate(@hours,@minutes).to_f %>
+<%= hidden_field_tag :rate, @rate, :id => 'rate' %>
+<div id="progresBarContainer" class="progress">
+  <% if @rate < 20 %>
+    <div id="progresBarFill" class="bar bar-danger" ></div>
+  <% elsif @rate > 15 && @rate < 100 %>
+    <div id="progresBarFill" class="bar bar-warning" ></div>
+  <% else %>
+    <div id="progresBarFill" class="bar bar-success" ></div>
+  <% end %>
+</div>

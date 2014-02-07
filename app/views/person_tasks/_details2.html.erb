@@ -1,0 +1,9 @@
+<div class='details2'>
+  <div class='end_form'> 
+	<% if @unfinished.count == 0 %>
+	   <%= render :partial => 'submit_form' %>	
+    <% else %>
+       <%= render :partial => 'end_task_form' %> 
+    <% end %>
+  </div>	
+</div>	

@@ -1,0 +1,49 @@
+<%- model_class = Person -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:first_name) %>:</strong></dt>
+  <dd><%= @person.first_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:last_name) %>:</strong></dt>
+  <dd><%= @person.last_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:email_address) %>:</strong></dt>
+  <dd><%= @person.email_address %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:username) %>:</strong></dt>
+  <dd><%= @person.username %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:password) %>:</strong></dt>
+  <dd><%= @person.password %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:is_active) %>:</strong></dt>
+  <dd><%= @person.is_active %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:role_id) %>:</strong></dt>
+  <dd><%= @person.role_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:department_id) %>:</strong></dt>
+  <dd><%= @person.department_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:start_time) %>:</strong></dt>
+  <dd><%= @person.start_time %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:end_time) %>:</strong></dt>
+  <dd><%= @person.end_time %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:can_approve) %>:</strong></dt>
+  <dd><%= @person.can_approve %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:remaining_vacation_leave) %>:</strong></dt>
+  <dd><%= @person.remaining_vacation_leave %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:remaining_sick_leave) %>:</strong></dt>
+  <dd><%= @person.remaining_sick_leave %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:organization_id) %>:</strong></dt>
+  <dd><%= @person.organization_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:time_zone) %>:</strong></dt>
+  <dd><%= @person.time_zone %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              people_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_person_path(@person), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              person_path(@person),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

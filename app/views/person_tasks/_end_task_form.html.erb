@@ -1,0 +1,27 @@
+<%= render partial: 'end_task_form_js' %>	
+<div class="span3" style='margin-left:10px'>
+  <div class="well sidebar-nav">
+    <ul class="nav nav-list" style='margin-left:-10px'>
+      <h4>Current Task</h4>
+      <span class="label label-info"><%= @tasks.first.start.strftime('%l:%M:%S %p').downcase %></span><br/><br/>
+        <%= form_for(@tasks.first,:remote => true ) do |f| %>  
+		  
+		  <label>Task</label>
+		  <%= f.collection_select :task_id, Task.order(:name), :id, :name, :include_blank => true  %><br/>
+		  
+		  <label>Specific Task</label>
+		  <%= f.grouped_collection_select :specific_task_id, Task.order(:name), :specific_tasks, :name ,:id, :name, :include_blank => true  %><br/><br/>
+          
+		  <%= f.hidden_field :shift_date, :value => session[:shift_date] %>
+			
+		  <label>From or To</label>
+          <%= f.text_field :person_in_charge %><br/><br/> 
+		
+          <label>Note</label>
+          <%= f.text_area :note,:size => '20x3' %><br/><br/>         
+
+		  <%= check_box_tag :end_shift, 'yes', true %> continue?<span style='margin-left:40px'><%= f.submit :end, :value => "End Task", :class => 'btn btn-primary', :id => 'submit' %></span>
+		<% end %>
+    </ul>
+  </div><!--/.well -->
+</div><!--/span-->

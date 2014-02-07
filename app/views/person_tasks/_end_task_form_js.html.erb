@@ -1,0 +1,24 @@
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+   	var specific_activities = $("#person_task_specific_task_id").html();
+    $("#person_task_specific_task_id").prop("disabled", true);
+	$("#submit").prop("disabled", true);
+
+	  $('#person_task_task_id').change(function(){
+	   var task = $('#person_task_task_id :selected').text();
+	   var escaped_parent = task.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1');
+	   var options = options = $(specific_activities).filter("optgroup[label='" + escaped_parent + "']").html();
+	    if (options){
+	      $("#person_task_specific_task_id").html(options);
+	      $("#person_task_specific_task_id").prop("disabled", false);
+		  $("#submit").prop("disabled", false);
+	     return jQuery('person_task_specific_task_id').parent().show();
+	    }
+	    else{
+	      $("#person_task_specific_task_id").empty();
+		  $("#person_task_specific_task_id").prop("disabled", true);
+		  $("#submit").prop("disabled", true);
+	    } 	
+	    });
+  });	
+</script>

@@ -1,0 +1,53 @@
+<script>
+   $(document).ready(function() {
+	
+	$('#tasks_search input').datepicker({
+       format: "yyyy-mm-dd",
+	   autoclose: true	
+	});
+	
+    $("#tasks_search input").change(function(){
+	  $.get($("#tasks_search").attr("action"), $("#tasks_search").serialize(),null,"script");
+      
+	  return false;
+    });	
+
+  });
+</script>
+
+<%- model_class = PersonTask -%>
+
+<div class="span9" style='margin-left:-3px'>
+<div style='padding:15px'>
+  <div class="page-header">	
+    <h3>
+	  <%= 'Tasks Management' %><%= form_tag person_tasks_path, :method => 'get', :id => 'tasks_search', :class => "form-search pull-right" do %>
+	    <%= text_field_tag :search, '' , :class => "input-medium search-query", :placeholder => 'enter shift date' %>
+	  <% end %>
+	</h3>
+	
+    <p>Goal is to reach hundred percent</p>
+    <div id='summary'>
+      <div class='details'>
+	    <%= render :partial => 'details' %> 
+      </div>
+    </div>
+  </div>
+  
+  <div id='tasks'>
+    <%= render :partial => 'tasks', :locals => { :tasks => @tasks } %>
+  </div>
+
+  <% link_to t('.new', :default => t("helpers.links.new")),
+            new_person_task_path,
+            :class => 'btn btn-primary' %>
+</div>
+</div>
+
+<br/><br/>
+
+<div id='forms'>
+  <div class='details2'>
+    <%= render :partial => 'details2' %>  	
+  </div>
+</div>

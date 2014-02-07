@@ -1,0 +1,27 @@
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $('#submit_tasks').click(function(){
+	     var arr = new Array();
+		        $('#test input[type="checkbox"]:checked').each(function() {
+		            arr.push($(this).val());
+
+		 });
+	  	 $.ajax({
+		      type: "PUT",
+		      dataType: "script",
+		      url: "http://"+location.host+"/submit_tasks/",
+		      data: {people: arr},
+		      beforeSend: function(data)
+		      {
+			   $('#spin').show();
+		       },
+		       success: function(response)
+		       {
+			     $('#spin').hide();
+			     $('#s').show();
+			     $('#ns').hide();
+		       }
+		       });
+    });
+  });
+</script>

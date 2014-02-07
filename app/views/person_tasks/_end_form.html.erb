@@ -1,0 +1,9 @@
+<%= form_for(@tasks.first,:remote => true ) do |f| %>  
+  <label>Task</label>
+  <%= f.collection_select :activity_id, Activity.order(:name), :id, :name, :include_blank => true  %><br/>
+
+  <label>Specific Task</label>
+  <%= f.grouped_collection_select :specific_activity_id, Activity.order(:name), :specific_activities, :name ,:id, :name, :include_blank => true  %><br/><br/>
+  
+  <%= check_box_tag :end_shift,'',true %> continue?<span style='margin-left:40px'><%= f.submit :end, :value => "End Task", :class => 'btn btn-primary' %></span>
+<% end %>
