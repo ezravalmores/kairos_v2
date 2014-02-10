@@ -68,6 +68,12 @@ Kairos::Application.routes.draw do
   match 'login', to: 'login#login', as: :login ,via: [:get, :post]
   match 'set_date', to: 'login#set_date', as: :set_date , via: [:get, :post]
   match "submit_tasks" => "person_tasks#submit_tasks", :via => [:put]
+  match "get_tasks_assignments" => 'tasks#get_tasks_assignments', :via => [:get]
+  match "create_role_task" => 'tasks#create_role_task', :via => [:post]
+  match "deactivate_role_task" => 'tasks#deactivate_role_task', :via => [:put]
+  match "activate_role_task" => 'tasks#activate_role_task', :via => [:put]
+  resources :tasks
+  match "add_tasks_to_role" => "manage#add_tasks_to_role", :via => [:get, :post]
   
   get 'logout', to: 'login#logout', as: :logout
 end
