@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140205221518) do
+ActiveRecord::Schema.define(version: 20140210151335) do
 
   create_table "departments", force: true do |t|
     t.string   "name"
@@ -19,6 +19,12 @@ ActiveRecord::Schema.define(version: 20140205221518) do
     t.integer  "organization_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "organization_roles", force: true do |t|
+    t.integer "organization_id"
+    t.string  "name"
+    t.string  "description"
   end
 
   create_table "organizations", force: true do |t|
@@ -46,6 +52,7 @@ ActiveRecord::Schema.define(version: 20140205221518) do
     t.string   "time_zone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_role_id"
   end
 
   create_table "person_tasks", force: true do |t|
@@ -66,6 +73,25 @@ ActiveRecord::Schema.define(version: 20140205221518) do
     t.datetime "updated_at"
     t.string   "person_in_charge"
     t.text     "note"
+    t.datetime "start"
+    t.datetime "end"
+  end
+
+  create_table "role_specific_tasks", force: true do |t|
+    t.integer "organization_id"
+    t.integer "department_id"
+    t.integer "role_task_id"
+    t.integer "specific_task_id"
+    t.string  "name"
+  end
+
+  create_table "role_tasks", force: true do |t|
+    t.integer "organization_id"
+    t.integer "department_id"
+    t.integer "task_id"
+    t.string  "name"
+    t.integer "organization_role_id"
+    t.boolean "is_active",            default: true
   end
 
   create_table "roles", force: true do |t|
