@@ -1,0 +1,78 @@
+<script>
+$('#role_tasks #danger div').click(function() {
+ 	var id = $(this).attr('id');
+    var task = $('#task_id').val();
+	  $.ajax({
+		      type: "PUT",
+		      dataType: "script",
+		      url: "http://"+location.host+"/deactivate_role_task/",
+		      data: {id: id, task: task},
+		      beforeSend: function(data)
+		      {
+			   $('#create_form_spin').show();
+		       },
+		       success: function(response)
+		       {
+			     $('#create_form_spin').hide();
+		       }
+	  });
+});
+
+$('#role_tasks #success div').click(function() {
+ 	var id = $(this).attr('id');
+    var task = $('#task_id').val();
+	  $.ajax({
+		      type: "PUT",
+		      dataType: "script",
+		      url: "http://"+location.host+"/activate_role_task/",
+		      data: {id: id, task: task},
+		      beforeSend: function(data)
+		      {
+			   $('#create_form_spin').show();
+		       },
+		       success: function(response)
+		       {
+			     $('#create_form_spin').hide();
+		       }
+	  });
+});
+
+</script>
+
+<label>Assigned to a specific position:</label><br/>
+<table class="table table-striped">
+  <thead>
+    <tr>
+
+      <th>Organization</th>
+      <th>Department</th>
+      <th>Role</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+<% @assignments.each do |task| %>
+  <tr >
+    <td id='role_tasks'>
+	  <% if task.is_active == true %>
+	    <div id='danger' class='pull-left'>
+	   	  <div class = 'btn btn-mini btn-danger' id='<%= task.id %>'>
+		    Deactivate
+		  </div>
+	    </div>&nbsp;
+	  <% else %> 
+	    <div id='success' class='pull-left'>  
+	   	  <div class = 'btn btn-mini btn-success' id='<%= task.id %>'>
+		    Activate
+	      </div>
+	    </div>&nbsp; 
+	  <% end %>  
+	  <%= task.organization.name %>
+	</td>
+    <td><%= task.department.name %></td>
+	<td><%= task.organization_role.name %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>

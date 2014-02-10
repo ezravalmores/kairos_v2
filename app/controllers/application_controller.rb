@@ -64,6 +64,21 @@ class ApplicationController < ActionController::Base
   end  
   helper_method :break_hours
   
+  def role_tasks
+    @role_tasks ||= fetch_role_tasks
+  end  
+  helper_method :role_tasks
+  
+  def positions
+    @positions ||= fetch_positions
+  end  
+  helper_method :positions
+  
+  def departments
+    @org_departments ||= fetch_departments
+  end  
+  helper_method :departments
+  
   private
   
   def fetch_tasks_today(*associations)
@@ -72,34 +87,55 @@ class ApplicationController < ActionController::Base
     @tasks = PersonTask.where(["person_tasks.start >=? AND person_tasks.start <=? AND person_id =?",@start,@end,current_user.id]).order("start DESC").includes(:task, :specific_task) 
   end
   
-  def fetch_unfinished_tasks_today
-    @start = set_user_time_zone.beginning_of_day
-    @end = set_user_time_zone.end_of_day
-    @tasks = PersonTask.where(["person_tasks.start >=? AND person_tasks.start <=? AND person_id =? AND task_id IS NULL",@start,@end,current_user.id]).order("start DESC").includes(:task, :specific_task)
-  end  
+  #def fetch_unfinished_tasks_today
+  #  @start = set_user_time_zone.beginning_of_day
+  #  @end = set_user_time_zone.end_of_day
+  #  @tasks = PersonTask.where(["person_tasks.start >=? AND person_tasks.start <=? AND person_id =? AND task_id IS NULL",@start,@end,current_user.id]).order("start DESC").includes(:task, :specific_task)
+  #end  
   
-  def fetch_productive_hours
-    personal_id = Task.find_by_name("Personal Time").id
-    break_id = Task.find_by_name("Break").id
-    avail_id = Task.find_by_name("Avail Time").id
+  #def fetch_productive_hours
+  #  personal_id = Task.find_by_name("Personal Time").id
+  #  break_id = Task.find_by_name("Break").id
+  #  avail_id = Task.find_by_name("Avail Time").id
     
-    @tasks = fetch_tasks_today
+  #  @tasks = fetch_tasks_today
     
-    @tasks.where(["person_tasks.task_id !=? AND person_tasks.task_id !=? AND person_tasks.task_id !=?",break_id,personal_id,avail_id])
-  end
+  #  @tasks.where(["person_tasks.task_id !=? AND person_tasks.task_id !=? AND person_tasks.task_id !=?",break_id,personal_id,avail_id])
+  #end
   
-  def fetch_break_hours
-    break_id = Task.find_by_name("Break").id
-    
-    @tasks = fetch_tasks_today
-    @tasks.where(["person_tasks.task_id =?",break_id])
-  end
+  #def fetch_break_hours
+  #  break_id = Task.find_by_name("Break").id
+  #  
+  #  @tasks = fetch_tasks_today
+  #  @tasks.where(["person_tasks.task_id =?",break_id])
+  #end
   
   def fetch_people_that_can_approve
     @people = Person.can_approve.all  
   end  
   
-  def fetch_total_hours  
+  #def fetch_total_hours  
+  #  
+  #end
+  
+  def fetch_role_tasks
+    @role = current_user.organization_role
+    @organization = current_user.organization
+    @department = current_user.department
     
-  end
+    RoleTask.where('organization_id =? AND department_id =? AND organization_role_id =? AND is_active =?', @organization.id,@department.id,@role.id,true)
+  end  
+  
+  def fetch_specific_role_tasks
+    @organization = current_user.organization
+    @department = current_user.department
+  end  
+  
+  def fetch_positions
+    OrganizationRole.organization_roles(current_user.organization)
+  end  
+  
+  def fetch_departments
+    Department.departments(current_user.organization,current_user.role,current_user.department)
+  end  
 end

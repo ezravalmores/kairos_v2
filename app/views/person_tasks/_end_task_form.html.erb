@@ -7,10 +7,10 @@
         <%= form_for(@tasks.first,:remote => true ) do |f| %>  
 		  
 		  <label>Task</label>
-		  <%= f.collection_select :task_id, Task.order(:name), :id, :name, :include_blank => true  %><br/>
+		  <%= f.collection_select :task_id, role_tasks, :task_id, :name, :include_blank => true  %><br/>
 		  
 		  <label>Specific Task</label>
-		  <%= f.grouped_collection_select :specific_task_id, Task.order(:name), :specific_tasks, :name ,:id, :name, :include_blank => true  %><br/><br/>
+		  <%= f.grouped_collection_select :specific_task_id, role_tasks, :role_specific_tasks, :name ,:specific_task_id, :name, :include_blank => true  %><br/><br/>
           
 		  <%= f.hidden_field :shift_date, :value => session[:shift_date] %>
 			

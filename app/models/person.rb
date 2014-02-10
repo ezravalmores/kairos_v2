@@ -1,6 +1,7 @@
 class Person < ActiveRecord::Base
   has_many :person_tasks
   belongs_to :role
+  belongs_to :organization_role
   belongs_to :department
   belongs_to :organization
   

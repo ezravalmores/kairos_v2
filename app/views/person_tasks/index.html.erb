@@ -8,7 +8,6 @@
 	
     $("#tasks_search input").change(function(){
 	  $.get($("#tasks_search").attr("action"), $("#tasks_search").serialize(),null,"script");
-      
 	  return false;
     });	
 
