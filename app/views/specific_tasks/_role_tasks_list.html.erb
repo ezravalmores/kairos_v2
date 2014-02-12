@@ -1,0 +1,21 @@
+
+<label>Select 1 Primary task:</label><br/>
+<table class="table table-bordered" id='tasks'>
+  <thead>
+    <tr>
+      <th>Department</th>
+      <th>Position</th>
+ 	  <th>Primary Task</th>
+    </tr>
+  </thead>
+  <tbody>
+
+<% @tasks_assigned.each do |task| %>
+  <tr id='<%= task.id  %>'>
+    <td><%= task.department.name %></td>
+	<td><%= task.organization_role.name %></td>
+	<td><%= task.name %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>

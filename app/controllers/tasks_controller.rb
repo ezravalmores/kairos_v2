@@ -34,7 +34,15 @@ class TasksController < ApplicationController
   
   def create_role_task
     @assignments = RoleTask.where('organization_id =? AND task_id =?',current_user.organization_id, params[:task]) 
-    @role_task = RoleTask.create!(:organization_id => current_user.organization.id, :department_id => params[:department], :organization_role_id => params[:organization_role], :task_id => params[:task], :name => params[:name])
+    @count = RoleTask.where('organization_id =? AND department_id =? AND organization_role_id =? AND task_id =?',current_user.organization_id.to_i,params[:department].to_i,params[:organization_role].to_i,params[:task].to_i).count
+    
+    if @count > 0
+      flash[:warning] = "Task assignment was already existing"
+    else
+      @role_task = RoleTask.create!(:organization_id => current_user.organization.id, :department_id => params[:department], :organization_role_id => params[:organization_role], :task_id => params[:task], :name => params[:name])
+      flash[:notice] = "Task assignment was successfully created!"
+    end
+    
   end  
   
   def deactivate_role_task
@@ -52,7 +60,6 @@ class TasksController < ApplicationController
     
     @assignments = RoleTask.where('organization_id =? AND task_id =?',current_user.organization_id, params[:task]) 
   end
-  
   
   private
   def user_params

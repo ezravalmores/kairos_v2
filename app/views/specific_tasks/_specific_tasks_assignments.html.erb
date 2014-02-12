@@ -1,0 +1,80 @@
+<script>
+$('#role_specific_tasks #danger div').click(function() {
+ 	var id = $(this).attr('id');
+    var specific_task = $('#specific_task_id').val();
+	  $.ajax({
+		      type: "PUT",
+		      dataType: "script",
+		      url: "http://"+location.host+"/deactivate_role_specific_task/",
+		      data: {id: id, specific_task: specific_task},
+		      beforeSend: function(data)
+		      {
+			   $('#create_form_spin').show();
+		       },
+		       success: function(response)
+		       {
+			     $('#create_form_spin').hide();
+		       }
+	  });
+});
+
+$('#role_specific_tasks #success div').click(function() {
+ 	var id = $(this).attr('id');
+    var specific_task = $('#specific_task_id').val();
+	  $.ajax({
+		      type: "PUT",
+		      dataType: "script",
+		      url: "http://"+location.host+"/activate_role_specific_task/",
+		      data: {id: id, specific_task: specific_task},
+		      beforeSend: function(data)
+		      {
+			   $('#create_form_spin').show();
+		       },
+		       success: function(response)
+		       {
+			     $('#create_form_spin').hide();
+		       }
+	  });
+});
+
+</script>
+
+<table class="table table-striped">
+
+  <thead>
+    <tr>
+      <th>Department</th>
+      <th>Position</th>
+ 	  <th>Assigned to</th>
+    </tr>
+  </thead>
+  <tbody>
+
+<% @specific_tasks_assignments.each do |specific_task| %>
+  <% if specific_task.is_active == true %>
+    <tr class='success'>
+  <% else %>	
+    <tr class='error' >
+  <% end %>	
+    <td id='role_specific_tasks'>
+	  <% if specific_task.is_active == true %>
+	    <div id='danger' class='pull-left'>
+		  <div class = 'btn btn-mini btn-danger' id='<%= specific_task.id %>'>
+		    Deactivate
+		  </div>
+		</div>&nbsp;
+	  <% else %> 
+		<div id='success' class='pull-left'>  
+		  <div class = 'btn btn-mini btn-success' id='<%= specific_task.id %>'>
+		    Activate
+		  </div>
+		</div>&nbsp; 
+	  <% end %>
+      <%= specific_task.department.name %>
+    </td>
+	<td><%= specific_task.organization_role.name %></td>
+	<td><%= specific_task.role_task.name %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>

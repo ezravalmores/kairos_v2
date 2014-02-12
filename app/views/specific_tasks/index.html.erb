@@ -1,0 +1,187 @@
+<script type="text/javascript"> 
+
+$(document).ready(function() {   
+
+  $('#sp div').click(function(){
+	$('.dumbBoxWrap').show();
+	
+	var id = $(this).attr('id');
+	$('#specific_task_id').val(id);
+	  	 $.ajax({
+		      type: "GET",
+		      dataType: "script",
+		      url: "http://"+location.host+"/get_specific_tasks_assignments/",
+		      data: {id: id},
+		      beforeSend: function(data)
+		      {
+			   $('#large_spin').show();
+		       },
+		       success: function(response)
+		       {
+			     $('#large_spin').hide();
+		       }
+		 });
+  });
+
+	$('#tasks tr').click(function(){
+
+	  $(this).siblings().removeClass('green_hover');
+	  $(this).addClass('green_hover');	
+	  var id = $(this).attr('id');
+		 $.ajax({
+		      type: "GET",
+		      dataType: "script",
+		      url: "http://"+location.host+"/get_role_task/",
+		      data: {id: id},
+		      beforeSend: function(data)
+		      {
+			   $('#create_form_spin').show();
+		       },
+		       success: function(response)
+		       {
+			     $('#create_form_spin').hide();
+		       }
+		 });
+	});
+	
+	$('#save').click(function(){
+
+	var role_task = $('#role_task_id').val();
+	var department = $('#department_id').val();
+	var organization_role = $('#organization_role_id').val();
+	var specific_task = $('#specific_task_id').val();
+	var name = $('#name').val();
+	if(role_task != '' && department != '' && organization_role != '' & specific_task != '' && name != '')
+	{
+	  	 $.ajax({
+		      type: "POST",
+		      dataType: "script",
+		      url: "http://"+location.host+"/create_specific_role_task/",
+		      data: {specific_task : specific_task, department : department, organization_role :  organization_role, name : name, role_task : role_task},
+		      beforeSend: function(data)
+		      {
+			   $('#create_form_spin').show();
+		       },
+		       success: function(response)
+		       {
+			     $('#create_form_spin').hide();
+			     $('#organization_role_id').val(' ');
+			     $('#department_id').val(' ');
+		       }
+		 });
+	}
+  });
+});
+
+</script>	
+	
+	
+<div class="dumbBoxWrap"> 
+	<div class="dumbBoxOverlay"> 
+	  &nbsp; 
+	</div> 
+	
+	<div class="vertical-offset"> 
+	  <div class="dumbBox">
+		 
+	    <div style='margin-left:10px'>	
+		  <div id="js_for_flash" style='display:none'>	
+
+		  </div>
+		  <div class='specific_left'>
+		    <%= render :partial => 'role_tasks_list' %>		  
+			
+			<div class = 'btn btn-primary' id='save'>
+			  Save Specific Task Assignment
+			</div>&nbsp;
+			
+			<div class = 'btn btn-primary btn-danger' id='cancel'>
+				Cancel
+			</div>
+			
+			<div id = 'create_form_spin'>
+			  <%= image_tag 'spin.gif' %>
+			</div><br/><br/>
+			
+			<h3><div id='lbl'>test</div></h3>
+	
+		  </div>
+			
+			<div class='specific_right'>
+				<label class="control-label">Primary Task Name</label>
+
+				<%= text_field_tag :task_name,'', :disable => true %>
+				<%= hidden_field_tag :role_task_id %>
+				
+			  	<label class="control-label">Specific Task Name</label>
+			      <%= text_field_tag :name %>
+			      <%= hidden_field_tag :specific_task_id %><br/>
+		
+			      <%= hidden_field_tag :organization_role_id  %>
+			      <%= hidden_field_tag :organization_id %>
+			      <%= hidden_field_tag :department_id %>
+			   <p style='color:#ccc'><em>see all specific task assignments <br/>below. You can activate <br/> and deactivate an assignment</em></p>	
+			</div>
+	
+			  <br/>
+		
+			  <div id  = 'list2'>
+				
+			  </div>
+
+			</div>
+		  </div>	
+		</div> 
+	</div>
+ </div>
+
+
+<div class="span9">
+<div style='padding:20px'>
+<%- model_class = SpecificTask -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+     
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th>Organization</th>
+      <th><%= "Department" %></th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
+
+     
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th>Assign To</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @specific_tasks.each do |specific_task| %>
+      <tr>
+        <td><%= link_to specific_task.id, specific_task_path(specific_task) %></td>
+        <td><%= specific_task.name %></td>
+        <td>Org</td>
+        <td><%= specific_task.department.name %></td>
+       
+  
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_specific_task_path(specific_task), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      specific_task_path(specific_task),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+        <td id='sp'><div id ='<%= specific_task.id %>' class = 'openModal btn btn-mini'>assign</div></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_specific_task_path,
+            :class => 'btn btn-primary' %>
+</div>
+</div>

@@ -69,6 +69,16 @@ class ApplicationController < ActionController::Base
   end  
   helper_method :role_tasks
   
+  def role_specific_tasks
+    @role_specific_tasks ||= fetch_specific_role_tasks
+  end  
+  helper_method :role_specific_tasks
+  
+  def department_role_tasks
+    @department_role_tasks ||= fetch_department_role_tasks
+  end
+  helper_method :department_role_tasks
+  
   def positions
     @positions ||= fetch_positions
   end  
@@ -124,11 +134,21 @@ class ApplicationController < ActionController::Base
     @department = current_user.department
     
     RoleTask.where('organization_id =? AND department_id =? AND organization_role_id =? AND is_active =?', @organization.id,@department.id,@role.id,true)
-  end  
+  end
+  
+  def fetch_department_role_tasks
+     @organization = current_user.organization
+     @department = current_user.department
+
+     RoleTask.where('organization_id =? AND department_id =? AND is_active =?', @organization.id,@department.id,true)
+   end
   
   def fetch_specific_role_tasks
+    @role = current_user.organization_role
     @organization = current_user.organization
     @department = current_user.department
+
+    RoleSpecificTask.where('organization_id =? AND department_id =? AND organization_role_id =? AND is_active =?', @organization.id,@department.id,@role.id,true)
   end  
   
   def fetch_positions

@@ -1,6 +1,8 @@
 class Department < ActiveRecord::Base
   has_many :people
   belongs_to :organization
+  has_many :specific_tasks
+  has_many :tasks
   
   def self.departments(organization,system_role,department)
     if system_role.name == 'Administrator'

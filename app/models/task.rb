@@ -1,7 +1,8 @@
 class Task < ActiveRecord::Base
   has_many :person_tasks
   has_many :specific_tasks
-  #belongs_to :department
+  
+  belongs_to :department
   
   validates_presence_of :name
   

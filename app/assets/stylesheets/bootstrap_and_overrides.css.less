@@ -22,7 +22,7 @@
 #create_form_spin{
  display:none;
  float:left;
- margin-left: 75px;
+ margin-left: 330px;
  margin-top: -35px;
  position: absolute;
 }
@@ -32,7 +32,7 @@
 }
 
 #add_task_to_role {
-  display:none;
+  
 }
 
 #signin{
@@ -56,11 +56,31 @@ box-shadow: 0 1px 2px rgba(0,0,0,.05);
 
 .dumbBoxWrap {  display:none;  z-index:40001; } 
 
-.dumbBoxOverlay {  position:fixed; width:97%; height:100%; background-color:black; opacity:.8;top:0px;  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";  filter:alpha(opacity=80); z-index:40001; }
+.dumbBoxOverlay {  position:fixed; width:96.5%; height:100%; background-color:black; opacity:.8;top:0px;  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";  filter:alpha(opacity=80); z-index:40001; }
 
  .vertical-offset {  position:fixed; top:10%; width:100%; z-index:40002;  }
 
- .dumbBox { width:505px;  position:relative; margin:0 auto;  background-color:white; padding:10px; border:1px solid black; border-radius: 10px } 
+ .dumbBox { width:905px; height: 500px; position:relative; margin:0 auto;  background-color:white; padding:10px; border:1px solid black; border-radius: 10px; overflow: auto; } 
+
+.specific_left{
+ float:left;
+ width: 65%;
+
+}
+.specific_right{
+ margin-top: 20px;
+ margin-left: 10px;
+ float: right;
+ width: 30%;
+}
+
+#tasks tr:hover{
+ background-color: #dff0d8;
+}
+.green_hover{
+ background-color: #dff0d8;
+}
+
 
 // Set the correct sprite paths
 @iconSpritePath: image-url("twitter/bootstrap/glyphicons-halflings.png");

@@ -6,3 +6,5 @@ $("#time_summary").replaceWith("<%= escape_javascript(render(:partial => "time_s
 $("#progress").replaceWith("<%= escape_javascript(render(:partial => "progress_bar")) %>");
 $(".details2").replaceWith("<%= escape_javascript(render(:partial => "details2")) %>");
 $(".end_form").replaceWith("<%= escape_javascript(render(:partial => "details2")) %>");
+
+<%= flash_notice(flash.first[1], flash.first[0]) unless flash.blank? %>

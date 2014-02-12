@@ -53,7 +53,11 @@ $('#role_tasks #success div').click(function() {
   <tbody>
 
 <% @assignments.each do |task| %>
-  <tr >
+  <% if task.is_active == true %>
+    <tr class='success'>
+  <% else %>	
+    <tr class='error' >
+  <% end %>
     <td id='role_tasks'>
 	  <% if task.is_active == true %>
 	    <div id='danger' class='pull-left'>
