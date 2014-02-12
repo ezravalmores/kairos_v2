@@ -72,8 +72,16 @@ Kairos::Application.routes.draw do
   match "create_role_task" => 'tasks#create_role_task', :via => [:post]
   match "deactivate_role_task" => 'tasks#deactivate_role_task', :via => [:put]
   match "activate_role_task" => 'tasks#activate_role_task', :via => [:put]
+  
   resources :tasks
   match "add_tasks_to_role" => "manage#add_tasks_to_role", :via => [:get, :post]
+  match "get_specific_tasks_assignments" => 'specific_tasks#get_specific_tasks_assignments', :via => [:get]
+  match "get_role_task" => 'specific_tasks#get_role_task', :via => [:get]
+  match "create_specific_role_task" => 'specific_tasks#create_specific_role_task', :via => [:post]
+  
+  resources :specific_tasks
+  match "deactivate_role_specific_task" => 'specific_tasks#deactivate_role_specific_task', :via => [:put]
+  match "activate_role_specific_task" => 'specific_tasks#activate_role_specific_task', :via => [:put]
   
   get 'logout', to: 'login#logout', as: :logout
 end
