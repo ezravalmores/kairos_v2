@@ -56,6 +56,8 @@ Kairos::Application.routes.draw do
   
   root :to => "login#login"
   
+  match "/" => "application#index", :as => :application, via: [:get,:post]
+  
   resources :person_tasks do
     collection do
       put 'submit_tasks'
@@ -64,8 +66,9 @@ Kairos::Application.routes.draw do
     
   resources :people
   
-  get "/" => "application#index", as: :application
+  #get "/" => "application#index", as: :application, via: [:get,:post]
   match 'login', to: 'login#login', as: :login ,via: [:get, :post]
+  match 'logout', to: 'login#logout', as: :logout, via: [:get, :post]
   match 'set_date', to: 'login#set_date', as: :set_date , via: [:get, :post]
   match "submit_tasks" => "person_tasks#submit_tasks", :via => [:put]
   match "get_tasks_assignments" => 'tasks#get_tasks_assignments', :via => [:get]
@@ -83,5 +86,5 @@ Kairos::Application.routes.draw do
   match "deactivate_role_specific_task" => 'specific_tasks#deactivate_role_specific_task', :via => [:put]
   match "activate_role_specific_task" => 'specific_tasks#activate_role_specific_task', :via => [:put]
   
-  get 'logout', to: 'login#logout', as: :logout
+
 end
