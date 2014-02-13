@@ -2,7 +2,7 @@ class SpecificTasksController < ApplicationController
   before_filter :authorize
   
   def index
-    @specific_tasks = SpecificTask.all
+    @specific_tasks = SpecificTask.fetch_specific_tasks(current_user.organization,current_user.role,current_user.department)
     @organization_roles = OrganizationRole.all
     @departments = Department.all  
     @tasks_assigned = department_role_tasks
@@ -12,20 +12,37 @@ class SpecificTasksController < ApplicationController
      @specific_task = SpecificTask.new  
   end  
 
+  def edit
+     @specific_task = SpecificTask.find(params[:id])  
+  end
 
    # POST /specific_tasks
-    def create
-      @specific_task = SpecificTask.new(user_params)
+  def create
+    @specific_task = SpecificTask.new(specific_task_params)
 
-      respond_to do |format|
-        if @specific_task.save
-          flash[:notice] = 'Specific tasks was successfully created.'
-          format.html { redirect_to(specific_tasks_url) }
-        else
-          format.html { render :index }
-        end
+    respond_to do |format|
+      if @specific_task.save
+        flash[:notice] = 'Specific tasks was successfully created.'
+        format.html { redirect_to(specific_tasks_url) }
+      else
+        format.html { render :new }
       end
     end
+  end
+  
+  def update
+    @specific_task = SpecificTask.find(params[:id])
+
+    respond_to do |format|
+      if @specific_task.update_attributes(specific_task_params)
+         @specific_task.role_specific_tasks.update_all(:name => @specific_task.name)
+        flash[:notice] = 'Task was successfully updated.'
+        format.html { redirect_to(specific_tasks_url) }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
   
   def get_specific_tasks_assignments
     @specific_task = SpecificTask.find(params[:id])
@@ -65,6 +82,11 @@ class SpecificTasksController < ApplicationController
     @role_specific_task.save
     
     @specific_tasks_assignments = RoleSpecificTask.where('organization_id =? AND specific_task_id =?',current_user.organization_id, params[:specific_task]) 
+  end
+  
+  private
+  def specific_task_params
+     params.require(:specific_task).permit(:name, :description, :organization_id, :department_id)
   end
   
 end  

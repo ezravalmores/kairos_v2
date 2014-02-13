@@ -22,28 +22,35 @@
   <div class="control-group">
     <%= f.label :time_zone, :class => 'control-label' %>
     <div class="controls">
-      <%= f.select :time_zone, ([['Kansas','America/Chicago'], ['Manila', 'Asia/Manila']]) %>
+      <%= f.select :time_zone, ([['Kansas','America/Chicago'], ['Manila', 'Asia/Manila']]),:include_blank => true %>
     </div>
   </div>
 
   <div class='control-group'>
      <%= f.label :organization_id, "Organization" ,:class => 'control-label' %>
      <div class ="controls">	
-	    <%= f.select(:organization_id, Organization.all.collect{|o| [o.name, o.id] }, :class => 'text_field') %>
+	    <%= f.select(:organization_id, Organization.all.collect{|o| [o.name, o.id] }, :include_blank => true , :class => 'text_field') %>
      </div> 
   </div>
 
   <div class='control-group'>
      <%= f.label :department, :class => 'control-label' %>
      <div class ="controls">	
-	   <%= f.select(:department_id, Department.all.collect{|d| [d.name, d.id] }, :class => 'text_field') %>
+	   <%= f.select(:department_id, Department.all.collect{|d| [d.name, d.id] },:include_blank => true, :class => 'text_field') %>
      </div>
   </div>
-
+  
+  <div class='control-group'>
+     <%= f.label :organization_role_id, :class => 'control-label' %>
+     <div class ="controls">	
+	    <%= f.select(:organization_role_id, OrganizationRole.all.collect{|r| [r.name, r.id] },:include_blank => true, :class => 'text_field') %>
+     </div> 
+  </div>
+ 
   <div class='control-group'>
      <%= f.label :role_id, :class => 'control-label' %>
      <div class ="controls">	
-	    <%= f.select(:role_id, Role.all.collect{|r| [r.name, r.id] }, :class => 'text_field') %>
+	    <%= f.select(:role_id, Role.all.collect{|r| [r.name, r.id] },:include_blank => true, :class => 'text_field') %>
      </div> 
   </div>
 
@@ -51,6 +58,20 @@
     <%= f.label :can_approve, :class => 'control-label' %>
     <div class="controls">
       <%= f.check_box :can_approve, :class => 'text_field' %>
+    </div>
+  </div>
+ 
+  <div class="control-group">
+    <%= f.label :username, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :username, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :password, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :password, :class => 'text_field' %>
     </div>
   </div>
 

@@ -1,13 +1,20 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+
+    
   protect_from_forgery with: :exception
-  
+  #before_filter :authorize
   before_filter :set_user_time_zone
+  #before_filter :authorize
+  
+  unless Rails.application.config.consider_all_requests_local
+    rescue_from ActiveRecord::RecordNotFound, :with => :redirect_to_application_url
+  end
   
   def index   
     if current_user     
-      person_tasks_url
+      redirect_to person_tasks_url
     else
       redirect_to login_url
     end
@@ -17,12 +24,12 @@ class ApplicationController < ActionController::Base
   
   def authorize
     if current_user
-      person_tasks_url
+      application_url
     else
       redirect_to root_url
       flash[:warning] = "You are not authorize!"
-      end
     end
+  end
   
   def set_user_time_zone
     timezone = Timezone::Zone.new :zone => current_user.time_zone if current_user

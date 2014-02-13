@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   
   def index
     @task = Task.new  
-    @tasks = Task.all
+    @tasks = Task.fetch_tasks(current_user.organization,current_user.role,current_user.department)
     @organization_roles = OrganizationRole.all
     @departments = Department.all
   end
@@ -12,20 +12,39 @@ class TasksController < ApplicationController
     @task = Task.new  
   end  
   
+  def edit 
+    @task = Task.find(params[:id])
+  end
   
   # POST /tasks
    def create
-     @task = Task.new(user_params)
+     @task = Task.new(task_params)
      
      respond_to do |format|
        if @task.save
          flash[:notice] = 'Tasks was successfully created.'
          format.html { redirect_to(tasks_url) }
        else
-         format.html { render :index }
+         format.html { render :new }
        end
      end
    end  
+  
+  
+  def update
+    @task = Task.find(params[:id])
+
+    respond_to do |format|
+      if @task.update_attributes(task_params)
+        @task.role_tasks.update_all(:name => @task.name)
+        flash[:notice] = 'Task was successfully updated.'
+        format.html { redirect_to(tasks_url) }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
+  
   
   def get_tasks_assignments
     @task = Task.find(params[:id])
@@ -62,7 +81,7 @@ class TasksController < ApplicationController
   end
   
   private
-  def user_params
-     params.require(:task).permit(:name, :description)
+  def task_params
+     params.require(:task).permit(:name, :description, :organization_id, :department_id)
    end
 end  

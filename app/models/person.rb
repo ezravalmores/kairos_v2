@@ -5,6 +5,7 @@ class Person < ActiveRecord::Base
   belongs_to :department
   belongs_to :organization
   
+  validates_presence_of :first_name, :last_name, :email_address, :time_zone, :organization_id, :department_id, :organization_role, :role, :username, :password
   
   # Named scopes
   scope :active, where(:is_active => true)

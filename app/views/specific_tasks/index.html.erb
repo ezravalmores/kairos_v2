@@ -71,6 +71,13 @@ $(document).ready(function() {
 		 });
 	}
   });
+
+  $('.dumbBoxOverlay').click(function() {
+	$('.dumbBoxWrap').hide();
+	$('#name').val() = '';
+	$('#specific_task_id').val() = '';
+	return false;
+  });
 });
 
 </script>	
@@ -159,12 +166,11 @@ $(document).ready(function() {
   <tbody>
     <% @specific_tasks.each do |specific_task| %>
       <tr>
-        <td><%= link_to specific_task.id, specific_task_path(specific_task) %></td>
         <td><%= specific_task.name %></td>
-        <td>Org</td>
-        <td><%= specific_task.department.name %></td>
-       
-  
+        <td><%= specific_task.organization.name %></td>
+        <td><%= specific_task.department.name if !specific_task.department_id.nil? %></td>
+        <td><%= specific_task.description %></td>
+      
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_specific_task_path(specific_task), :class => 'btn btn-mini' %>

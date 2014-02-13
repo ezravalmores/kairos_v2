@@ -12,7 +12,8 @@
   <div class="navbar-inner" style='border-radius:0px !important;border-top: 0px !important'>
     <ul class="nav">
       <li><%= link_to 'Dashboard', "#" %></li>
-      <li class='active'><%= link_to ' Task Manager', person_tasks_url %></li>
+      <li><%= link_to ' Task Manager', person_tasks_url %></li>
+      <% if current_user.role.name == 'Administrator' || current_user.role.name == '1st Level User' %>  
       <li class="dropdown">
 	    <a class="dropdown-toggle"
 	       data-toggle="dropdown"
@@ -26,7 +27,7 @@
 	      <li><%= link_to '  People', people_path, :class => 'icon-user' %></li>
 	    </ul>
 	  </li>
-
+      <% end %>
     </ul>
   </div>
 </div>

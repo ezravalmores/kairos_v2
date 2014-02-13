@@ -6,31 +6,27 @@
     </div>
   </div>
   
-  <div class="control-group">
-    <%= f.label :organization_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :organization_id, :value => current_user.organization.id ,:class => 'text_field' %>
-    </div>
+  <div class='control-group'>
+     <%= f.label :organization_id, "Organization" ,:class => 'control-label' %>
+     <div class ="controls">	
+	    <%= f.select(:organization_id, Organization.all.collect{|o| [o.name, o.id] }, :include_blank => true ,:class => 'text_field') %>
+     </div> 
   </div>
- 
-  <div class="control-group">
-    <%= f.label :department_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :department_id, :class => 'text_field' %>
-    </div>
+
+  <div class='control-group'>
+     <%= f.label :department, :class => 'control-label' %>
+     <div class ="controls">	
+	   <%= f.select(:department_id, Department.all.collect{|d| [d.name, d.id] }, :include_blank => true, :class => 'text_field') %>
+     </div>
   </div>
+
   <div class="control-group">
     <%= f.label :description, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :description, :class => 'text_field' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :is_active, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :is_active, :class => 'text_field' %>
-    </div>
-  </div>
+  
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

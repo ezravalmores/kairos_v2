@@ -1,6 +1,7 @@
 class LoginController < ApplicationController
 
   def login
+    #session[:user_id] = nil
     if request.post?
  
         @user = Person.authenticate(params[:username],params[:password])
@@ -26,7 +27,7 @@ class LoginController < ApplicationController
   
   def logout
     reset_session
-    redirect_to root_path
+    redirect_to :action => :login
   end
   
   def set_date

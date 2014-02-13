@@ -138,6 +138,7 @@ $(document).ready(function() {
 
       <th>Name</th>
       <th>Organization</th>
+      <th>Department</th>
       <th>Description</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
 
@@ -149,7 +150,8 @@ $(document).ready(function() {
       <tr>
 
         <td><%= task.name %></td>
-        <td><%= task.department_id %></td>
+        <td><%= task.organization.name %></td>
+        <td><%= task.department.name if !task.department_id.nil? %></td>
         <td><%= task.description %></td>
 
         <td>
