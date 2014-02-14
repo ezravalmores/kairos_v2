@@ -1,5 +1,6 @@
 class Person < ActiveRecord::Base
   has_many :person_tasks
+  has_many :utilization_rates
   belongs_to :role
   belongs_to :organization_role
   belongs_to :department

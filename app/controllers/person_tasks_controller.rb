@@ -1,5 +1,7 @@
 class PersonTasksController < ApplicationController
   require 'time_diff'
+  include ActionView::Helpers::NumberHelper
+  
   before_filter :authorize
       
   def index
@@ -75,7 +77,22 @@ class PersonTasksController < ApplicationController
     else
       shift_date = session[:search]
     end
-  
+   
+    @total_hour = UtilizationRate.where(["shift_date =? AND person_id =?",shift_date,current_user.id])
+    @productive_hours = PersonTask.fetch_productive_hours(params[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
+    
+    @hours = PersonTask.calculate_total_hours(@productive_hours.map {|a| a.id},"hours")
+    @minutes = PersonTask.calculate_total_hours(@productive_hours.map {|a| a.id},"minutes")
+    
+    @th = number_with_precision(UtilizationRate.save_utilization_rate(@hours,@minutes),:precision => 2)
+    
+    if @total_hour.count == 0    
+      UtilizationRate.create!(:person_id => current_user.id,:total_utilization_rate => @th, :shift_date => shift_date)
+    else
+      @total_hour.last.total_utilization_rate = @th.to_f
+      @total_hour.last.save
+    end
+      
     for person in @people
       KairosMailer.send_approvals(person,current_user,shift_date).deliver
     end
