@@ -57,7 +57,7 @@ class SpecificTasksController < ApplicationController
   def create_specific_role_task
     @specific_tasks_assignments = RoleSpecificTask.where('organization_id =? AND specific_task_id =?',current_user.organization_id, params[:specific_task]) 
     
-    @count = RoleSpecificTask.where('organization_id =? AND department_id =? AND organization_role_id =? AND specific_task_id =?',current_user.organization_id.to_i,params[:department].to_i,params[:organization_role].to_i,params[:specific_task].to_i).count
+    @count = RoleSpecificTask.where('organization_id =? AND department_id =? AND organization_role_id =? AND specific_task_id =? AND role_task_id =?',current_user.organization_id.to_i,params[:department].to_i,params[:organization_role].to_i,params[:specific_task].to_i,params[:role_task]).count
     
     if @count > 0
       flash[:warning] = "Specific Task assignment was already existing"
