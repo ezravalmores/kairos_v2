@@ -1,10 +1,6 @@
 <script>
    $(document).ready(function() {
 	
-	$('#tasks_search input').datepicker({
-       format: "yyyy-mm-dd",
-	   autoclose: true	
-	});
 	
     $("#tasks_search input").change(function(){
 	  $.get($("#tasks_search").attr("action"), $("#tasks_search").serialize(),null,"script");
