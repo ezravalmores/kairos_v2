@@ -5,8 +5,9 @@ gem 'rails', '4.0.2'
 gem 'mysql2'
 gem 'therubyracer' , '= 0.10.2'
 gem 'less-rails'
+gem 'twitter-bootstrap-rails'
 gem "time_diff"
-#gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-datepicker-rails'
 gem 'timezone'
 
 # Use sqlite3 as the database for Active Record
@@ -32,10 +33,6 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
-
-group :assets do
-  gem 'twitter-bootstrap-rails'  
-end  
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
