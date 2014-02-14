@@ -7,7 +7,6 @@ gem 'therubyracer' , '= 0.10.2'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem "time_diff"
-gem 'bootstrap-datepicker-rails'
 gem 'timezone'
 
 # Use sqlite3 as the database for Active Record
