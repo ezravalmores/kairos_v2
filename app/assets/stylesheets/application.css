@@ -17,9 +17,7 @@
   color:#4a4;
   height: 30px;
   font-size: 14px;
-  padding-bottom: 10px;
-  padding-left: 10px;	
-  padding-top: 10px;
+
   border-bottom:1px solid #aedda7;
   border-top:1px solid #aedda7;
   display:none;
@@ -30,9 +28,7 @@
   color: #900202;	
   height: 30px;
   font-size: 14px;	
-  padding-left: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+
   border-bottom:1px solid #900202;
   border-top:1px solid #900202;
   display:none;
@@ -44,13 +40,13 @@
   height: 30px;
   font-size: 14px;
   padding-left: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
   border-bottom:1px solid #aedda7;
   border-top:1px solid #aedda7;
 }
 
 .notice h3 {
-  padding-bottom:10px !important;
+  padding-bottom:30px !important;
   font-size: 14px;
 }
 
@@ -60,12 +56,12 @@
   height: 30px;
   font-size: 14px;
   padding-left: 10px;
-  padding-bottom: 10px;	
+  padding-bottom: 30px;	
   border-bottom:1px solid #900202;
   border-top:1px solid #900202;
 }
 .warning h3 {
-  padding-bottom:10px !important;
+  padding-bottom:30px !important;
   font-size: 14px;
 }
 
