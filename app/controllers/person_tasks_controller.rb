@@ -98,7 +98,8 @@ class PersonTasksController < ApplicationController
     end
     
     respond_to do |format|
-      format.js   { render :nothing => true } 
+      flash[:notice] = "Today Tasks was successfully submitted!" 
+      format.js   { } 
     end
   end  
   
