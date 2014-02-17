@@ -7,7 +7,7 @@ class SpecificTask < ActiveRecord::Base
   belongs_to :organization
   
   validates_presence_of :name, :description, :organization_id
-  validates_uniqueness_of :name, :on => :create
+  validates_uniqueness_of :name
   scope :active, where(:is_active => true)
   
   #instance method

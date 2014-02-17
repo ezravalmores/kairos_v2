@@ -6,7 +6,7 @@ class Task < ActiveRecord::Base
   belongs_to :department
   
   validates_presence_of :name, :organization_id, :description
-  validates_uniqueness_of :name, :on => :create
+  validates_uniqueness_of :name
   
   scope :active, where(:is_active => true)
   scope :view_all, where(:can_view_to_all_org => true)
