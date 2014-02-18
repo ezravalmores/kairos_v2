@@ -1,86 +1,38 @@
-<%= form_for @person_time, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @task, :html => { :class => 'form-horizontal' } do |f| %>
+  
   <div class="control-group">
-    <%= f.label :person_id, :class => 'control-label' %>
+    <%= f.label :task_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :person_id, :class => 'text_field' %>
+      <%= f.collection_select :task_id, role_tasks, :task_id, :name, :include_blank => true  %><br/>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :activity_id, :class => 'control-label' %>
+    <%= f.label :specific_task_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :activity_id, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :start_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :start_time, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :end_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :end_time, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :total_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :total_time, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :is_submitted, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :is_submitted, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :is_approved, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :is_approved, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :role_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :role_id, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :updated_by, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :updated_by, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :approved_by, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :approved_by, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :is_overtime, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :is_overtime, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :specific_activity_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :specific_activity_id, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :shift_date, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :shift_date, :class => 'text_field' %>
+	  <%= f.grouped_collection_select :specific_task_id, role_tasks, :role_specific_tasks, :name ,:specific_task_id, :name, :include_blank => true  %><br/><br/>
     </div>
   </div>
 
+  <div class="control-group">
+    <%= f.label :start, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :start,:value => @task.start.strftime('%Y-%m-%d  %H:%M:%S') ,:class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :end, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :end,:value => @task.end.strftime('%Y-%m-%d  %H:%M:%S'),:class => 'text_field' %>
+    </div>
+  </div>
+ 
+  <%= hidden_field_tag :from, 'task form' %>          
+    
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                person_times_path, :class => 'btn' %>
+                person_tasks_path, :class => 'btn' %>
   </div>
+
 <% end %>

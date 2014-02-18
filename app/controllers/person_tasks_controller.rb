@@ -21,7 +21,7 @@ class PersonTasksController < ApplicationController
   end    
   
   def edit
-    
+    @task = PersonTask.find(params[:id])
   end
   
   def show
@@ -34,32 +34,54 @@ class PersonTasksController < ApplicationController
   
   def update
     @task = PersonTask.find(params[:id])
-    if @task.update_attributes(user_params)
-      @task.end = set_user_time_zone
-      @task.save
+    
+    if params[:from] == 'task manager'
+    
+      if @task.update_attributes(user_params)
+        @task.end = set_user_time_zone
+        @task.save
       
-      difference = Time.diff(Time.parse(@task.start.strftime('%Y-%m-%d  %H:%M:%S')), Time.parse(@task.end.strftime('%Y-%m-%d %H:%M:%S')), '%h:%m:%s')
-      total_time = difference[:hour].to_s + ":" + difference[:minute].to_s + ":" + difference[:second].to_s
+        difference = Time.diff(Time.parse(@task.start.strftime('%Y-%m-%d  %H:%M:%S')), Time.parse(@task.end.strftime('%Y-%m-%d %H:%M:%S')), '%h:%m:%s')
+        total_time = difference[:hour].to_s + ":" + difference[:minute].to_s + ":" + difference[:second].to_s
 
-      @task.total_time = total_time
-      @task.save
+        @task.total_time = total_time
+        @task.save
       
-      @tasks = PersonTask.search(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
-      @productive = PersonTask.fetch_productive_hours(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
+        @tasks = PersonTask.search(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
+        @productive = PersonTask.fetch_productive_hours(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
 
-      @break = PersonTask.fetch_break_hours(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
-      @unfinished = PersonTask.fetch_unfinished_tasks_today(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
+        @break = PersonTask.fetch_break_hours(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
+        @unfinished = PersonTask.fetch_unfinished_tasks_today(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
       
-      if params[:end_shift] == 'yes'
-        new_activity = PersonTask.create!(:person_id => current_user.id,:start => @task.end,:created_at => set_user_time_zone) 
+        if params[:end_shift] == 'yes'
+          new_activity = PersonTask.create!(:person_id => current_user.id,:start => @task.end,:created_at => set_user_time_zone) 
+        end
+      
+        respond_to do |format| 
+          flash[:notice] = "Your activity was successfully ended!" 
+          format.js
+        end    
       end
-      
-      respond_to do |format| 
-        format.html {redirect_to person_times_url}
-        format.js
-        flash[:notice] = "Your activity was successfully ended!" 
-      end    
-    end   
+    else
+       @task.update_attributes(user_params)  
+       if !@task.end.nil?
+         difference = Time.diff(Time.parse(@task.start.strftime('%Y-%m-%d  %H:%M:%S')), Time.parse(@task.end.strftime('%Y-%m-%d %H:%M:%S')), '%h:%m:%s')
+         total_time = difference[:hour].to_s + ":" + difference[:minute].to_s + ":" + difference[:second].to_s
+
+         @task.total_time = total_time
+         @task.save
+         
+         @tasks = PersonTask.search(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
+         @productive = PersonTask.fetch_productive_hours(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
+
+         @break = PersonTask.fetch_break_hours(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
+         @unfinished = PersonTask.fetch_unfinished_tasks_today(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
+       end
+       respond_to do |format|   
+         format.html {redirect_to person_tasks_url}
+         flash[:notice] = "Your task was successfully updated!"  
+       end  
+    end     
   end
   
   def destroy
@@ -106,7 +128,7 @@ class PersonTasksController < ApplicationController
   private
 
   def user_params
-    params.require(:person_task).permit(:person_id, :task_id, :specific_task_id, :person_in_charge, :note, :start_test)
+    params.require(:person_task).permit(:person_id, :task_id, :specific_task_id, :person_in_charge, :note, :start,:end)
   end         
 end  
   

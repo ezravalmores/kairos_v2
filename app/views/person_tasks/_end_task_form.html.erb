@@ -19,6 +19,7 @@
 		
           <label>Note</label>
           <%= f.text_area :note,:size => '20x3' %><br/><br/>         
+          <%= hidden_field_tag :from, 'task manager' %>          
 
 		  <%= check_box_tag :end_shift, 'yes', true %> continue?<span style='margin-left:40px'><%= f.submit :end, :value => "End Task", :class => 'btn btn-primary', :id => 'submit' %></span>
 		<% end %>

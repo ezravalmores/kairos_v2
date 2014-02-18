@@ -7,13 +7,14 @@
      <td><%= task.created_at.strftime('%l:%M:%S %p').downcase %></td>
      <td><%= task.updated_at.strftime('%l:%M:%S %p').downcase if !task.task_id == nil %></td>
      <td><%= task.total_time.strftime('%l:%M:%S').downcase if !task.total_time.nil? %> </td>
- 
-       <% link_to t('.edit', :default => t("helpers.links.edit")),
-                 edit_person_task_path(task), :class => 'btn btn-mini' %>
+ 	 <td>
+		
+		 <%= link_to t('.edit', :default => t("helpers.links.edit")),
+	                 edit_person_task_path(task), :class => 'btn btn-mini' if !task.task_id.nil? && current_user.role.name == '1st Level User' %>
        <% link_to t('.destroy', :default => t("helpers.links.destroy")),
                  person_task_path(task),
                  :method => :delete,
                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                  :class => 'btn btn-mini btn-danger' %>
- 
+ 	</td>
    </tr>

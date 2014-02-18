@@ -1,5 +1,13 @@
-<%- model_class = PersonTask -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
-</div>
+<%= render partial: 'end_task_form_js' %>	
+<div class="span9" style='margin-left:-3px'>
+<div style='padding:15px'>
+  <div class="page-header">	
+    <h3>
+	  <%= 'Edit Activity' %><%= form_tag person_tasks_path, :method => 'get', :id => 'tasks_search', :class => "form-search pull-right" do %>
+	  
+	  <% end %>
+	</h3>
+<br/><br/>	
 <%= render :partial => 'form' %>
+</div>
+</div>
