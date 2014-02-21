@@ -98,6 +98,24 @@ class ApplicationController < ActionController::Base
   
   private
   
+  def fetch_search(object)
+    from_cache = false
+    cache = (object.to_s + "_search_cache").to_sym
+  
+    if params[:search]
+      attributes = params[:search]
+      from_cache = true if params[:search] == session[cache]
+    elsif session[cache]
+      attributes = session[cache]
+      from_cache = true
+    end
+  
+    @current_search = Search.new(attributes)
+    @current_search.cached = from_cache
+    return @current_search
+  end
+  
+  
   def fetch_tasks_today(*associations)
     @start = set_user_time_zone.beginning_of_day
     @end = set_user_time_zone.end_of_day

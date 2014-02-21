@@ -78,7 +78,7 @@ class PersonTasksController < ApplicationController
          @unfinished = PersonTask.fetch_unfinished_tasks_today(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
        end
        respond_to do |format|   
-         format.html {redirect_to person_tasks_url}
+         format.html {redirect_to search_tasks_url}
          flash[:notice] = "Your task was successfully updated!"  
        end  
     end     
