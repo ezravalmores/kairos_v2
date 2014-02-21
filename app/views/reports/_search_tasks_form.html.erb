@@ -1,0 +1,28 @@
+
+<%= form_for :search,:url => search_tasks_url,:html => {:method => 'post', :id => "basic_search", :class => "search" } do |f| %>
+
+	    <h3><font style='color:#000'>Search Activities</h3><br/>
+	 <fieldset>
+		<div class='pull-left'>
+	      <label>From</label>
+	      <%= f.text_field :minimum_date %>
+	    </div>
+	   
+	    <div class='pull-left' style='margin-left: 20px'>
+	      <label>To</label>
+		  <%= f.text_field :maximum_date %>
+		</div><br/>	
+		
+		<div style='width: 100%' class='pull-left'>
+		  <span class="help-block" style='margin-top: -8px;font-size:11.5'><em>eg.,yyyy-mm-dd   (2014-02-01)</em></span>
+	      
+	  	  <div class="input-append">
+		    <%= f.text_field :keywords, :class=>"input-xxlarge" %>
+		    <%= f.submit :Search , :class => 'btn' %> 
+		  </div>
+		 <span class="help-block" style='margin-top: -8px;font-size:11.5px'><em>search by task, specific task, person first name, department, organization, note, from_or_to</em></span>
+		
+	    </div>
+	  </fieldset>
+
+<% end %>

@@ -1,0 +1,48 @@
+<% if @person_tasks %>
+<br/>
+<h4>Search Results</h4>
+<%="#{@total_count} records matched your search" %>
+<br/><br/>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th width='10%'>Shift Date</th>
+      <th>Person</th>
+      <th>Primary Task</th>
+      <th>Specific Task</th>
+      <th width='9%'>Start Time</th>
+      <th width='9%'>End Time</th>
+      <th width='9%'>Total Time</th>
+      <th>From or To</th>
+	  <th width='20%'>Note</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for person_task in @person_tasks %>
+      <tr>
+		<td><%= person_task.start.strftime('%b. %e, %Y') if !person_task.start.nil? %></td>
+		<td><%= person_task.person.first_name %></td>
+        <td><%= person_task.task.name if !person_task.task_id.nil? %></td>
+        <td><%= person_task.specific_task.name if !person_task.specific_task_id.nil? %></td>
+        <td><%= person_task.start.strftime('%l:%M:%S %p') if !person_task.start.nil? %></td>
+        <td><%= person_task.end.strftime('%l:%M:%S %p') if !person_task.end.nil? %></td>
+		<td><%= person_task.total_time.strftime('%l:%M:%S') if !person_task.total_time.nil? %></td>
+		<td><%= person_task.person_in_charge %></td>
+		<td><%= person_task.note %></td>
+		
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_person_task_path(person_task), :class => 'btn btn-mini' %>
+          <% link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      person_task_path(person_task),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
