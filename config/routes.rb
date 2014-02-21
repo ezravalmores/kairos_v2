@@ -77,6 +77,10 @@ Kairos::Application.routes.draw do
   match "activate_role_task" => 'tasks#activate_role_task', :via => [:put]
   
   resources :tasks
+  
+  match "tasks_report" => 'reports#tasks_report', :via => [:get,:post]
+  match "search_tasks" => 'reports#search_tasks', :via => [:get,:post]
+  
   match "add_tasks_to_role" => "manage#add_tasks_to_role", :via => [:get, :post]
   match "get_specific_tasks_assignments" => 'specific_tasks#get_specific_tasks_assignments', :via => [:get]
   match "get_role_task" => 'specific_tasks#get_role_task', :via => [:get]
