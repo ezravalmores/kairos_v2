@@ -2,13 +2,14 @@
   <div class="navbar-inner" style='border-radius:0px !important;border-top: 0px !important;height:90px'>
    <div style='color:#fff;font-size:25px;margin-top:20px;float:left'>
 	Kairos<br/><br/>
-	<p><%= current_user.organization.name %> - <%= current_user.department.name %> </p>
+	<p><font style='font-size:18px'><%= current_user.organization.name %> - <%= current_user.department.name %></font></p>
    </div>	
    <div class='pull-right'><%= link_to "Edit Account", '#', :class => 'create-account-button' %> <%= link_to "Sign out", logout_url, :class => 'top-logout-button' %></div>
+
   </div>
 </div>
 
-<div class="navbar navbar-fluid-top" style='margin-top:-20px'>
+<div class="navbar navbar-fluid-top navbar-inverse" style='margin-top:-20px'>
   <div class="navbar-inner" style='border-radius:0px !important;border-top: 0px !important'>
     <ul class="nav">
       <li><%= link_to 'Dashboard', "#" %></li>

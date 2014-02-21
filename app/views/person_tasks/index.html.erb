@@ -12,9 +12,9 @@
 
 <%- model_class = PersonTask -%>
 
-<div class="span9" style='margin-left:-3px'>
-<div style='padding:30px'>
-  <div class="page-header">	
+<div class="span9 body_layout">
+<div style='padding:20px'>
+  <div class="page-header" style='margin-top:-10px'>	
     <h3>
 	  <%= 'Tasks Management' %><%= form_tag person_tasks_path, :method => 'get', :id => 'tasks_search', :class => "form-search pull-right" do %>
 	    <%= text_field_tag :search, '' , :class => "input-medium search-query", :placeholder => 'enter shift date' %>
@@ -38,8 +38,6 @@
             :class => 'btn btn-primary' %>
 </div>
 </div>
-
-<br/><br/>
 
 <div id='forms'>
   <div class='details2'>

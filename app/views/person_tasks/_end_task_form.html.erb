@@ -1,7 +1,7 @@
 <%= render partial: 'end_task_form_js' %>	
-<div class="span3" style='margin-left:10px;'>
-  <div class="well sidebar-nav">
-    <ul class="nav nav-list" style='margin-left:-10px'>
+<div class="span3 side_layout" style='margin-left:10px;padding-top:20px;padding-left:15px' >
+  <div class="sidebar-nav">
+    <ul class="nav nav-list side_layout" >
       <h4>Current Task</h4>
       <span class="label label-info"><%= @tasks.first.start.strftime('%l:%M:%S %p').downcase %></span><br/><br/>
         <%= form_for(@tasks.first,:remote => true ) do |f| %>  
