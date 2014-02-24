@@ -49,8 +49,16 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.update_attributes(user_params)
-        flash[:notice] = 'Person was successfully updated.'
-        format.html { redirect_to(people_url) }
+      
+        
+        if current_user.role.name == '2nd Level User'
+          flash[:notice] = 'Your information was successfully updated!'
+          format.html { redirect_to(person_tasks_url) }  
+        else
+          flash[:notice] = 'Person was successfully updated.'
+          format.html { redirect_to(people_url) } 
+        end  
+        
       else
         format.html { render :edit }
       end

@@ -1,11 +1,17 @@
 <%= render partial: 'submit_form_js' %>
-<div class="span3" style='margin-left:10px'>
-  <div class="well sidebar-nav" id='test'>
+<div class='own_page_header'>	
+  <h5>
+	<h5>Select people to notify</h5>	
 	<div id='spin'>
 	  <%= image_tag 'spin.gif' %>
 	</div>
+  </h5>
+</div>
+ 
+<div style='padding-left:20px;padding-bottom:20px' id='test'>
+
 	
-	<h5>Select people to notify</h5>
+
 
 	<% for person in people_that_can_approve do %>
 	
@@ -20,5 +26,4 @@
     <div class = 'btn btn-primary' id='submit_tasks' >
       Submit Tasks Today
     </div>
-  </div>
 </div>

@@ -1,18 +1,30 @@
 <div class="navbar navbar-inverse navbar-fluid-top" >
-  <div class="navbar-inner" style='border-radius:0px !important;border-top: 0px !important;height:90px'>
+  <div class="navbar-inner" style='border-radius:0px !important;border-top: 0px !important;height:80px;background:#262626'>
    <div style='color:#fff;font-size:25px;margin-top:20px;float:left'>
-	Kairos<br/><br/>
-	<p><font style='font-size:18px'><%= current_user.organization.name %> - <%= current_user.department.name %></font></p>
+	  <%= current_user.organization.name %><br/><br/>
+	  <p><font style='font-size:18px'><% current_user.organization.name %><% current_user.department.name %></font></p>
    </div>	
-   <div class='pull-right'><%= link_to "Edit Account", '#', :class => 'create-account-button' %> <%= link_to "Sign out", logout_url, :class => 'top-logout-button' %></div>
+   <div class='pull-right'>
+    <%= link_to "My info", edit_person_path(current_user), :class => 'create-account-button' %> 
+    <%= link_to "Sign out", logout_url, :class => 'top-logout-button' %>
+    <div class = 'top-logout-button'>
+      signed in as, <%= current_user.first_name %>
+    </div>
+  </div>
 
   </div>
 </div>
 
-<div class="navbar navbar-fluid-top navbar-inverse" style='margin-top:-20px'>
+<div class="navbar navbar-fluid-top" style='margin-top:-20px'>
   <div class="navbar-inner" style='border-radius:0px !important;border-top: 0px !important'>
-    <ul class="nav">
-      <li><%= link_to 'Dashboard', "#" %></li>
+   	     <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a> 
+   <div class="container nav-collapse">
+   <ul class="nav">
+      <li><% link_to 'Dashboard', "#" %></li>
       <li><%= link_to ' Task Manager', person_tasks_url %></li>
       <% if current_user.role.name == 'Administrator' || current_user.role.name == '1st Level User' %>  
       <li class="dropdown">
@@ -31,5 +43,6 @@
 	  </li>
       <% end %>
     </ul>
+   </div>
   </div>
 </div>

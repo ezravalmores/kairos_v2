@@ -13,21 +13,23 @@
 <%- model_class = PersonTask -%>
 
 <div class="span9 body_layout">
-<div style='padding:20px'>
-  <div class="page-header" style='margin-top:-10px'>	
-    <h3>
-	  <%= 'Tasks Management' %><%= form_tag person_tasks_path, :method => 'get', :id => 'tasks_search', :class => "form-search pull-right" do %>
-	    <%= text_field_tag :search, '' , :class => "input-medium search-query", :placeholder => 'enter shift date' %>
-	  <% end %>
-	</h3>
-	
-    <p>Goal is to reach hundred percent</p>
-    <div id='summary'>
-      <div class='details'>
-	    <%= render :partial => 'details' %> 
+  <div class='own_page_header'>	
+   	 <h3>
+       <%= 'Tasks Management' %><%= form_tag person_tasks_path, :method => 'get', :id => 'tasks_search', :class => "form-search pull-right" do %>
+	     <%= text_field_tag :search, '' , :class => "input-medium search-query", :placeholder => 'enter shift date' %>
+	   <% end %>
+    </h3>	
+  </div>	
+  <div style='padding:20px'>
+    <div class="page-header" style='margin-top:-10px'>	
+  
+      <p>Goal is to reach hundred percent</p>
+      <div id='summary'>
+        <div class='details'>
+	      <%= render :partial => 'details' %> 
+        </div>
       </div>
     </div>
-  </div>
   
   <div id='tasks'>
     <%= render :partial => 'tasks', :locals => { :tasks => @tasks } %>
@@ -36,11 +38,15 @@
   <% link_to t('.new', :default => t("helpers.links.new")),
             new_person_task_path,
             :class => 'btn btn-primary' %>
-</div>
+  </div>
 </div>
 
-<div id='forms'>
-  <div class='details2'>
-    <%= render :partial => 'details2' %>  	
+<div class="span3 side_layout">
+  <div class="sidebar-nav">
+    <div id='forms'>
+      <div class='details2'>
+        <%= render :partial => 'details2' %>  	
+      </div>
+    </div>
   </div>
 </div>

@@ -1,8 +1,9 @@
 <%= render partial: 'end_task_form_js' %>	
-<div class="span3 side_layout" style='margin-left:10px;padding-top:20px;padding-left:15px' >
-  <div class="sidebar-nav">
-    <ul class="nav nav-list side_layout" >
-      <h4>Current Task</h4>
+ <div class='own_page_header'>	
+    <h4>End Current Task</h4>
+</div>	
+<div style='padding-left:25px;padding-top:10px'>
+    
       <span class="label label-info"><%= @tasks.first.start.strftime('%l:%M:%S %p').downcase %></span><br/><br/>
         <%= form_for(@tasks.first,:remote => true ) do |f| %>  
 		  
@@ -23,6 +24,5 @@
 
 		  <%= check_box_tag :end_shift, 'yes', true %> continue?<span style='margin-left:40px'><%= f.submit :end, :value => "End Task", :class => 'btn btn-primary', :id => 'submit' %></span>
 		<% end %>
-    </ul>
-  </div><!--/.well -->
-</div><!--/span-->
+ 
+</div>

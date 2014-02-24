@@ -11,13 +11,8 @@
       <%= f.text_field :last_name, :class => 'text_field' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :email_address, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :email_address, :class => 'text_field' %>
-    </div>
-  </div>
-
+ 
+  <% if current_user.role.name == 'Administrator' || current_user.role.name == '1st Level User'  %>  
 
   <div class="control-group">
     <%= f.label :time_zone, :class => 'control-label' %>
@@ -60,23 +55,8 @@
       <%= f.check_box :can_approve, :class => 'text_field' %>
     </div>
   </div>
- 
+  
   <div class="control-group">
-    <%= f.label :username, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :username, :class => 'text_field' %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :password, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :password, :class => 'text_field' %>
-    </div>
-  </div>
-
-
- <div class="control-group">
    <%= f.label :start_time, :class => 'control-label' %>
    <div class="controls">
      <%= f.text_field :start_time, :class => 'text_field' %>
@@ -90,9 +70,48 @@
    </div>
  </div>
 
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :username, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :username, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :password, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password, :value => @person.password ,:class => 'text_field' %>
+    </div>
+  </div>
+  
+  <br/>
+  
+  <div style='margin-left:60px'>
+  <h5>Email Notifications</h5>
+  <p>Send all Kairos email notifications and reminders to this address:</p>
+  </div>
+   
+  <br/>
+  <div class="control-group">
+    <%= f.label :email_address, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email_address, :class => 'text_field' %>
+    </div>
+  </div>
+  <br/>
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+    <div style='margin-left:-120px'>	
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+
+      <% if current_user.role.name == 'Administrator' || current_user.role.name == '1st Level User'  %>  
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 people_path, :class => 'btn' %>
+      <% else %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                person_tasks_path, :class => 'btn' %>
+      <% end %>
+    </div>
   </div>
 <% end %>

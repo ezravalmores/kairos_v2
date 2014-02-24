@@ -1,9 +1,11 @@
 <%- model_class = Person -%>
 <div class="span9 body_layout">
+  <div class='own_page_header'>	
+   <h3>Edit My info</h3>
+   <p>Change your name, email address,<br/> username or password.<p>
+  </div>
+
   <div style='padding:20px'>
-    <div class="page-header">
-      <h3><%= 'Tasks Management' %></h3>
-    </div>
     <%= render :partial => 'form' %>
   </div>
 </div>
