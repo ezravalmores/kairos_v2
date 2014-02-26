@@ -1,0 +1,9 @@
+<%- model_class = Right -%>
+<div class="span9 body_layout">
+  <div style='padding:20px'>
+    <div class="page-header">
+      <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+    </div>
+    <%= render :partial => 'form' %>
+  </div>
+</div>

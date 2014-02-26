@@ -1,0 +1,27 @@
+<%= form_for @right, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :action, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :action, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :context, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :context, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class='control-group'>
+     <%= f.label :role_id, :class => 'control-label' %>
+     <div class ="controls">	
+	    <%= f.select(:role_id, Role.all.collect{|r| [r.name, r.id] },:include_blank => true, :class => 'text_field') %>
+     </div> 
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                rights_path, :class => 'btn' %>
+  </div>
+<% end %>
