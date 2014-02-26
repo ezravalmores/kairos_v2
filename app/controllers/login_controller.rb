@@ -27,7 +27,7 @@ class LoginController < ApplicationController
   
   def logout
     reset_session
-    redirect_to :action => :login
+    redirect_to login_url
   end
   
   def set_date

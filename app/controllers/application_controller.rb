@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
+  #extend ActiveSupport::Memoizable
+
+  helper :all # include all helpers, all the time
+  include RedirectBack
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-
-    
   protect_from_forgery with: :exception
-  #before_filter :authorize
+  
   before_filter :set_user_time_zone
   #before_filter :authorize
   
@@ -21,15 +23,6 @@ class ApplicationController < ActionController::Base
   end
   
   protected
-  
-  def authorize
-    if current_user
-      application_url
-    else
-      redirect_to root_url
-      flash[:warning] = "You are not authorize!"
-    end
-  end
   
   def set_user_time_zone
     timezone = Timezone::Zone.new :zone => current_user.time_zone if current_user
@@ -97,6 +90,27 @@ class ApplicationController < ActionController::Base
   helper_method :departments
   
   private
+    def admin?
+      current_user.admin?
+    end
+  
+    def authorize
+      if current_user
+        unless current_user.has_right?(action_name,controller_path)
+          logger.error("#{current_user.email_address} does not have rights to access #{controller_path} > #{action_name}.")
+          #request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to person_tasks_url)
+          
+          redirect_to_back_or_dashboard
+          
+          return false
+        end
+      else
+        store_return_point
+        redirect_to login_url
+        return false
+      end
+      return true
+    end
   
   def fetch_search(object)
     from_cache = false
@@ -183,4 +197,13 @@ class ApplicationController < ActionController::Base
   def fetch_departments
     Department.departments(current_user.organization,current_user.role,current_user.department)
   end  
+  
+  def redirect_to_back_or_dashboard
+    respond_to do |format|
+      format.html{
+        request.env["HTTP_REFERER"] ? (redirect_to :back, :alert => 'You are not authorize.....') : (redirect_to person_tasks_url, :alert => 'You are not authorize.....')
+      }
+    end
+  end  
+  
 end

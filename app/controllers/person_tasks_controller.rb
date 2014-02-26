@@ -2,7 +2,7 @@ class PersonTasksController < ApplicationController
   require 'time_diff'
   include ActionView::Helpers::NumberHelper
   
-  before_filter :authorize
+  #before_filter :authorize
       
   def index
     session[:search] = nil
