@@ -54,7 +54,7 @@ Kairos::Application.routes.draw do
   #     resources :products
   #   end
   
-  root :to => "login#login"
+  #root :to => "login#login"
   
   match "/" => "application#index", :as => :application, via: [:get,:post]
   
@@ -65,6 +65,7 @@ Kairos::Application.routes.draw do
   end
     
   resources :people
+  resources :rights
   
   #get "/" => "application#index", as: :application, via: [:get,:post]
   match 'login', to: 'login#login', as: :login ,via: [:get, :post]
