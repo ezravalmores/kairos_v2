@@ -14,7 +14,7 @@ role :db,  %w{kairos.ncmmanila.org}
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server 'kairos.ncmmanila.org', user: 'evalmores', roles: %w{web app}
+server 'kairos.ncmmanila.org', user: 'evalmores', password: 'c0mpass1on' , roles: %w{web app}
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
