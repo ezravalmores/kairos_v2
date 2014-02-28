@@ -6,6 +6,7 @@ lock '3.1.0'
 set :repo_url, 'https://github.com/ezravalmores/kairos_v2'
 set :branch, "master"
 set :deploy_via, :remote_cache
+set :use_sudo, false
  
 set :application, "kairos"
 # We are only going to use a single stage: production
@@ -20,6 +21,8 @@ set :deploy_to, '/var/www/apps/kairos_v2'
 # Default value for :scm is :git
  set :scm, :git
  
+ 
+set :bundle_flags, "--path vendor --without development test --quiet"
 # Default value for :format is :pretty
 # set :format, :pretty
  
