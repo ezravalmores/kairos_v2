@@ -5,7 +5,12 @@ class PersonTask < ActiveRecord::Base
   
   #attr_accessible :activity_id, :specific_activity_id
   
+  #boolean methods
+  def is_approved?
+    is_approved == true
+  end
   
+  #class methods
   def self.calculate_total_hours(ids,show=nil)
    # ids = activities.map {|c| c.id}
     hours = 0

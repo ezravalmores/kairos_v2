@@ -1,26 +1,35 @@
+
 <% if @person_tasks %>
 <br/>
 <h4>Search Results</h4>
 <%="#{@total_count} records matched your search" %>
 <br/><br/>
-<table class="table table-striped">
+
+<div class='pull-right' style='margin-top:-80px'>
+  <%= will_paginate @person_tasks %>
+</div>
+
+<table class="table table-striped" >
   <thead>
     <tr>
       <th width='10%'>Shift Date</th>
       <th>Person</th>
-      <th>Primary Task</th>
-      <th>Specific Task</th>
+      <th  width='15%'>Primary Task</th>
+      <th  width='15%'>Specific Task</th>
       <th width='9%'>Start Time</th>
       <th width='9%'>End Time</th>
       <th width='9%'>Total Time</th>
-      <th>From or To</th>
-	  <th width='20%'>Note</th>
+      <th  width='10%'>From or To</th>
+	  <th width='10%'>Note</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% for person_task in @person_tasks %>
-      <tr>
+    
+       <% if !person_task.is_approved? %><tr class='warning'> <% end %>
+	   <% if person_task.is_approved? %><tr class='success'> <% end %>
+	 
 		<td><%= person_task.start.strftime('%b. %e, %Y') if !person_task.start.nil? %></td>
 		<td><%= person_task.person.first_name %></td>
         <td><%= person_task.task.name if !person_task.task_id.nil? %></td>
@@ -45,4 +54,9 @@
     <% end %>
   </tbody>
 </table>
+
+<div class='pull-right' >
+  <%= will_paginate @person_tasks %>
+</div>
+
 <% end %>
