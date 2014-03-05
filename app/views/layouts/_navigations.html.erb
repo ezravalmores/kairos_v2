@@ -28,7 +28,9 @@
       <li><%= link_to ' Task Manager', person_tasks_url %></li>
    </ul>
       <% if current_user.role.name == 'Administrator' || current_user.role.name == '1st Level User' %>  
-      <ul class="nav pull-right">
+
+
+	<ul class="nav pull-right">
       <li class="dropdown">
 	    <a class="dropdown-toggle"
 	       data-toggle="dropdown"
@@ -42,6 +44,21 @@
 	      <li><%= link_to '  People', people_path %></li>
 	      <li><%= link_to '  Tasks Report', tasks_report_path %></li>
 		  <li><%= link_to '  Rights', rights_path %></li>
+	    </ul>
+	  </li>
+	  </ul>
+	
+	<ul class="nav pull-right">
+      <li class="dropdown">
+	    <a class="dropdown-toggle"
+	       data-toggle="dropdown"
+	       href="#">
+	        Approvals
+	        <b class="caret"></b>
+	      </a>
+	    <ul class="dropdown-menu">
+	      <li><%= link_to '  Tasks Approval', tasks_approval_path %></li>
+
 	    </ul>
 	  </li>
 	  </ul>
