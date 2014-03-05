@@ -91,5 +91,7 @@ Kairos::Application.routes.draw do
   match "deactivate_role_specific_task" => 'specific_tasks#deactivate_role_specific_task', :via => [:put]
   match "activate_role_specific_task" => 'specific_tasks#activate_role_specific_task', :via => [:put]
   
-
+  match "tasks_approval" => 'approvals#tasks_approval', :via => [:get,:post]
+  
+  
 end
