@@ -8,8 +8,8 @@ gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem "time_diff"
 gem 'timezone'
-gem 'will_paginate'
-gem 'activerecord-session_store'
+#gem 'will_paginate'
+#gem 'activerecord-session_store'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
