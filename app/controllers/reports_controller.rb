@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-require 'will_paginate/array' 
+#require 'will_paginate/array' 
   # GET /children
    def tasks_report
      @search = Search.new
@@ -23,7 +23,7 @@ require 'will_paginate/array'
              :order => 'person_tasks.start DESC,person_tasks.person_id')
          @total_count = @person_tasks.length    
          #@person_tasks = @person_tasks.collect
-         @person_tasks = @person_tasks.paginate(:page => params[:page],:per_page => 100)   
+         #@person_tasks = @person_tasks.paginate(:page => params[:page],:per_page => 100)   
 
        elsif @search.is_active?
          # Search from scratch
@@ -39,7 +39,7 @@ require 'will_paginate/array'
          @total_count = @person_tasks.length 
         #person_tasks = @person_tasks.collect
 
-         @person_tasks = @person_tasks.paginate(:page => params[:page],:per_page => 100)    
+         #@person_tasks = @person_tasks.paginate(:page => params[:page],:per_page => 100)    
        else
          # Nothing to search
          flash[:warning] = "You must enter something to search for" if request.post?
