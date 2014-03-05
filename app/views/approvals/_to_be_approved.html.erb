@@ -1,0 +1,58 @@
+<% if @for_approvals %>
+
+<br/>
+
+<div class='pull-right' style='margin-top:-70px'>
+  <%= will_paginate @for_approvals %>
+</div>
+
+<br><br/>
+
+<div class='btn btn-success' style='margin-top:-50px'>Approve</div>
+<div class='btn btn-danger pull-right' style='margin-top:-30px'>Disapprove</div>
+<br/>
+
+<table class="table table-striped" >
+  <thead>
+    <tr>
+	  <th><%= check_box_tag("master",1,false,{ :id => "select_all"}) %></th>	
+      <th width='10%'>Shift Date</th>
+      <th>Person</th>
+      <th  width='15%'>Primary Task</th>
+      <th  width='15%'>Specific Task</th>
+      <th width='9%'>Start Time</th>
+      <th width='9%'>End Time</th>
+      <th width='9%'>Total Time</th>
+      <th  width='10%'>From or To</th>
+	  <th width='10%'>Note</th>
+   
+    </tr>
+  </thead>
+  <tbody>
+    <% for person_task in @for_approvals %>
+    
+       <% if !person_task.is_approved? %><tr class='warning'> <% end %>
+	   <% if person_task.is_approved? %><tr class='success'> <% end %>
+	 
+		<td><%= check_box_tag("p_tasks[]",person_task.id,false,{ :class => "person_task"}) %></td>
+		<td><%= person_task.start.strftime('%b. %e, %Y') if !person_task.start.nil? %></td>
+		<td><%= person_task.person.first_name %></td>
+        <td><%= person_task.task.name if !person_task.task_id.nil? %></td>
+        <td><%= person_task.specific_task.name if !person_task.specific_task_id.nil? %></td>
+        <td><%= person_task.start.strftime('%l:%M:%S %p') if !person_task.start.nil? %></td>
+        <td><%= person_task.end.strftime('%l:%M:%S %p') if !person_task.end.nil? %></td>
+		<td><%= person_task.total_time.strftime('%l:%M:%S') if !person_task.total_time.nil? %></td>
+		<td><%= person_task.person_in_charge %></td>
+		<td><%= person_task.note %></td>
+
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class='pull-right' >
+  <%= will_paginate @for_approvals %>
+</div>
+
+<% end %>
