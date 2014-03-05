@@ -1,4 +1,6 @@
 class RightsController < ApplicationController
+  before_filter :authorize
+  
   
   def index
     @rights = Right.all

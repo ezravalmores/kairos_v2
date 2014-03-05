@@ -1,5 +1,9 @@
 class ReportsController < ApplicationController
 require 'will_paginate/array' 
+
+  before_filter :authorize
+
+
   # GET /children
    def tasks_report
      @search = Search.new
