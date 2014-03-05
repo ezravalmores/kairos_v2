@@ -21,7 +21,7 @@ class Search
      
      #where.and("person_tasks.start >= ?", minimum_date.to_date.beginning_of_day) unless minimum_date.blank?
      #where.and("person_tasks.start <= ?", maximum_date.to_date.end_of_day) unless maximum_date.blank?
-     where.and("person_tasks.task_id IS NOT NULL")
+     #where.and("person_tasks.task_id IS NOT NULL")
      
      associations << [:task,:specific_task,{:person => [:department, :organization] }]
      person_tasks = PersonTask.scoped({})
