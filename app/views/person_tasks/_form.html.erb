@@ -23,7 +23,11 @@
   <div class="control-group">
     <%= f.label :end, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :end,:value => @task.end.strftime('%Y-%m-%d  %H:%M:%S'),:class => 'text_field' %>
+	  <% if !@task.end.nil?  %>
+        <%= f.text_field :end,:value => @task.end.strftime('%Y-%m-%d  %H:%M:%S'),:class => 'text_field' %>
+	  <% else %>	
+        <%= f.text_field :end,:class => 'text_field' %>  
+      <% end %>
     </div>
   </div>
  
