@@ -11,6 +11,26 @@ class PersonTask < ActiveRecord::Base
   end
   
   #class methods
+  def self.find_tasks_to_be_approved(*associations,user)
+    associations = []
+    where = Where.new
+    
+    if user.is_admin?
+      where.or('organizations.name LIKE ?', "%#{user.organization.name}%") 
+    else  
+      where.or('departments.name LIKE ?', "%#{user.department.name}%") 
+      where.and('organizations.name LIKE ?', "%#{user.organization.name}%")  
+    end
+   
+    where.and('person_tasks.is_submitted = ?', "1")
+    
+    associations << [:task,:specific_task,{:person => [:department, :organization] }]
+    person_tasks = PersonTask.scoped({})
+    
+    person_tasks = person_tasks.all(:include => associations.uniq,:conditions => where.to_s, :order =>'person_tasks.start DESC, person_tasks.person_id')  
+  end
+  
+  
   def self.calculate_total_hours(ids,show=nil)
    # ids = activities.map {|c| c.id}
     hours = 0
