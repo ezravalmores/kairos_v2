@@ -1,7 +1,8 @@
 <script>
    $(document).ready(function() {
-	$('#search').datepicker({
-	  format: "yyyy-mm-dd"		
+	$('.input-group.date').datepicker({
+	  format: "yyyy-mm-dd",
+	  autoclose: true		
 	});
 	
     $("#tasks_search input").change(function(){
@@ -18,7 +19,9 @@
   <div class='own_page_header'>	
    	 <h3>
        <%= 'Tasks Management' %><%= form_tag person_tasks_path, :method => 'get', :id => 'tasks_search', :class => "form-search pull-right" do %>
-	     <%= text_field_tag :search, '' , :class => "input-medium search-query", :placeholder => 'enter shift date' %>
+        <div class="input-group date input-append">
+	       <%= text_field_tag :search, '',:class => 'form-control' , :placeholder => 'enter shift date' %><span class="add-on" style='margin-top:2px'><i class="icon-th"></i></span>
+	    </div>
 	   <% end %>
     </h3>	
   </div>	

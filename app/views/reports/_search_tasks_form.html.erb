@@ -5,14 +5,18 @@
 	 <fieldset>
 		<div class='pull-left'>
 	      <label>Shift Date</label>
-	      <%= f.text_field :minimum_date %>
+	      <div class="input-group date input-append">
+	        <%= f.text_field :minimum_date, :class => 'form-control' %><span class="add-on"><i class="icon-th"></i></span>
+	      </div>
 	    </div>
 		<div class='pull-left' style='margin-top: 30px;margin-left:10px;font-size:11px !important'>
 	   	  <em>through</em>
 	    </div>
 	    <div class='pull-left' style='margin-left: 15px'>
 	      <label><br/></label>
-		  <%= f.text_field :maximum_date %>
+	      <div class="input-group date input-append">
+	        <%= f.text_field :maximum_date, :class => 'form-control' %><span class="add-on"><i class="icon-th"></i></span>
+	      </div>
 		</div><br/>	
 		
 		<div style='width: 100%' class='pull-left'>
