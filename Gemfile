@@ -12,6 +12,7 @@ gem 'timezone'
 gem 'will_paginate'
 #gem 'activerecord-session_store'
 # Use sqlite3 as the database for Active Record
+gem "bootstrap-datepicker-rails"
 gem 'sqlite3'
 
 # Use SCSS for stylesheets
