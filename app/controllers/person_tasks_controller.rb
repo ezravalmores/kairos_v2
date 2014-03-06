@@ -85,7 +85,13 @@ class PersonTasksController < ApplicationController
   end
   
   def destroy
-    
+    @person_task = PersonTask.find(params[:id])
+    @person_task.destroy
+
+    respond_to do |format|
+      flash[:notice] = "Activity was successfully deleted!"
+      format.html { redirect_to :back }
+    end  
   end  
   
   def submit_tasks
