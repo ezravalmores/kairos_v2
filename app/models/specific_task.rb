@@ -22,10 +22,10 @@ class SpecificTask < ActiveRecord::Base
   #class methods
   def self.fetch_specific_tasks(organization,role,department)
      if role.name == 'Administrator'
-       specific_tasks = where('organization_id =?', organization.id)
+       specific_tasks = where('organization_id =?', organization.id).order('name ASC')
      else  
-       specific_tasks = where('organization_id =? AND department_id =?', organization.id,department.id)
-       specific_tasks += where('organization_id =? AND department_id IS NULL', organization.id)
+       specific_tasks = where('organization_id =? AND department_id =?', organization.id,department.id).order('name ASC')
+       specific_tasks += where('organization_id =? AND department_id IS NULL', organization.id).order('name ASC')
      end  
    end
   

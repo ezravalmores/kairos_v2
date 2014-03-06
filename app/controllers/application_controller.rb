@@ -136,36 +136,9 @@ class ApplicationController < ActionController::Base
     @tasks = PersonTask.where(["person_tasks.start >=? AND person_tasks.start <=? AND person_id =?",@start,@end,current_user.id]).order("start DESC").includes(:task, :specific_task) 
   end
   
-  #def fetch_unfinished_tasks_today
-  #  @start = set_user_time_zone.beginning_of_day
-  #  @end = set_user_time_zone.end_of_day
-  #  @tasks = PersonTask.where(["person_tasks.start >=? AND person_tasks.start <=? AND person_id =? AND task_id IS NULL",@start,@end,current_user.id]).order("start DESC").includes(:task, :specific_task)
-  #end  
-  
-  #def fetch_productive_hours
-  #  personal_id = Task.find_by_name("Personal Time").id
-  #  break_id = Task.find_by_name("Break").id
-  #  avail_id = Task.find_by_name("Avail Time").id
-    
-  #  @tasks = fetch_tasks_today
-    
-  #  @tasks.where(["person_tasks.task_id !=? AND person_tasks.task_id !=? AND person_tasks.task_id !=?",break_id,personal_id,avail_id])
-  #end
-  
-  #def fetch_break_hours
-  #  break_id = Task.find_by_name("Break").id
-  #  
-  #  @tasks = fetch_tasks_today
-  #  @tasks.where(["person_tasks.task_id =?",break_id])
-  #end
-  
   def fetch_people_that_can_approve
     @people = Person.can_approve.all  
   end  
-  
-  #def fetch_total_hours  
-  #  
-  #end
   
   def fetch_role_tasks
     @role = current_user.organization_role

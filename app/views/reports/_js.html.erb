@@ -4,5 +4,17 @@
 	  format: "yyyy-mm-dd",
 	  autoclose: true	
 	});
+	
+	$('#basic_link').click(function(){
+	  $('#basic').hide();
+	  $('#advance').show();	
+	 $(this).closest('form').find("input[type=text], textarea").val("");
+	});
+	
+	$('#advance_link').click(function(){
+	  $('#advance').hide();	 
+	  $('#basic').show();	
+	 $(this).closest('form').find("input[type=text], textarea").val("");
+	});
   });
 </script>

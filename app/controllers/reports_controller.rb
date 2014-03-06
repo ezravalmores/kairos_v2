@@ -3,13 +3,12 @@ require 'will_paginate/array'
 
   before_filter :authorize
 
-
-  # GET /children
+  # GET /report
    def tasks_report
      @search = Search.new
      session[:person_task_search_cache] = nil
      session[:person_task_search_results] = nil
-
+     session[:form_type] = 'basic_form'
      respond_to do |format|
        format.html { render :layout => 'application' } # index.html.erb
      end
@@ -17,7 +16,7 @@ require 'will_paginate/array'
    
    def search_tasks
        @search = fetch_search(:person_task)
-
+       session[:form_type] = params[:form_type]
        if @search.is_cached?
          # Search from the search cache
          @person_tasks = session[:person_task_search_results].nil? ?

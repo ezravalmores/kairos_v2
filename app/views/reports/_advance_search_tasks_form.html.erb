@@ -1,0 +1,57 @@
+
+<%= form_for :search,:url => search_tasks_url,:html => {:method => 'post', :id => "basic_search", :class => "search" } do |f| %>
+<fieldset>
+	<%= hidden_field_tag :form_type," " ,:value => 'advance_form' %>
+	<div class='pull-left'>
+     <label>Shift Date</label>
+     <div class="input-group date input-append">
+       <%= f.text_field :minimum_date, :class => 'form-control' %><span class="add-on"><i class="icon-th"></i></span>
+     </div>
+   </div>
+	<div class='pull-left' style='margin-top: 30px;margin-left:10px;font-size:11px !important'>
+  	  <em>through</em>
+   </div>
+   <div class='pull-left' style='margin-left: 15px'>
+     <label><br/></label>
+     <div class="input-group date input-append">
+       <%= f.text_field :maximum_date, :class => 'form-control' %><span class="add-on"><i class="icon-th"></i></span>
+     </div>
+	</div>
+	<div class='pull-left' style='margin-left: 15px'>
+	  <label>Employee Name</label>
+	  <%= f.select(:person, Person.all.collect{|p| [p.first_name + " " + p.last_name, p.id] }, :include_blank => true) %>
+	</div>
+	<div class='pull-left' style='margin-left: 15px'>
+	  <label>Primary Task</label>
+	    <%= f.select(:task, Task.fetch_tasks(current_user.organization,current_user.role,current_user.department).collect{|t| [t.name, t.id] }, :include_blank => true) %>
+	</div>
+	<br/>	
+	
+	<div class='pull-left'>
+	  <label>Specific Task</label>
+	    <%= f.select(:specific_task, SpecificTask.fetch_specific_tasks(current_user.organization,current_user.role,current_user.department).collect{|t| [t.name, t.id] }, :include_blank => true) %>
+	</div>
+   
+    <div class='pull-left' style='margin-left: 15px'>
+	  <label>Department</label>
+	    <%= f.select(:department, Department.departments(current_user.organization,current_user.role,current_user.department).collect{|t| [t.name, t.name] }, :include_blank => true) %>
+	</div>
+	
+	<div class="pull-left" style='margin-left: 15px'>
+	  <label>From or To</label>
+	  <%= f.text_field :from_or_to %>
+	</div>
+	
+	<div class="input-append pull-left" style='margin-left: 15px'>
+	  <label>Note</label>
+	  <%= f.text_field :note, :class => 'input-xlarge' %>
+		  <%= f.submit "Search" , :class => 'btn btn-primary' %>
+	</div><br/><br/>
+	
+	<div class=''>
+	
+	</div>	
+ </fieldset><br/>
+
+ <div id = 'advance_link'>show basic form</div>  
+<% end %>

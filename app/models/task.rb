@@ -13,11 +13,10 @@ class Task < ActiveRecord::Base
   
   def self.fetch_tasks(organization,role,department)
     if role.name == 'Administrator'
-      tasks = where('organization_id =?', organization.id)
+      tasks = where('organization_id =?', organization.id).order('name ASC')
     else  
-      tasks = where('organization_id =? AND department_id =?', organization.id,department.id)
-      tasks += where('organization_id =? AND department_id IS NULL', organization.id)
-      
+      tasks = where('organization_id =? AND department_id =?', organization.id,department.id).order('name ASC')
+      tasks += where('organization_id =? AND department_id IS NULL', organization.id).order('name ASC')   
     end  
   end
   

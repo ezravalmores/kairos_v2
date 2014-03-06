@@ -1,0 +1,18 @@
+
+<%= form_for :search,:url => search_tasks_url,:html => {:method => 'post', :id => "basic_search", :class => "search" } do |f| %>
+ <fieldset>
+	
+	<div style='width: 100%' class='pull-left'>
+
+      <%= hidden_field_tag :form_type,"" ,:value => 'basic_form' %>
+  	  <div class="input-append">
+	    <%= f.text_field :keywords, :class=>"input-xxlarge" %>
+	    <%= f.submit :Search , :class => 'btn' %> 
+	  </div>
+	 <span class="help-block" style='margin-top: -8px;font-size:11.5px'><em>search by task, specific task, person name, department, organization, note, from_or_to</em></span>
+    </div>
+  </fieldset><br/>
+
+ <div id = 'basic_link'>show advance form</div>  
+<% end %>
+

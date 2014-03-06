@@ -1,34 +1,25 @@
 <%= render partial: 'js' %>
-<%= form_for :search,:url => search_tasks_url,:html => {:method => 'post', :id => "basic_search", :class => "search" } do |f| %>
 
-	    <h3><font style='color:#000'>Search Activities</h3><br/>
-	 <fieldset>
-		<div class='pull-left'>
-	      <label>Shift Date</label>
-	      <div class="input-group date input-append">
-	        <%= f.text_field :minimum_date, :class => 'form-control' %><span class="add-on"><i class="icon-th"></i></span>
-	      </div>
-	    </div>
-		<div class='pull-left' style='margin-top: 30px;margin-left:10px;font-size:11px !important'>
-	   	  <em>through</em>
-	    </div>
-	    <div class='pull-left' style='margin-left: 15px'>
-	      <label><br/></label>
-	      <div class="input-group date input-append">
-	        <%= f.text_field :maximum_date, :class => 'form-control' %><span class="add-on"><i class="icon-th"></i></span>
-	      </div>
-		</div><br/>	
-		
-		<div style='width: 100%' class='pull-left'>
-		  <span class="help-block" style='margin-top: -8px;font-size:11.5'><em>2014-02-01</em></span>
-	      
-	  	  <div class="input-append">
-		    <%= f.text_field :keywords, :class=>"input-xxlarge" %>
-		    <%= f.submit :Search , :class => 'btn' %> 
-		  </div>
-		 <span class="help-block" style='margin-top: -8px;font-size:11.5px'><em>search by task, specific task, person first name, department, organization, note, from_or_to</em></span>
-		
-	    </div>
-	  </fieldset>
 
-<% end %>
+	 <h4><font style='color:#000'>Search Activities</h3><br/>
+	 
+	 <% if session[:form_type].blank? %>
+	    <% @style_basic = 'display:block' %>
+	    <% @style_advance = 'display:none' %>
+	 <% elsif session[:form_type] == 'basic_form'  %> 
+	    <% @style_basic = 'display:block' %>
+		<% @style_advance = 'display:none' %>
+	
+	 <% elsif session[:form_type] == 'advance_form'  %> 
+	    <% @style_basic = 'display:none' %>
+		<% @style_advance = 'display:block' %>
+	 <% end %>
+	
+	 <div id='basic' style='<%= @style_basic %>'>	
+       <%= render partial: 'basic_search_tasks_form' %>
+     </div>
+     
+     <div id='advance' style='<%= @style_advance %>'>
+       <%= render partial: 'advance_search_tasks_form' %>
+     </div>
+
