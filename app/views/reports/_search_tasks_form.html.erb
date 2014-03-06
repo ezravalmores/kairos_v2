@@ -1,20 +1,22 @@
-
+<%= render partial: 'js' %>
 <%= form_for :search,:url => search_tasks_url,:html => {:method => 'post', :id => "basic_search", :class => "search" } do |f| %>
 
 	    <h3><font style='color:#000'>Search Activities</h3><br/>
 	 <fieldset>
 		<div class='pull-left'>
-	      <label>From</label>
+	      <label>Shift Date</label>
 	      <%= f.text_field :minimum_date %>
 	    </div>
-	   
-	    <div class='pull-left' style='margin-left: 20px'>
-	      <label>To</label>
+		<div class='pull-left' style='margin-top: 30px;margin-left:10px;font-size:11px !important'>
+	   	  <em>through</em>
+	    </div>
+	    <div class='pull-left' style='margin-left: 15px'>
+	      <label><br/></label>
 		  <%= f.text_field :maximum_date %>
 		</div><br/>	
 		
 		<div style='width: 100%' class='pull-left'>
-		  <span class="help-block" style='margin-top: -8px;font-size:11.5'><em>eg.,yyyy-mm-dd   (2014-02-01)</em></span>
+		  <span class="help-block" style='margin-top: -8px;font-size:11.5'><em>2014-02-01</em></span>
 	      
 	  	  <div class="input-append">
 		    <%= f.text_field :keywords, :class=>"input-xxlarge" %>
