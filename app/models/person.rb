@@ -19,6 +19,15 @@ class Person < ActiveRecord::Base
     find_by_username_and_password(username.downcase,password)
   end  
   
+  def self.fetch_employees(organization,role,department)
+    if role.name == 'Administrator'
+      people = where('organization_id =?', organization.id).order('first_name ASC')
+    else  
+      people = where('organization_id =? AND department_id =?', organization.id,department.id).order('first_name ASC')
+      people += where('organization_id =? AND department_id IS NULL', organization.id).order('first_name ASC')   
+    end  
+  end
+  
   # Boolean methods
   def has_right?(action,context)
     role.has_right?(action,context)

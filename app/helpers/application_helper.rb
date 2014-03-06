@@ -33,5 +33,10 @@ module ApplicationHelper
     notice.html_safe
   end
   
+  def options_for_employees
+    people = Person.fetch_employees(current_user.organization,current_user.role,current_user.department)
+    container = people
+  end
+  
 end
 

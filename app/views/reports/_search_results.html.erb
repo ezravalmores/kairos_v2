@@ -36,7 +36,7 @@
         <td><%= person_task.specific_task.name if !person_task.specific_task_id.nil? %></td>
         <td><%= person_task.start.strftime('%l:%M:%S %p') if !person_task.start.nil? %></td>
         <td><%= person_task.end.strftime('%l:%M:%S %p') if !person_task.end.nil? %></td>
-		<td><%= person_task.total_time.strftime('%l:%M:%S') if !person_task.total_time.nil? %></td>
+		<td><%= person_task.total_time.strftime('%H:%M:%S') if !person_task.total_time.nil? %></td>
 		<td><%= person_task.person_in_charge %></td>
 		<td><%= person_task.note %></td>
 		

@@ -11,15 +11,27 @@ class PersonTask < ActiveRecord::Base
   end
   
   #class methods
-  def self.find_tasks_to_be_approved(*associations,user)
+  def self.find_tasks_to_be_approved(person,*associations,user)
     associations = []
     where = Where.new
     
     if user.is_admin?
-      where.or('organizations.name LIKE ?', "%#{user.organization.name}%") 
-    else  
-      where.or('departments.name LIKE ?', "%#{user.department.name}%") 
-      where.and('organizations.name LIKE ?', "%#{user.organization.name}%")  
+      if !person.blank?
+        
+        where.and('organizations.name LIKE ?', "%#{user.organization.name}%") 
+        where.and('person_tasks.person_id = ?',person) 
+      else
+        where.and('organizations.name LIKE ?', "%#{user.organization.name}%")
+      end
+    else
+     if !person.blank?  
+       where.and('departments.name LIKE ?', "%#{user.department.name}%") 
+       where.and('organizations.name LIKE ?', "%#{user.organization.name}%")
+       where.and('organizations.name LIKE ?', "%#{user.organization.name}%")  
+     else
+       where.and('departments.name LIKE ?', "%#{user.department.name}%") 
+       where.and('organizations.name LIKE ?', "%#{user.organization.name}%")     
+     end     
     end
    
     where.and('person_tasks.is_submitted = ?', "1")

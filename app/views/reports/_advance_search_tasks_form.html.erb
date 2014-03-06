@@ -19,7 +19,7 @@
 	</div>
 	<div class='pull-left' style='margin-left: 15px'>
 	  <label>Employee Name</label>
-	  <%= f.select(:person, Person.all.collect{|p| [p.first_name + " " + p.last_name, p.id] }, :include_blank => true) %>
+	  <%= f.select(:person, Person.fetch_employees(current_user.organization,current_user.role,current_user.department).collect{|p| [p.first_name + " " + p.last_name, p.id] }, :include_blank => true) %>
 	</div>
 	<div class='pull-left' style='margin-left: 15px'>
 	  <label>Primary Task</label>
