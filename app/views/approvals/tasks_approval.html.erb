@@ -1,9 +1,22 @@
 <script>
-   $(document).ready(function() {	
-    
+  $(document).ready(function() {	  
     $("#approval_search select").change(function(){
-	  $.get($("#approval_search").attr("action"), $("#approval_search").serialize(),null,"script");
-	  return false;
+      dataString = $("#approval_search").serialize();
+	  $.ajax({
+	    type: "GET",
+		dataType: "script",
+		url: "/tasks_approval",
+		data: dataString,
+		  beforeSend: function(data)
+		  {
+		    $('#spin_spin').show();	   
+		  },
+		  success: function(response)
+		  {
+		    $('#spin_spin').hide();	
+		  }
+	   });
+	   return false;
     });	
   });
 </script>
@@ -14,6 +27,10 @@
 	   <div style='margin-top:-15px'>
 	     <p>approve or reject a tasks<p>
 	     <font style='color:red'><b><%="#{@total_count}" %></font> submitted for approval</b>	
+	   </div>
+	
+	   <div id='spin_spin' class='pull-right' style='display:none;margin-top:-100px'>
+	     <%= image_tag 'spin.gif' %>
 	   </div>
 	</div>
   <div style='padding:20px'>

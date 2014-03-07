@@ -6,8 +6,22 @@
 	});
 	
     $("#tasks_search input").change(function(){
-	  $.get($("#tasks_search").attr("action"), $("#tasks_search").serialize(),null,"script");
-	  return false;
+		dataString = $("#tasks_search").serialize();
+		  $.ajax({
+		    type: "GET",
+			dataType: "script",
+			url: "/person_tasks",
+			data: dataString,
+			  beforeSend: function(data)
+			  {
+			    $('#spin').show();	   
+			  },
+			  success: function(response)
+			  {
+			    $('#spin').hide();	
+			  }
+		   });
+		   return false;
     });	
 
   });
@@ -20,6 +34,7 @@
    	 <h3>
        <%= 'Tasks Management' %><%= form_tag person_tasks_path, :method => 'get', :id => 'tasks_search', :class => "form-search pull-right" do %>
         <div class="input-group date input-append">
+	       <div id='spin' style='margin-left:10px'><%= image_tag 'spin.gif' %></div>
 	       <%= text_field_tag :search, '',:class => 'form-control' , :placeholder => 'enter shift date' %><span class="add-on" style='margin-top:2px'><i class="icon-th"></i></span>
 	    </div>
 	   <% end %>
