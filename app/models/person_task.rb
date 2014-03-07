@@ -27,14 +27,14 @@ class PersonTask < ActiveRecord::Base
      if !person.blank?  
        where.and('departments.name LIKE ?', "%#{user.department.name}%") 
        where.and('organizations.name LIKE ?', "%#{user.organization.name}%")
-       where.and('organizations.name LIKE ?', "%#{user.organization.name}%")  
+       where.and('person_tasks.person_id = ?',person) 
      else
        where.and('departments.name LIKE ?', "%#{user.department.name}%") 
        where.and('organizations.name LIKE ?', "%#{user.organization.name}%")     
      end     
     end
    
-    where.and('person_tasks.is_submitted = ?', "1")
+    where.and('person_tasks.is_submitted = ? AND person_tasks.is_approved = ?', "1", "0")
     
     associations << [:task,:specific_task,{:person => [:department, :organization] }]
     person_tasks = PersonTask.scoped({})
@@ -42,6 +42,17 @@ class PersonTask < ActiveRecord::Base
     person_tasks = person_tasks.all(:include => associations.uniq,:conditions => where.to_s, :order =>'person_tasks.start DESC, person_tasks.person_id')  
   end
   
+  def self.approve_tasks(ids)
+    person_tasks = where(:id => ids)    
+    for person_task in person_tasks
+      person_task.approve_task(person_task)  
+    end  
+  end  
+  
+  def approve_task(person_task)
+    person_task.is_approved = true
+    person_task.save!  
+  end  
   
   def self.calculate_total_hours(ids,show=nil)
    # ids = activities.map {|c| c.id}

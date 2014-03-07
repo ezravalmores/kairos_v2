@@ -37,8 +37,8 @@
   background-color:#d0ffc9;
   color:#4a4;
   height: 30px;
-  font-size: 14px;
-  padding-left: 10px;
+  font-size: 12px;
+  padding-left: 20px;
   padding-top: 10px;
 
   border-bottom:1px solid #aedda7;
@@ -50,8 +50,8 @@
   background-color:#ffc9d1;
   color: #900202;	
   height: 30px;
-  font-size: 14px;	
-  padding-left: 10px;
+  font-size: 12px;	
+  padding-left: 20px;
   padding-top: 10px;
   border-bottom:1px solid #900202;
   border-top:1px solid #900202;
@@ -62,8 +62,8 @@
   background-color:#d0ffc9;
   color:#4a4;
   height: 30px;
-  font-size: 14px;
-  padding-left: 10px;
+  font-size: 12px;
+  padding-left: 20px;
   padding-bottom: 30px;
   border-bottom:1px solid #aedda7;
   border-top:1px solid #aedda7;
@@ -71,22 +71,22 @@
 
 .notice h3 {
   padding-bottom:30px !important;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .warning{
   background-color:#ffc9d1;
   color: #900202;	
   height: 30px;
-  font-size: 14px;
-  padding-left: 10px;
+  font-size: 12px;
+  padding-left: 20px;
   padding-bottom: 30px;	
   border-bottom:1px solid #900202;
   border-top:1px solid #900202;
 }
 .warning h3 {
   padding-bottom:30px !important;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .js_form{

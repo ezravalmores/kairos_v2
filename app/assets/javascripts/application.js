@@ -22,3 +22,20 @@ $(document).ready(function() {
    $('#flash_notice').delay(500).slideDown('slow').delay('8000').slideUp('slow'); 
    $('#flash_warning').delay(500).slideDown('slow').delay('8000').slideUp('slow'); 		
 });
+
+function toggleMaster(checkbox, master) {
+  master = $j(master)
+  if (!master) return
+  if (master.checked && !checkbox.checked) {
+    master.checked = false;
+  }
+}
+
+function toggleItems(master, className) {
+  var items = document.getElementsByClassName(className);
+  if (master.checked) {
+    for (i = 0; i < items.length; i++) { items[i].checked = true; }
+  } else {
+    for (i = 0; i < items.length; i++) { items[i].checked = false; }
+  }
+}
