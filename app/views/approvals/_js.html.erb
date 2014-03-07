@@ -1,0 +1,42 @@
+<script>
+  $(document).ready(function() {	  
+    $("#approve").click(function(){
+      dataString = $("#tasks").serialize();
+	  $.ajax({
+	    type: "PUT",
+		dataType: "script",
+		url: "approve_tasks",
+		data: dataString,
+		  beforeSend: function(data)
+		  {
+		    $('#spin_spin').show();	   
+		  },
+		  success: function(response)
+		  {
+		    $('#spin_spin').hide();	
+		  }
+	   });
+	   return false;
+    });	
+
+	$("#approval_search select").change(function(){
+      dataString = $("#approval_search").serialize();
+	  $.ajax({
+	    type: "GET",
+		dataType: "script",
+		url: "/tasks_approval",
+		data: dataString,
+		  beforeSend: function(data)
+		  {
+		    $('#spin_spin').show();	   
+		  },
+		  success: function(response)
+		  {
+		    $('#spin_spin').hide();	
+		  }
+	   });
+	   return false;
+    });
+	
+  });
+</script>
