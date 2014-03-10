@@ -51,9 +51,9 @@ class PersonTasksController < ApplicationController
       @break = PersonTask.fetch_break_hours(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
       @unfinished = PersonTask.fetch_unfinished_tasks_today(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
     
-      if params[:end_shift] == 'yes'
-        new_activity = PersonTask.create!(:person_id => current_user.id,:start => @task.end,:created_at => set_user_time_zone) 
-      end
+        if params[:end_shift] == 'yes'
+          new_activity = PersonTask.create!(:person_id => current_user.id,:start => @task.end,:created_at => set_user_time_zone) 
+        end
       end
     else
       @message = 'Select a task first!'
@@ -61,7 +61,6 @@ class PersonTasksController < ApplicationController
     end
       
     respond_to do |format| 
-
       format.js
     end    
 
@@ -69,36 +68,7 @@ class PersonTasksController < ApplicationController
   
   def update
     @task = PersonTask.find(params[:id])
-
-    if params[:from] == 'task manager'
-    
-      if @task.update_attributes(user_params)
-        @task.end = set_user_time_zone
-        @task.save
-      
-        difference = Time.diff(Time.parse(@task.start.strftime('%Y-%m-%d  %H:%M:%S')), Time.parse(@task.end.strftime('%Y-%m-%d %H:%M:%S')), '%h:%m:%s')
-        total_time = difference[:hour].to_s + ":" + difference[:minute].to_s + ":" + difference[:second].to_s
-
-        @task.total_time = total_time
-        @task.save
-      
-        @tasks = PersonTask.search(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
-        @productive = PersonTask.fetch_productive_hours(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
-
-        @break = PersonTask.fetch_break_hours(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
-        @unfinished = PersonTask.fetch_unfinished_tasks_today(session[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
-      
-        if params[:end_shift] == 'yes'
-          new_activity = PersonTask.create!(:person_id => current_user.id,:start => @task.end,:created_at => set_user_time_zone) 
-        end
-      
-        respond_to do |format| 
-          flash[:notice] = "Your activity was successfully ended!" 
-          format.js
-        end    
-      end
-    else
-       @task.update_attributes(user_params)  
+      if @task.update_attributes(user_params)  
        if !@task.end.nil?
          difference = Time.diff(Time.parse(@task.start.strftime('%Y-%m-%d  %H:%M:%S')), Time.parse(@task.end.strftime('%Y-%m-%d %H:%M:%S')), '%h:%m:%s')
          total_time = difference[:hour].to_s + ":" + difference[:minute].to_s + ":" + difference[:second].to_s
