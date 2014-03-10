@@ -1,0 +1,32 @@
+<% if @utilization_rates %>
+
+<br/>
+
+<div class='pull-right' style='margin-top:-80px;margin-right:-100px'>
+  <%= will_paginate @utilization_rates %>
+</div>
+
+<table class="table table-striped" id='for_cbox'>
+  <thead>
+    <tr>
+
+      <th width='10%'>Shift Date</th>
+      <th>Employee</th>
+      <th>Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for rate in @utilization_rates %>
+        <tr> 
+		  <td><%= rate.shift_date.strftime('%b. %e, %Y') if !rate.shift_date.nil? %></td>
+		  <td><%= rate.person.first_name + " "  + rate.person.last_name %></td>
+		  <td><%= rate.total_utilization_rate %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class='pull-right' >
+  <%= will_paginate @utilization_rates %>
+</div>
+
+<% end %>

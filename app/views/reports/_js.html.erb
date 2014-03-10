@@ -16,5 +16,26 @@
 	  $('#basic').show();	
 	 $(this).closest('form').find("input[type=text], textarea").val("");
 	});
+	
+	$("#utilization_rate_form select").change(function(){
+      dataString = $("#utilization_rate_form").serialize();
+	  $.ajax({
+	    type: "GET",
+		dataType: "script",
+		url: "/utilization_rates",
+		data: dataString,
+		  beforeSend: function(data)
+		  {
+		    $('#spin_spin').show();
+		  },
+		  success: function(response)
+		  {
+		    $('#spin_spin').hide();	
+		  }
+
+	   });
+
+	   return false;
+    });
   });
 </script>

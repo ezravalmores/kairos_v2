@@ -1,0 +1,32 @@
+<%= render partial: 'js' %>
+
+<div class="span12 body_layout" >
+	<div class='own_page_header'>	
+	   <h3>Utilization Rate</h3>
+	   <div style='margin-top:-15px'>
+	     <p>Productivity percentage<p>
+		 <div id='count'>
+ 		   <%= render partial: 'rate_count' %>
+	     </div>
+	   </div>
+	
+	   <div id='spin_spin' class='pull-right' style='display:none;margin-top:-100px'>
+	     <%= image_tag 'spin.gif' %>
+	   </div>
+	</div>
+  <div style='padding:20px'>
+	
+  <br/>
+	
+	<%= form_tag utilization_rates_path, :method => 'get', :id => 'utilization_rate_form', :class => "form-search " do %><div class='pull-left' style='margin-left: 0px'>
+	  <label>Employee Name</label>
+	  <%= select_tag("person", options_from_collection_for_select(options_for_employees, :id, :first_name ,""), :include_blank => true) %>
+	</div>   <% end %>
+	<br/><br/>
+	
+	<div id='utilization_rates'>
+	  <%= render partial: 'utilization_rates' %>
+	</div>
+	
+  </div>
+</div>

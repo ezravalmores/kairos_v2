@@ -53,5 +53,11 @@ require 'will_paginate/array'
              render :layout => 'application'
          }
        end   
-   end 
+   end
+   
+   def utilization_rates
+     @utilization_rates = UtilizationRate.find_rates(params[:person],{:person => [:department, :organization]},current_user)
+     @total_count = @utilization_rates.length 
+     @utilization_rates = @utilization_rates.paginate(:page => params[:page],:per_page => 100)
+   end   
 end  
