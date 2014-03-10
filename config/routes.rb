@@ -96,4 +96,7 @@ Kairos::Application.routes.draw do
   match "approve_tasks" => 'approvals#approve_tasks', :via => [:put]
   match "disapprove_tasks" => 'approvals#disapprove_tasks', :via => [:put]
   
+  match "end_task" => 'person_tasks#end_task', :via => [:put]
+  
+  
 end
