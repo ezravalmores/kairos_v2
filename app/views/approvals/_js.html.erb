@@ -1,6 +1,26 @@
 <script>
   $(document).ready(function() {	  
     $("#approve").click(function(){
+	  
+	  var arr = new Array();
+	  $('#for_cbox input[type="checkbox"]:checked').each(function() {
+	    arr.push($(this).val());
+	  });
+
+	  if(arr.length === 0){
+		$('#approve_modal').modal();
+		$('.modal-body').html("Nothing selected!");
+		$('#approve_link').hide();
+		return false;
+	  } 
+	  else{
+		$('#approve_modal').modal();
+		$('.modal-body').html("Are you sure you want to approve selected?");
+		$('#approve_link').show();
+	  } 
+    });	
+    
+    $("#approve_link").click(function(){
       dataString = $("#tasks").serialize();
 	  $.ajax({
 	    type: "PUT",
@@ -16,8 +36,48 @@
 		    $('#spin_spin').hide();	
 		  }
 	   });
+	   $('#approve_modal').modal('toggle')  
 	   return false;
-    });	
+	 });
+ 
+	 $("#disapprove").click(function(){
+		  var arr = new Array();
+		  $('#for_cbox input[type="checkbox"]:checked').each(function() {
+		    arr.push($(this).val());
+		  });
+
+		  if(arr.length === 0){
+			$('#disapprove_modal').modal();
+			$('.modal-body').html("Nothing selected!");
+			$('#disapprove_link').hide();
+			return false;
+		  } 
+		  else{
+			$('#disapprove_modal').modal();
+			$('.modal-body').html("Are you sure you want to disapprove selected?");
+			$('#disapprove_link').show();
+		  } 
+	    });	
+
+	    $("#disapprove_link").click(function(){
+	      dataString = $("#tasks").serialize();
+		  $.ajax({
+		    type: "PUT",
+			dataType: "script",
+			url: "disapprove_tasks",
+			data: dataString,
+			  beforeSend: function(data)
+			  {
+			    $('#spin_spin').show();	   
+			  },
+			  success: function(response)
+			  {
+			    $('#spin_spin').hide();	
+			  }
+		   });
+		   $('#disapprove_modal').modal('toggle')  
+		   return false;
+		 });   
 
 	$("#approval_search select").change(function(){
       dataString = $("#approval_search").serialize();
@@ -28,7 +88,7 @@
 		data: dataString,
 		  beforeSend: function(data)
 		  {
-		    $('#spin_spin').show();	   
+		    $('#spin_spin').show();
 		  },
 		  success: function(response)
 		  {
@@ -37,6 +97,22 @@
 	   });
 	   return false;
     });
-	
+    
+	$('#approve').popover(
+	  {
+	     trigger: 'hover',
+	     html: true,
+	     placement: 'right',
+	     content: 'This button will process the approval of each selected tasks.'
+	  });
+    
+    $('#disapprove').popover(
+	  {
+	     trigger: 'hover',
+	     html: true,
+	     placement: 'left',
+	     content: 'This button will process the disapproval of each selected tasks.'
+	  });
+
   });
 </script>

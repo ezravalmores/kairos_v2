@@ -16,15 +16,44 @@
 	</div>
   <div style='padding:20px'>
 	
-	<br/>
+  <br/>
+ 
+  <div id="approve_modal" class="modal hide fade in" style="display: none; ">  
+    <div class="modal-header">  
+      <a class="close" data-dismiss="modal">×</a>  
+      <font style='color:green'><h4>Approve Tasks!</h4></font>  
+    </div>  
+    <div class="modal-body">   
+      <p>Are you sure you want to approve selected?</p>                
+    </div>  
+    <div class="modal-footer">  
+      <a href="#" class="btn btn-success" id='approve_link'>Approve</a>  
+      <a href="#" class="btn" data-dismiss="modal">Cancel</a>  
+    </div>  
+  </div> 
+
+  <div id="disapprove_modal" class="modal hide fade in" style="display: none; ">  
+    <div class="modal-header">  
+      <a class="close" data-dismiss="modal">×</a>  
+      <font style='color:red'><h4>Disapprove Tasks!</h4> </font> 
+    </div>  
+    <div class="modal-body">   
+      <p>Are you sure you want to approve selected?</p>                
+    </div>  
+    <div class="modal-footer">  
+      <a href="#" class="btn btn-danger" id='disapprove_link'>Disapprove</a>  
+      <a href="#" class="btn" data-dismiss="modal">Cancel</a>  
+    </div>  
+  </div> 
 	
 	<%= form_tag tasks_approval_path, :method => 'get', :id => 'approval_search', :class => "form-search " do %><div class='pull-left' style='margin-left: 0px'>
 	  <label>Employee Name</label>
 	  <%= select_tag("person", options_from_collection_for_select(options_for_employees, :id, :first_name ,""), :include_blank => true) %>
 	</div>   <% end %>
 	<br/><br/>
-	<div id = 'approve' class='btn btn-success pull-left' style='margin-right:120px'>Approve</div>
-	<div class='btn btn-danger pull-right' >Disapprove</div>
+
+	<div id = 'approve' class='btn btn-success pull-left' style='margin-right:120px' >Approve</div>
+	<div id = 'disapprove' class='btn btn-danger pull-right' >Disapprove</div>
 	
 	<div id='for_approval'>
 	  <%= render partial: 'to_be_approved' %>

@@ -6,9 +6,18 @@ class PersonTask < ActiveRecord::Base
   #attr_accessible :activity_id, :specific_activity_id
   
   #boolean methods
-  def is_approved?
-    is_approved == true
+  def is_submitted?
+    is_submitted == true && is_disapproved == false && is_approved == false
   end
+  
+  def is_approved?
+    is_submitted == true && is_approved == true && is_disapproved == false
+  end
+  
+  def is_disapproved?
+    is_submitted == true && is_disapproved == true && is_approved == false
+  end
+  
   
   #class methods
   def self.find_tasks_to_be_approved(person,*associations,user)
@@ -24,17 +33,17 @@ class PersonTask < ActiveRecord::Base
         where.and('organizations.name LIKE ?', "%#{user.organization.name}%")
       end
     else
-     if !person.blank?  
-       where.and('departments.name LIKE ?', "%#{user.department.name}%") 
-       where.and('organizations.name LIKE ?', "%#{user.organization.name}%")
-       where.and('person_tasks.person_id = ?',person) 
-     else
-       where.and('departments.name LIKE ?', "%#{user.department.name}%") 
-       where.and('organizations.name LIKE ?', "%#{user.organization.name}%")     
-     end     
+      if !person.blank?  
+        where.and('departments.name LIKE ?', "%#{user.department.name}%") 
+        where.and('organizations.name LIKE ?', "%#{user.organization.name}%")
+        where.and('person_tasks.person_id = ?',person) 
+      else
+        where.and('departments.name LIKE ?', "%#{user.department.name}%") 
+        where.and('organizations.name LIKE ?', "%#{user.organization.name}%")     
+      end     
     end
    
-    where.and('person_tasks.is_submitted = ? AND person_tasks.is_approved = ?', "1", "0")
+    where.and('person_tasks.is_submitted = ? AND (person_tasks.is_approved = ? OR person_tasks.is_disapproved = ?)', "1", "0", "1")
     
     associations << [:task,:specific_task,{:person => [:department, :organization] }]
     person_tasks = PersonTask.scoped({})
@@ -42,17 +51,37 @@ class PersonTask < ActiveRecord::Base
     person_tasks = person_tasks.all(:include => associations.uniq,:conditions => where.to_s, :order =>'person_tasks.start DESC, person_tasks.person_id')  
   end
   
-  def self.approve_tasks(ids)
+  def self.approve_tasks(ids,current_user)
     person_tasks = where(:id => ids)    
     for person_task in person_tasks
-      person_task.approve_task(person_task)  
+      person_task.approve_task(person_task,current_user)  
     end  
   end  
   
-  def approve_task(person_task)
-    person_task.is_approved = true
-    person_task.save!  
+  def approve_task(person_task,current_user)
+    if !person_task.task_id.nil? && !person_task.specific_task_id.nil?
+      person_task.is_approved = true
+      person_task.is_disapproved = false
+      person_task.approved_by = current_user.id
+      person_task.save!  
+    end
   end  
+  
+  def self.disapprove_tasks(ids,current_user)
+    person_tasks = where(:id => ids)    
+    for person_task in person_tasks
+      person_task.disapprove_task(person_task,current_user)  
+    end  
+  end  
+  
+  def disapprove_task(person_task,current_user)
+    if !person_task.task_id.nil? && !person_task.specific_task_id.nil?
+      person_task.is_approved = false
+      person_task.is_disapproved = true
+      person_task.approved_by = current_user.id
+      person_task.save!  
+    end
+  end
   
   def self.calculate_total_hours(ids,show=nil)
    # ids = activities.map {|c| c.id}

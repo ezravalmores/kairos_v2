@@ -10,7 +10,7 @@
 
 <br/>
 <%= form_tag approve_tasks_url,:method => :post, :id => 'tasks' do %> 
-<table class="table table-striped" >
+<table class="table table-striped" id='for_cbox'>
   <thead>
     <tr>
 	  <th><%= check_box_tag("master",1,false,{ :id => "select_all", :onclick => "toggleItems(this,'activities')" }) %></th>	
@@ -29,9 +29,10 @@
   <tbody>
     <% for person_task in @for_approvals %>
     
-       <% if !person_task.is_approved? %><tr class='warning'> <% end %>
+       <% if person_task.is_submitted? %><tr class='warning'> <% end %>
 	   <% if person_task.is_approved? %><tr class='success'> <% end %>
-	 
+	   <% if person_task.is_disapproved? %><tr class='error'> <% end %>
+		
 		<td><%= check_box_tag("p_tasks[]",person_task.id,false,{ :class => "activities"}) %></td>
 		<td><%= person_task.start.strftime('%b. %e, %Y') if !person_task.start.nil? %></td>
 		<td><%= person_task.person.first_name %></td>

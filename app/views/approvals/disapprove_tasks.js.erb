@@ -1,0 +1,3 @@
+$('#for_approval').html("<%= escape_javascript(render("to_be_approved")) %>");
+$('#count').html("<%= escape_javascript(render("count")) %>");
+<%= flash_notice(flash.first[1], flash.first[0]) unless flash.blank? %>

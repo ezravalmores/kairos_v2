@@ -27,9 +27,10 @@
   <tbody>
     <% for person_task in @person_tasks %>
     
-       <% if !person_task.is_approved? %><tr class='warning'> <% end %>
+       <% if person_task.is_submitted? %><tr class='warning'> <% end %>
 	   <% if person_task.is_approved? %><tr class='success'> <% end %>
-	 
+	   <% if person_task.is_disapproved? %><tr class='error'> <% end %>
+		
 		<td><%= person_task.start.strftime('%b. %e, %Y') if !person_task.start.nil? %></td>
 		<td><%= person_task.person.first_name %></td>
         <td><%= person_task.task.name if !person_task.task_id.nil? %></td>
