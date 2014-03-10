@@ -80,6 +80,7 @@ Kairos::Application.routes.draw do
   resources :tasks
   
   match "tasks_report" => 'reports#tasks_report', :via => [:get,:post]
+  match "utilization_rates" => 'reports#utilization_rates', :via => [:get,:post]
   match "search_tasks" => 'reports#search_tasks', :via => [:get,:post]
   
   match "add_tasks_to_role" => "manage#add_tasks_to_role", :via => [:get, :post]
