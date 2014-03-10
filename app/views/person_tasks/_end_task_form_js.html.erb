@@ -2,7 +2,7 @@
   $(document).ready(function() {
    	var specific_activities = $("#person_task_specific_task_id").html();
     $("#person_task_specific_task_id").prop("disabled", true);
-	$("#submit").prop("disabled", true);
+
 
 	  $('#person_task_task_id').change(function(){
 	   var task = $('#person_task_task_id :selected').text();
@@ -11,14 +11,42 @@
 	    if (options){
 	      $("#person_task_specific_task_id").html(options);
 	      $("#person_task_specific_task_id").prop("disabled", false);
-		  $("#submit").prop("disabled", false);
-	     return jQuery('person_task_specific_task_id').parent().show();
+	      return jQuery('person_task_specific_task_id').parent().show();
 	    }
 	    else{
 	      $("#person_task_specific_task_id").empty();
 		  $("#person_task_specific_task_id").prop("disabled", true);
-		  $("#submit").prop("disabled", true);
 	    } 	
 	    });
+	
+	
+	$('#submit_task').popover(
+	  {
+	     trigger: 'hover',
+	     html: true,
+	     placement: 'left',
+	     content: 'This button will end your current task and automatically create another one if you choose to continue'
+	  });
+	    
+	$("#submit_task").click(function(){
+	  dataString = $(".submit_task_form").serialize();
+	  $.ajax({
+	    type: "PUT",
+	    dataType: "script",
+	    url: "end_task",
+	    data: dataString,
+	    beforeSend: function(data)
+	    {
+	      $('#spin').show();
+	      $("#submit_task").hide();	   
+	    },
+	    success: function(response)
+		{
+	      $('#spin').hide();
+		  $("#submit_task").show();	   	
+		}
+	   });
+       return false;
+	 });	  	  
   });	
 </script>

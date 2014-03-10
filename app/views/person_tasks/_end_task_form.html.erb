@@ -1,13 +1,18 @@
 <%= render partial: 'end_task_form_js' %>	
- <div class='own_page_header'>	
+<div class='own_page_header'>	
     <h4>End Current Task</h4>
 </div>	
 <div style='padding-left:25px;padding-top:10px'>
     
-      <span class="label label-info"><%= @tasks.first.start.strftime('%l:%M:%S %p').downcase %></span><br/><br/>
-        <%= form_for(@tasks.first,:remote => true ) do |f| %>  
+      <span class="label label-info"><%= @tasks.first.start.strftime('%l:%M:%S %p').downcase %></span>
+	  <div id='spin' class='pull-right' style='display:none;margin-right:24px'>
+        <%= image_tag 'spin.gif' %>
+	  </div>
+	  <br/><br/>	
+        <%= form_for(:person_task,:remote => true,:method => 'put', :html => {:id => 'tasks' ,:class => 'submit_task_form'}) do |f| %>  
 		  
 		  <label>Task</label>
+		  <%= f.hidden_field :id , :value => @tasks.first.id %>
 		  <%= f.collection_select :task_id, role_tasks, :task_id, :name, :include_blank => true  %><br/>
 		  
 		  <label>Specific Task</label>
@@ -16,13 +21,20 @@
 		  <%= f.hidden_field :shift_date, :value => session[:shift_date] %>
 			
 		  <label>From or To</label>
-          <%= f.text_field :person_in_charge %><br/><br/> 
+          <%= f.text_field :person_in_charge %><br/><br/>
 		
           <label>Note</label>
           <%= f.text_area :note,:size => '20x3' %><br/><br/>         
           <%= hidden_field_tag :from, 'task manager' %>          
 
-		  <%= check_box_tag :end_shift, 'yes', true %> continue?<span style='margin-left:40px'><%= f.submit :end, :value => "End Task", :class => 'btn btn-primary', :id => 'submit' %></span>
+		  <%= check_box_tag :end_shift, 'yes', true %> continue?
+		  
+		  <div class='pull-right' style='margin-right:25px'>
+		    <% f.submit :end, :value => "End Task", :class => 'btn btn-primary', :id => 'submit' %>
+		    <div id='submit_task' class='btn btn-primary'>End Task</div>
+		    <br/><br/>
+		  </div>
+				
 		<% end %>
  
 </div>
