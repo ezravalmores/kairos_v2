@@ -1,0 +1,16 @@
+<% if @message == 'Successfully ended!' %>
+
+  $("#task_<%= @task.id %>").replaceWith("<%= escape_javascript(render(:partial => "task", :locals => {:task => @task})) %>");
+  $("#task_<%= @task.id %>").addClass('<%= cycle('odd','even') %>');
+  <% if params[:end_shift] == 'yes' %>
+    $("#hey").replaceWith("<%= escape_javascript(render(:partial => "act", :locals => {:task => @tasks.first})) %>");
+  <% end %>
+  $(".details").replaceWith("<%= escape_javascript(render(:partial => "details")) %>");
+  $("#time_summary").replaceWith("<%= escape_javascript(render(:partial => "time_summary")) %>");
+  $("#progress").replaceWith("<%= escape_javascript(render(:partial => "progress_bar")) %>");
+  $(".details2").replaceWith("<%= escape_javascript(render(:partial => "details2")) %>");
+  $(".end_form").replaceWith("<%= escape_javascript(render(:partial => "details2")) %>");
+
+<% end %>
+
+<%= flash_notice(flash.first[1], flash.first[0]) unless flash.blank? %>
