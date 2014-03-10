@@ -112,7 +112,7 @@ class PersonTasksController < ApplicationController
     end
    
     @total_hour = UtilizationRate.where(["shift_date =? AND person_id =?",shift_date,current_user.id])
-    @productive_hours = PersonTask.fetch_productive_hours(params[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
+    @productive_hours = PersonTask.fetch_productive_hours(shift_date,set_user_time_zone,current_user).includes(:task, :specific_task)
     
     @hours = PersonTask.calculate_total_hours(@productive_hours.map {|a| a.id},"hours")
     @minutes = PersonTask.calculate_total_hours(@productive_hours.map {|a| a.id},"minutes")
