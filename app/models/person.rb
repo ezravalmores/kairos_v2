@@ -1,6 +1,5 @@
 class Person < ActiveRecord::Base
   include PublicActivity::Model
-  tracked
   
   has_many :person_tasks
   has_many :utilization_rates
