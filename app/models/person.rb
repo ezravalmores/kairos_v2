@@ -1,4 +1,7 @@
 class Person < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked
+  
   has_many :person_tasks
   has_many :utilization_rates
   belongs_to :role
@@ -37,4 +40,10 @@ class Person < ActiveRecord::Base
     (!role.nil? && role.name == 'Administrator')
   end
   alias :admin? :is_admin?
+  
+  #instance method
+  def name
+    first_name + " " + last_name  
+  end  
+  
 end  

@@ -13,6 +13,24 @@
  *= require bootstrap-datepicker
  */
 
+.dash_noti{
+ width: 100%;
+ padding-top:10px;
+ padding-bottom: 15px;	
+ border-bottom: 1px solid #eee;
+ overflow: auto;
+}
+
+.noti_pic{
+ width: 40px;
+ height: 40px;	
+ float:left;	
+}
+.noti_info{
+ float:left;
+ margin-left:10px;	
+}
+
 .body_layout{
   background-color: #fff;
   box-shadow: 4px 0 8px #B1B1B1 !important;

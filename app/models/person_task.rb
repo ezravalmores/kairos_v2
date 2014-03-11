@@ -1,4 +1,5 @@
-class PersonTask < ActiveRecord::Base
+class PersonTask < ActiveRecord::Base  
+  include PublicActivity::Common
   belongs_to :person
   belongs_to :task
   belongs_to :specific_task

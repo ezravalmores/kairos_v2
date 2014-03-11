@@ -1,6 +1,7 @@
 class PersonTasksController < ApplicationController
   require 'time_diff'
   include ActionView::Helpers::NumberHelper
+  include PublicActivity::StoreController
   
   before_filter :authorize
       
@@ -17,6 +18,10 @@ class PersonTasksController < ApplicationController
     @unfinished = PersonTask.fetch_unfinished_tasks_today(params[:search],set_user_time_zone,current_user).includes(:task, :specific_task)
     session[:search] = params[:search]
   end    
+  
+  def dashboard
+    @activities = PublicActivity::Activity.order("created_at desc")    
+  end  
   
   def edit
     @task = PersonTask.find(params[:id])
@@ -128,6 +133,8 @@ class PersonTasksController < ApplicationController
       
     for person in @people
       KairosMailer.send_approvals(person,current_user,shift_date).deliver
+      #@public_activity = PublicActivity.create(owner_type: "Person", trackable_type: 'PersonTask', owner_id: current_user.id, key: 'person_task.submit_tasks')
+      @tasks.first.create_activity :submit_tasks, owner: current_user, recipient_id: person.id, date: shift_date
     end
     
     respond_to do |format|

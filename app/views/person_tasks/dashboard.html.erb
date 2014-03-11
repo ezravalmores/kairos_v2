@@ -1,0 +1,65 @@
+<div class="span11 body_layout">
+  <div class='row-fluid'>	
+    <div class='span3'>
+	  <div style='padding:10px'>
+        <%= image_tag 'user.png', :class => 'img-rounded' %>
+        <br/>
+  		<div style='margin-left:5px;border-bottom: 1px solid #eee;padding-bottom:10px'>
+		  <h3><%= current_user.name %></h3>
+		  <div style='margin-top:-10px'> 
+            <font style='color:#666;font-size:20px'><%= current_user.username %></font>
+		  </div>
+        </div>
+
+		<div style='margin-left:5px;padding-bottom:10px'>
+
+		  <div style='margin-top:5px'> 
+            <font style='color:#666;font-size:13px'><%= current_user.department.name %></font>
+		  </div>
+        </div>
+
+	    <div style='margin-left:5px;padding-bottom:10px'>
+
+		  <div style='margin-top:5px'> 
+	        <font style='color:#666;font-size:13px'><%= current_user.organization.name %></font>
+	      </div>
+	    </div>
+      </div>
+	</div>
+	
+	<div class='span9'>
+    <div style='padding:20px'>
+	
+	
+		<div class="tabbable"> <!-- Only required for left/right tabs -->
+		  <ul class="nav nav-tabs">
+		    <li class="active"><a href="#tab1" data-toggle="tab"><div class='icon-tags'>      Notifications</div></a></li>
+		    <li><a href="#tab2" data-toggle="tab"><div class='icon-refresh'>  Recent Activities</div></a></li>
+		  </ul>
+		  <div class="tab-content">
+		    <div class="tab-pane active" id="tab1">
+				<% for activity in @activities do %>
+					<div class = 'dash_noti'>
+					  <div class='noti_pic'>
+					    <%= image_tag 'user.png', :class => 'img-rounded' %>  	
+					  </div>
+					  <div class='noti_info'> 			
+					    <font style='color:#bbb'><%= time_ago_in_words(activity.created_at) %></font><br/>
+			            <font style='color:#4183c4'><b><%= activity.owner.name if activity.owner %></font></b>
+			            <% if activity.key == 'person_task.submit_tasks' %>
+						  submitted his/her tasks for <b><%= activity.date %></b> 
+						<% end %>
+					  </div>	
+					</div>
+			      <% end %>
+		    </div>
+		    <div class="tab-pane" id="tab2">
+		      <p>Web Dev currently working on it</p>
+		    </div>
+		  </div>
+		</div>
+      
+    </div>
+    </div>
+  </div>
+</div>	
