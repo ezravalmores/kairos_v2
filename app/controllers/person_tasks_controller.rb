@@ -134,7 +134,7 @@ class PersonTasksController < ApplicationController
     for person in @people
       KairosMailer.send_approvals(person,current_user,shift_date).deliver
       #@public_activity = PublicActivity.create(owner_type: "Person", trackable_type: 'PersonTask', owner_id: current_user.id, key: 'person_task.submit_tasks')
-      @tasks.first.create_activity :submit_tasks, owner: current_user, recipient_id: person.id, date: shift_date
+      @tasks.first.create_activity :submit_tasks, owner: current_user, recipient: person, date: shift_date
     end
     
     respond_to do |format|

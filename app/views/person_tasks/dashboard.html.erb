@@ -47,7 +47,7 @@
 					    <font style='color:#bbb'><%= time_ago_in_words(activity.created_at) %></font><br/>
 			            <font style='color:#4183c4'><b><%= activity.owner.name if activity.owner %></font></b>
 			            <% if activity.key == 'person_task.submit_tasks' %>
-						  submitted his/her tasks for <b><%= activity.date %></b> 
+						  submitted his/her tasks for <b><%= activity.date %></b> to  <font style='color:#4183c4'><b><%= activity.recipient.name if activity.recipient %></b></font>
 						<% end %>
 					  </div>	
 					</div>
