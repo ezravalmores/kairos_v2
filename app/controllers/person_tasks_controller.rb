@@ -20,19 +20,11 @@ class PersonTasksController < ApplicationController
   end    
   
   def dashboard
-    @activities = PublicActivity::Activity.order("created_at desc")    
+    @activities = PublicActivity::Activity.order("created_at desc").where(recipient_id: current_user.id)   
   end  
   
   def edit
     @task = PersonTask.find(params[:id])
-  end
-  
-  def show
-    
-  end
-  
-  def create
-    
   end
   
   def end_task
