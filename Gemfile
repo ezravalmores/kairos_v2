@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 gem 'mysql2'
@@ -10,6 +9,7 @@ gem 'twitter-bootstrap-rails'
 gem "time_diff"
 gem 'timezone'
 gem 'will_paginate'
+gem 'public_activity'
 #gem 'activerecord-session_store'
 # Use sqlite3 as the database for Active Record
 gem "bootstrap-datepicker-rails"
