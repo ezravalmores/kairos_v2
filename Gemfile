@@ -13,6 +13,10 @@ gem 'public_activity'
 #gem 'activerecord-session_store'
 # Use sqlite3 as the database for Active Record
 gem "bootstrap-datepicker-rails"
+#gem 'rubyzip'
+gem 'zip-zip'
+gem 'ekuseru'
+gem 'spreadsheet'
 gem 'sqlite3'
 
 # Use SCSS for stylesheets
