@@ -22,7 +22,7 @@ class Archiver
       end
     end
 
-    FileUtils.chmod(0644, tmpfile.path)
+    FileUtils.chmod(777, tmpfile.path)
     FileUtils.copy(tmpfile.path,File.join("public",public_path,filename))
     # The temp file will be deleted some time...
     tmpfile.close
