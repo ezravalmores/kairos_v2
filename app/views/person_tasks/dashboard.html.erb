@@ -1,8 +1,8 @@
 <div class="span11 body_layout">
   <div class='row-fluid'>	
     <div class='span3'>
-	  <div style='padding:10px'>
-        <%= image_tag 'user.png', :class => 'img-rounded' %>
+	  <div style='padding:15px'>
+        <%= image_tag avatar_url_large(current_user) %>
         <br/>
   		<div style='margin-left:5px;border-bottom: 1px solid #eee;padding-bottom:10px'>
 		  <h3><%= current_user.name %></h3>
@@ -41,7 +41,7 @@
 				<% for activity in @activities do %>
 					<div class = 'dash_noti'>
 					  <div class='noti_pic'>
-					    <%= image_tag 'user.png', :class => 'img-rounded' %>  	
+					    <%= image_tag avatar_url_normal(current_user), :class => 'img-rounded' %>  	
 					  </div>
 					  <div class='noti_info'> 			
 					    <font style='color:#bbb'><%= time_ago_in_words(activity.created_at) %></font><br/>

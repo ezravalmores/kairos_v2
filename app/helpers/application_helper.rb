@@ -38,5 +38,14 @@ module ApplicationHelper
     container = people
   end
   
+  def avatar_url_large(user)
+    image = user.image_url.to_s + "?type=large"
+    image
+  end  
+  
+  def avatar_url_normal(user)
+    user.image_url
+  end
+  
 end
 
