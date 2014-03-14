@@ -1,7 +1,7 @@
 sheet1 = xls.create_worksheet(:name => 'Tasks Report')
 
 sheet1.row(0).default_format = Spreadsheet::Format.new(:weight => :bold)
-sheet1.row(0).concat(["Date","Person","Activity","Specific Activity","Start Time","End Time", "Total Time"])
+sheet1.row(0).concat(["Date","Person","Activity","Specific Activity","Start Time","End Time", "Total Time", "From or To", "Note"])
 row_number = 1
 
 unless @tasks_or_rates.empty?
@@ -13,6 +13,8 @@ unless @tasks_or_rates.empty?
     sheet1[row_number,4] = task.start.strftime('%l:%M:%S %p').downcase if !task.start.nil?
     sheet1[row_number,5] = task.end.strftime('%l:%M:%S %p').downcase if !task.end.nil?
 	sheet1[row_number,6] = task.total_time.strftime('%H:%M:%S') if !task.total_time.nil?
+	sheet1[row_number,7] = task.person_in_charge 
+	sheet1[row_number,8] = task.note
     row_number += 1
   end
 else
