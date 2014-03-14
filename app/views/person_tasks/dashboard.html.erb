@@ -41,7 +41,7 @@
 				<% for activity in @activities do %>
 					<div class = 'dash_noti'>
 					  <div class='noti_pic'>
-					    <%= image_tag avatar_url_normal(current_user), :class => 'img-rounded' %>  	
+					    <%= image_tag avatar_url_normal(activity.owner), :class => 'img-rounded' %>  	
 					  </div>
 					  <div class='noti_info'> 			
 					    <font style='color:#bbb'><%= time_ago_in_words(activity.created_at) %></font><br/>
