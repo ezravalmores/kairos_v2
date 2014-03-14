@@ -12,7 +12,7 @@ class LoginController < ApplicationController
             activities_today ||= user_tasks_today
 
             PersonTask.create!(:person_id => current_user.id, :start_time => Time.now.utc, :created_at => Time.now.utc, :updated_at => Time.now.utc, :shift_date => session[:shift_date], :start => set_user_time_zone) if activities_today.length == 0
-            redirect_to person_tasks_path
+            redirect_to dashboard_path
           else
             reset_session
             redirect_to :action => :login

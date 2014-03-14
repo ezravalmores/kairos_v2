@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   
   def index   
     if current_user     
-      redirect_to person_tasks_url
+      redirect_to dashboard_url
     else
       redirect_to login_url
     end
@@ -174,7 +174,7 @@ class ApplicationController < ActionController::Base
   def redirect_to_back_or_dashboard
     respond_to do |format|
       format.html{
-        request.env["HTTP_REFERER"] ? (redirect_to :back, :alert => 'You are not authorize.....') : (redirect_to person_tasks_url, :alert => 'You are not authorize.....')
+        request.env["HTTP_REFERER"] ? (redirect_to :back, :alert => 'You are not authorize.....') : (redirect_to dashboard_url, :alert => 'You are not authorize.....')
       }
     end
   end  
