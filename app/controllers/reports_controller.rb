@@ -55,6 +55,25 @@ require 'will_paginate/array'
        end   
    end
    
+   def generate_spreadsheets
+      spreadsheets = {}
+       @search = fetch_search(:person_task)
+        tasks = session[:person_task_search_results].nil? ?
+           @search.find_tasks_new([:task,:specific_task,{:person => [:department, :organization] }]) :
+           PersonTask.find(session[:person_task_search_results],
+             :include => [:task,:specific_task, {:person => [:department, :organization] }],
+             :order => 'person_tasks.start DESC,person_tasks.person_id')
+        template = "reports/tasks_report.xls.eku"  
+        @tasks_or_rates = tasks
+        @report_type = "tasks_report"
+        spreadsheets["tasks_report.xls"] = 
+        render_to_string(:template => template)
+                
+        public_filename = Archiver.bundle(spreadsheets,@report_type)
+
+        send_file(File.join("public",public_filename), :disposition => 'attachment') 
+   end        
+   
    def utilization_rates
      @utilization_rates = UtilizationRate.find_rates(params[:person],{:person => [:department, :organization]},current_user)
      @total_count = @utilization_rates.length 

@@ -5,10 +5,13 @@
 <%="#{@total_count} records matched your search" %>
 <br/><br/>
 
-<div class='pull-right' style='margin-top:-80px'>
+<div class='pull-right' style='margin-top:-60px'>
+	
   <%= will_paginate @person_tasks %>
 </div>
-
+    <div  class='pull-right' style='margin-top: -80px;margin-right:10px'>
+      <%= button_to 'Generate Spreadsheet', generate_spreadsheets_url, :class => 'btn btn-primary' if @total_count > 0 %>
+	</div>
 <table class="table table-striped" >
   <thead>
     <tr>
