@@ -17,7 +17,19 @@ gem "bootstrap-datepicker-rails"
 gem 'zip-zip'
 gem 'ekuseru'
 gem 'spreadsheet'
-gem 'sqlite3'
+gem "watu_table_builder", :require => "table_builder"
+#gem 'sqlite3'
+
+group :development, :test do 
+  gem 'rspec-rails'
+  gem 'factory_girl_rails' 
+end 
+group :test do 
+  gem 'faker' 
+  gem 'capybara' 
+  gem 'guard-rspec' 
+  gem 'launchy'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
