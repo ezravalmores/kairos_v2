@@ -59,6 +59,10 @@ Kairos::Application.routes.draw do
   match "/" => "application#index", :as => :application, via: [:get,:post]
   
   resources :activities
+  match 'calendar', to: 'activities#calendar', as: :calendar, via: [:get, :post]
+  
+  resources :leaves
+  match "submit_leaves" => "leaves#submit_leaves", :via => [:put]
   
   resources :person_tasks do
     collection do
@@ -73,6 +77,7 @@ Kairos::Application.routes.draw do
   match 'login', to: 'login#login', as: :login ,via: [:get, :post]
   match 'logout', to: 'login#logout', as: :logout, via: [:get, :post]
   match 'dashboard', to: 'person_tasks#dashboard', as: :dashboard, via: [:get, :post]
+  match "has_seen" => 'activities#has_seen', :via => [:put]
   
   match 'set_date', to: 'login#set_date', as: :set_date , via: [:get, :post]
   match "submit_tasks" => "person_tasks#submit_tasks", :via => [:put]
@@ -97,9 +102,13 @@ Kairos::Application.routes.draw do
   match "activate_role_specific_task" => 'specific_tasks#activate_role_specific_task', :via => [:put]
   
   match "tasks_approval" => 'approvals#tasks_approval', :via => [:get,:post]
+  match "leaves_approval" => 'approvals#leaves_approval', :via => [:get,:post]
   
   match "approve_tasks" => 'approvals#approve_tasks', :via => [:put]
   match "disapprove_tasks" => 'approvals#disapprove_tasks', :via => [:put]
+  
+  match "approve_leaves" => 'approvals#approve_leaves', :via => [:put]
+  match "disapprove_leaves" => 'approvals#disapprove_leaves', :via => [:put]
   
   match "end_task" => 'person_tasks#end_task', :via => [:put]
   match "generate_spreadsheets" => "reports#generate_spreadsheets", :as => :generate_spreadsheets, :via => [:get, :post]
