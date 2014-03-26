@@ -22,8 +22,8 @@
     });
     
     $("#approve_link").click(function(){
-      dataString = $("#tasks").serialize();
-	  $.ajax({type: "PUT",dataType: "script",url: "approve_tasks",
+      dataString = $("#leaves").serialize();
+	  $.ajax({type: "PUT",dataType: "script",url: "approve_leaves",
 		data: dataString,
 		  beforeSend: function(data)
 		  {
@@ -59,9 +59,9 @@
 	    });	
 
 	    $("#disapprove_link").click(function(){
-	      dataString = $("#tasks").serialize();
-		  $.ajax({type: "PUT",dataType: "script",url: "disapprove_tasks",
-			data: dataString,
+	      dataString = $("#leaves").serialize();
+		  $.ajax({type: "PUT",dataType: "script",url: "disapprove_leaves",
+			 data: dataString,
 			  beforeSend: function(data)
 			  {
 			    $('#spin_spin').show();	   
@@ -77,7 +77,7 @@
 
 	$("#approval_search select").change(function(){
       dataString = $("#approval_search").serialize();
-	  $.ajax({type: "GET",dataType: "script",url: "/tasks_approval",
+	  $.ajax({type: "GET",dataType: "script",url: "/leaves_approval",
 		data: dataString,
 		  beforeSend: function(data)
 		  {
@@ -97,7 +97,7 @@
 	     trigger: 'hover',
 	     html: true,
 	     placement: 'right',
-	     content: 'This button will process the approval of each selected tasks.'
+	     content: 'This button will process the approval of each selected leaves.'
 	  });
     
     $('#disapprove').popover(
@@ -105,7 +105,7 @@
 	     trigger: 'hover',
 	     html: true,
 	     placement: 'left',
-	     content: 'This button will process the disapproval of each selected tasks.'
+	     content: 'This button will process the disapproval of each selected leaves.'
 	  });
 
   });

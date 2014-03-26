@@ -1,0 +1,26 @@
+<div class="span12 body_layout">
+   <div class='own_page_header'>		
+     <h3>Calendar</h3>
+   </div> 	
+   <div style='padding:20px' id='calendar'>
+	  <h2 id="month">
+	    <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-%d") %>
+	    <%=h @date.strftime("%B %Y") %>
+	    <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-%d") %>
+	  </h2>
+     <%= calendar_for @activities, :year => @date.year, :month => @date.month do |calendar| %>
+       <%= calendar.head('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') %>
+       <% calendar.day(:day_method => :date ) do |date, activities| %>
+	     <%= date.day %>
+		 <ul>
+		   <% for activity in activities %>
+		     <% if activity.trackable_type == 'Leave' %>
+		       <li><span class="label label-info"><%= activity.owner.name + "'s Leave" if activity.owner %></span></li>
+		     <% end %>
+		   <% end %>
+		 </ul>
+	   <% end %>	
+	 <% end %>	
+   </div>	
+</div>	
+	

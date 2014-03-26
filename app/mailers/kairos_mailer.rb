@@ -10,4 +10,11 @@ class KairosMailer < ActionMailer::Base
         mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "Tasks Approvals")
     #end    
   end 
+  
+  def submit_leaves(person,submitted_by,leaves)
+    @submitted_by = submitted_by
+    @leaves = leaves
+    
+    mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "Leave(s) Approvals") 
+  end
 end  

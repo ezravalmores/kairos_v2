@@ -1,0 +1,48 @@
+	<script>
+	  $(document).ready(function(){
+	    $('#eye div').click(function(){
+		  var id = $(this).attr('id');
+	      	 $.ajax({
+			      type: "PUT",
+			      dataType: "script",
+			      url: "has_seen",
+			      data: {id: id},
+			      beforeSend: function(data)
+			      {
+				   $(this).children("#spin").show(); 
+			       },
+			       success: function(response)
+			       {
+					$(this).children("#spin").show(); 
+			       }
+			       });
+			return false;
+	    });	
+	  });
+	</script>
+	
+	<% for activity in @activities do %>
+		<% if activity.has_seen == false %><div class = 'dash_noti blue_bg' id = "noti_<%= activity.id %>" ><% end %>
+		<% if activity.has_seen == true %><div class = 'dash_noti'><% end %>
+		  <div class='noti_pic'>
+		    <%= image_tag avatar_url_normal(activity.owner), :class => 'img-rounded' %>  	
+		  </div>
+		  <div class='noti_info'> 			
+		    
+		    <font style='color:#bbb'><%= time_ago_in_words(activity.created_at) %></font><br/>
+            <font style='color:#4183c4'><b><%= activity.owner.name if activity.owner %></font></b>
+            
+			<% if activity.key == 'person_task.submit_tasks' %>
+			  submitted his/her tasks for <b><%= activity.date %></b> to  <font style='color:#4183c4'><b><%= activity.recipient.name if activity.recipient %></b></font>
+			<% elsif activity.key == 'leave.submit_leaves' %>
+			  submitted his/her leave request for <b><%= activity.date.strftime('%b. %e, %Y') %></b>
+			<% end %>
+			
+		  </div>
+		  <div id ='spin'><%= image_tag 'spin.gif' %></div>	
+		  <div class='pull-right'>
+			<br/>
+		    <% if activity.has_seen == false %><div class="btn tbn-success" id = "eye" ><div class='icon-eye-open' id = "<%= activity.id %>"></div></div><% end %>
+		  </div>	
+		</div>
+      <% end %>

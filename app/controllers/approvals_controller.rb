@@ -27,4 +27,28 @@ class ApprovalsController < ApplicationController
     @total_count = @for_approvals.length 
     @for_approvals = @for_approvals.paginate(:page => params[:page],:per_page => 100)
   end
+  
+  def leaves_approval
+    @for_approvals = Leave.find_leaves_to_be_approved({:person => [:department, :organization]},current_user)
+    @total_count = @for_approvals.length 
+    @for_approvals = @for_approvals.paginate(:page => params[:page],:per_page => 100)
+  end
+  
+  def approve_leaves
+    Leave.approve_leaves(params[:leaves],current_user)
+    flash[:notice] = 'Process completed by' + " " + current_user.first_name + " " + current_user.last_name 
+
+    @for_approvals = Leave.find_leaves_to_be_approved({:person => [:department, :organization]},current_user)
+    @total_count = @for_approvals.length 
+    @for_approvals = @for_approvals.paginate(:page => params[:page],:per_page => 100)
+  end
+  
+  def disapprove_leaves
+    Leave.disapprove_leaves(params[:leaves],current_user)
+    flash[:notice] = 'Proccess completed by' + " " + current_user.first_name + " " + current_user.last_name 
+
+    @for_approvals = Leave.find_leaves_to_be_approved({:person => [:department, :organization]},current_user)
+    @total_count = @for_approvals.length 
+    @for_approvals = @for_approvals.paginate(:page => params[:page],:per_page => 100)
+  end
 end  

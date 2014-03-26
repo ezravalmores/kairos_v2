@@ -1,0 +1,50 @@
+<% if @for_approvals %>
+
+<br/>
+
+<div class='pull-right' style='margin-top:-80px;margin-right:-100px'>
+  <%= will_paginate @for_approvals %>
+</div>
+
+<br><br/>
+
+<br/>
+<%= form_tag approve_tasks_url,:method => :post, :id => 'leaves' do %> 
+<table class="table table-striped" id='for_cbox'>
+  <thead>
+    <tr>
+	  <th><%= check_box_tag("master",1,false,{ :id => "select_all", :onclick => "toggleItems(this,'leaves')" }) %></th>	
+      <th>Date</th>
+      <th>Person</th>
+      <th>Leave Type</th>
+      <th>Reason</th>
+	  <th>Disapproved by</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for leave in @for_approvals %>
+    
+       <% if leave.is_submitted? %><tr class='warning'> <% end %>
+	   <% if leave.is_approved? %><tr class='success'> <% end %>
+	   <% if leave.is_disapproved? %><tr class='error'> <% end %>
+		
+		<td><%= check_box_tag("leaves[]",leave.id,false,{ :class => "leaves"}) %></td>
+		<td><%= leave.date.strftime('%b. %e, %Y') %></td>
+		<td><%= leave.person.name %></td>
+        <td><%= leave.leave_type.name %></td>
+        <td><%= leave.reason %></td>
+        <td>
+	        <%= leave.approved? if leave.is_disapproved?  %>
+		</td>
+
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+<div class='pull-right' >
+  <%= will_paginate @for_approvals %>
+</div>
+
+<% end %>

@@ -26,6 +26,8 @@
    <ul class="nav">
       <li><%= link_to 'Dashboard', dashboard_url %></li>
       <li><%= link_to ' Task Manager', person_tasks_url %></li>
+      <li><%= link_to ' Calendar', calendar_url %></li>
+      <li><%= link_to ' leave', leaves_url %></li>
    </ul>
       <% if current_user.role.name == 'Administrator' || current_user.role.name == '1st Level User' %>  
 
@@ -57,6 +59,7 @@
 	      </a>
 	    <ul class="dropdown-menu">
 	      <li><%= link_to '  Tasks Approval', tasks_approval_path %></li>
+		  <li><%= link_to '  Leave Approval', leaves_approval_path %></li>
 
 	    </ul>
 	  </li>

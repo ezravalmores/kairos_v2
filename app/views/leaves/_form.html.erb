@@ -1,0 +1,39 @@
+<script>
+   $(document).ready(function() {
+	$('#leave_date').datepicker({
+	  format: "yyyy-mm-dd",
+	  autoclose: true		
+	});
+  });	
+</script>
+<%= form_for @leave, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :date, :class => 'text_field' %>
+    </div>
+  </div>
+      <%= f.hidden_field :person_id,:value => current_user.id, :class => 'text_field' %>
+
+  
+  <div class='control-group'>
+     <%= f.label :leave_type_id, "Leave type" ,:class => 'control-label' %>
+     <div class ="controls">	
+	    <%= f.select(:leave_type_id, LeaveType.all.collect{|o| [o.name, o.id] }, :include_blank => true ,:class => 'text_field') %>
+     </div> 
+  </div>
+
+  <div class="control-group">
+    <%= f.label :reason, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :reason, :class => 'text_field' %>
+    </div>
+  </div>
+  
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                tasks_path, :class => 'btn' %>
+  </div>
+<% end %>

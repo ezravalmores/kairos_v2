@@ -38,20 +38,7 @@
 		  </ul>
 		  <div class="tab-content">
 		    <div class="tab-pane active" id="tab1">
-				<% for activity in @activities do %>
-					<div class = 'dash_noti'>
-					  <div class='noti_pic'>
-					    <%= image_tag avatar_url_normal(activity.owner), :class => 'img-rounded' %>  	
-					  </div>
-					  <div class='noti_info'> 			
-					    <font style='color:#bbb'><%= time_ago_in_words(activity.created_at) %></font><br/>
-			            <font style='color:#4183c4'><b><%= activity.owner.name if activity.owner %></font></b>
-			            <% if activity.key == 'person_task.submit_tasks' %>
-						  submitted his/her tasks for <b><%= activity.date %></b> to  <font style='color:#4183c4'><b><%= activity.recipient.name if activity.recipient %></b></font>
-						<% end %>
-					  </div>	
-					</div>
-			      <% end %>
+			  <%= render partial: 'dashboard_activities' %>
 		    </div>
 		    <div class="tab-pane" id="tab2">
 		      <p>Web Dev currently working on it</p>

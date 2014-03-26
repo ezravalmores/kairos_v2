@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_filter :authorize
+  #before_filter :authorize
   
   def index
     @people = Person.active.all
@@ -50,7 +50,6 @@ class PeopleController < ApplicationController
     respond_to do |format|
       if @person.update_attributes(user_params)
       
-        
         if current_user.role.name == '2nd Level User'
           flash[:notice] = 'Your information was successfully updated!'
           format.html { redirect_to(person_tasks_url) }  

@@ -1,0 +1,61 @@
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+	
+	$("#submit_leaves").click(function(){
+
+	  var arr_people = new Array();
+	  var arr_leaves = new Array();
+	  
+	  $('#test input[type="checkbox"]:checked').each(function() {
+        arr_people.push($(this).val());
+	  });
+		
+	  $('table input[type="checkbox"]:checked').each(function() {
+	    arr_leaves.push($(this).val());
+	  });
+		
+	  if(arr_leaves.length === 0 || arr_people.length === 0){
+		$('#submit_modal').modal();
+		$('#modal-message').html("Please select leave to submit OR people to notify!");
+		$('#submit_link').hide();
+		return false;
+	  }
+	  else{
+		$('#submit_modal').modal();
+		$('#modak-message').html("Are you sure you want to approve selected?");
+		$('#submit_link').show();
+		return false
+	  } 
+    });	
+	
+    $('#submit_link').click(function(){
+	     var arr_people = new Array();
+		 var arr_leaves = new Array(); 
+		 
+		 $('#test input[type="checkbox"]:checked').each(function() {
+		   arr_people.push($(this).val());
+		 });
+		
+		 $('table input[type="checkbox"]:checked').each(function() {
+		   arr_leaves.push($(this).val());
+		 });
+		
+	  	 $.ajax({
+		      type: "PUT",
+		      dataType: "script",
+		      url: "http://"+location.host+"/submit_leaves/",
+		      data: {people: arr_people, leaves: arr_leaves},
+		      beforeSend: function(data)
+		      {
+			   $('#spin').show();
+		      },
+		      success: function(response)
+		      {
+			    $('#spin').hide();
+				$('#submit_modal').modal('toggle'); 
+		      }
+		 });
+		return false;
+    });
+  });
+</script>
