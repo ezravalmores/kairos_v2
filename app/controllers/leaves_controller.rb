@@ -60,10 +60,12 @@ class LeavesController < ApplicationController
     @submitted_leaves.update_all(:is_submitted => true)  
     
     @people = Person.find(params[:people])
-      
+    people_ids = @people.map {|p| p.id}.join(",")  
     for person in @people
       KairosMailer.submit_leaves(person,current_user,@submitted_leaves).deliver
       for leave in @submitted_leaves
+        leave.notified_people = people_ids
+        leave.save
         leave.create_activity :submit_leaves, owner: current_user, recipient: person, date: leave.date
       end
     end
@@ -73,6 +75,29 @@ class LeavesController < ApplicationController
       flash[:notice] = "Leaves was successfully submitted!" 
       format.js {} 
     end
+  end
+  
+  def cancel_leave
+    @leave = Leave.find(params[:id])
+    
+    @leave.is_active = false
+    @leave.is_canceled = true
+    
+    @leave.save
+    
+    ids = @leave.notified_people
+    
+    @people = Person.where(:id => ids.split(','))
+    
+    for person in @people
+      KairosMailer.cancel_leave(person,current_user,@leave).deliver
+        
+      @leave.create_activity :cancel_leave, owner: current_user, recipient: person, date: @leave.date
+
+    end
+    
+    flash[:notice] = @people.count
+
   end
   
   private

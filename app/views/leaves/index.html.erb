@@ -8,9 +8,29 @@
 	</div>
    </div> 	
    <div style='padding:20px'>
-  <div id='leaves_list'>	
-     <%= render partial: 'leaves' %>
-   </div>	 	
+	
+	<div id="cancel_modal" class="modal hide fade in" style="display: none; ">  
+	  <div class="modal-header">  
+	    <a class="close" data-dismiss="modal">×</a>  
+	    <font style='color:green'><h4>Cancel Request!</h4></font>  
+	  </div>  
+	  <div class="modal-body">   
+	    <div id='cancel-modal-message'>
+
+		</div> 
+		<div id='spin2'>
+		  processing <%= image_tag 'spin.gif' %>
+		</div></p>                
+	  </div>  
+	  <div class="modal-footer">  
+	    <a href="#" class="btn btn-success" id='cancel_link'>Cancel Request</a>  
+	    <a href="#" class="btn" data-dismiss="modal">Cancel</a>  
+	  </div>  
+	</div>
+	
+     <div id='leaves_list'>	
+       <%= render partial: 'leaves' %>
+     </div>	 	
    </div>
 </div>	
 

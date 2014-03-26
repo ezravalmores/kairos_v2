@@ -38,6 +38,8 @@
 		  </ul>
 		  <div class="tab-content">
 		    <div class="tab-pane active" id="tab1">
+			  <font style='color:red'><b><%= @activities_has_seen.count %></b></font> new notification <br/><br/>
+			  
 			  <%= render partial: 'dashboard_activities' %>
 		    </div>
 		    <div class="tab-pane" id="tab2">

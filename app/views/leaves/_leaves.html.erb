@@ -13,7 +13,15 @@
   </thead>
   <tbody>
 <% for leave in @leaves %>
-  <tr>
+  <% if leave.is_canceled? %>	
+    <tr id='leave_<%= leave.id %>' class='error'>
+    
+  <% else %>
+	
+    <tr id='leave_<%= leave.id %>'>
+	
+  <% end %>
+	
 	<td><%= check_box_tag("leaves[]",leave.id,false,{ :class => "leaves"}) unless leave.is_submitted? %></td>
     <td> <%= leave.date %> </td>
     <td width='15%'> <%= leave.leave_type.name %></td>
@@ -36,14 +44,18 @@
 	  <% end %>
 	</td>
 	<td>
-	<% if leave.is_approved? || leave.is_disapproved? %>
-	   <div class='icon-remove'></div>	
-	<% elsif leave.is_pending? %>		
-	<%= link_to 'edit',
+	<% if (leave.is_approved? || leave.is_disapproved?) && !leave.is_canceled? %>
+	   <div id='spin_small' class='spin_<%= leave.id %>'> <%= image_tag 'spin.gif' %> </div>
+	   <div id='canceled_actions_<%= leave.id %>'>
+	     <div class='icon-remove' id='<%= leave.id %>'></div>
+	   </div>		
+	<% elsif leave.is_pending? %>	
+	  <%= link_to 'edit',
                   edit_leafe_path(leave) %> <%= link_to '',
 		                      leafe_path(leave),
 		                      :method => :delete,
 		                       :class => 'icon-trash', :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } %>	 	
+
     <% end %>
 </td>
   </tr>

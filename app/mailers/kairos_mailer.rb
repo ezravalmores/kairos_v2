@@ -17,4 +17,25 @@ class KairosMailer < ActionMailer::Base
     
     mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "Leave(s) Approvals") 
   end
+  
+  def cancel_leave(person,submitted_by,leave)
+    @submitted_by = submitted_by
+    @leave = leave
+    
+    mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "Leave(s) Approvals") 
+  end
+  
+  def approve_leave(person,submitted_by,leave)
+    @approved_by = submitted_by
+    @leave = leave
+    
+    mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "Leave(s) Approvals") 
+  end
+  
+  def disapprove_leave(person,submitted_by,leave)
+    @disapproved_by = submitted_by
+    @leave = leave
+    
+    mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "Leave(s) dispprovals") 
+  end
 end  

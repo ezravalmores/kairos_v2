@@ -35,7 +35,17 @@
 			<% if activity.key == 'person_task.submit_tasks' %>
 			  submitted his/her tasks for <b><%= activity.date %></b> to  <font style='color:#4183c4'><b><%= activity.recipient.name if activity.recipient %></b></font>
 			<% elsif activity.key == 'leave.submit_leaves' %>
-			  submitted his/her leave request for <b><%= activity.date.strftime('%b. %e, %Y') %></b>
+			  submitted his/her leave request for <b><%= activity.date.strftime('%b. %e, %Y') %></b><br/>
+			  you can now approve it.
+			
+			<% elsif activity.key == 'leave.cancel_leave' %>
+			  has canceled his leave request for <b><%= activity.date.strftime('%b. %e, %Y') %></b><br/>
+			
+			<% elsif activity.key == 'leave.approve_leaves' %>
+			  approved your leave request for <b><%= activity.date.strftime('%b. %e, %Y') %></b><br/>
+			
+			<% elsif activity.key == 'leave.disapprove_leaves' %>
+			  disapproved your leave request for <b><%= activity.date.strftime('%b. %e, %Y') %></b><br/>
 			<% end %>
 			
 		  </div>

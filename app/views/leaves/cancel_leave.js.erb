@@ -1,0 +1,4 @@
+$("#leave_<%= @leave.id %>").addClass('error');
+$("#canceled_actions_<%= @leave.id %>").empty();
+
+<%= flash_notice(flash.first[1], flash.first[0]) unless flash.blank? %>

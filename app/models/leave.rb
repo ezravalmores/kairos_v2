@@ -9,20 +9,24 @@ class Leave < ActiveRecord::Base
   #end
   
   def is_approved?
-    self.is_submitted == true && self.is_approve == true && self.is_disapprove == false
+    self.is_approve == true
   end
   
   def is_disapproved?
-   self.is_submitted == true && self.is_disapprove == true && self.is_approve == false
+   self.is_disapprove == true
   end
   
   def is_pending?
    (self.is_submitted == true || self.is_submitted == false) && self.is_disapprove == false && self.is_approve == false
   end
   
+  def is_canceled?
+    self.is_canceled == true
+  end
+  
   #class methods
-  def self.approve_leaves(ids,current_user)
-    leaves = where(:id => ids)    
+  def self.approve_leaves(leaves,current_user)
+    leaves = leaves    
     for leave in leaves
       leave.approve_leave(leave,current_user)  
     end  
@@ -37,7 +41,7 @@ class Leave < ActiveRecord::Base
     #end
   end 
   
-  def self.disapprove_leaves(ids,current_user)
+  def self.disapprove_leaves(leaves,current_user)
     leaves = where(:id => ids)    
     for leave in leaves
       leave.disapprove_leave(leave,current_user)  
@@ -65,7 +69,7 @@ class Leave < ActiveRecord::Base
       #  where.and('organizations.name LIKE ?', "%#{user.organization.name}%") 
       #  where.and('leaves.person_id = ?',person) 
       #else
-        where.and('leaves.is_submitted =? AND leaves.is_approve =?', true, false)
+        where.and('leaves.is_submitted =? AND leaves.is_approve =? AND is_canceled =?', true, false, false)
       #end
     #else
       #if !person.blank?  
@@ -105,8 +109,6 @@ class Leave < ActiveRecord::Base
   #  is_approve == true
   #end  
   
-  def is_canceled?
-    is_canceled == true
-  end  
+
   
 end

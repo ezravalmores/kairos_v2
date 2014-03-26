@@ -1,4 +1,6 @@
 class Task < ActiveRecord::Base
+  include PublicActivity::Common
+  
   has_many :person_tasks
   has_many :specific_tasks
   has_many :role_tasks

@@ -20,7 +20,9 @@ class PersonTasksController < ApplicationController
   end    
   
   def dashboard
-    @activities = PublicActivity::Activity.order("created_at desc").where(recipient_id: current_user.id)   
+    @activities = PublicActivity::Activity.order("created_at desc").where(recipient_id: current_user.id)
+    @activities_has_seen = PublicActivity::Activity.order("created_at desc").where(recipient_id: current_user.id, has_seen: true)   
+       
   end  
   
   def edit

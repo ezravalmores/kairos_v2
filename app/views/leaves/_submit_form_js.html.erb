@@ -57,5 +57,34 @@
 		 });
 		return false;
     });
+
+    $('.icon-remove').popover(
+	  {
+	     trigger: 'hover',
+	     html: true,
+	     placement: 'right',
+	     content: '<div style="background: blue;color:white;padding:5px"><b>Are you sure you want to cancel this request?</b></div> <br/> This will cancel the request for leave and will notify the people you selected during your submission.<br/><br/> Click <font style="color:red">x</font> to cancel.'
+	  });    
+
+	$(".icon-remove").click(function(){
+	  	var id = $(this).attr('id');
+
+		$.ajax({
+		  type: "PUT",
+		  dataType: "script",
+		  url: "cancel_leave/",
+		  data: {id: id},
+	      beforeSend: function(data)
+		  {
+		    $('.spin_' + id).show();
+		  },
+		  success: function(response)
+		  {
+			$(this).hide(); 
+		    $('.spin_'+ id).hide();
+		  }
+	    });
+		return false;
+    });
   });
 </script>
