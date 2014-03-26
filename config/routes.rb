@@ -63,6 +63,7 @@ Kairos::Application.routes.draw do
   
   resources :leaves
   match "submit_leaves" => "leaves#submit_leaves", :via => [:put]
+  match "cancel_leave" => 'leaves#cancel_leave', :via => [:put]
   
   resources :person_tasks do
     collection do
