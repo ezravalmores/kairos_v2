@@ -30,6 +30,28 @@
       <% end %>
     </div>
   </div>
+
+  <div class="control-group">
+    <%= f.label :person_in_charge, :class => 'control-label' %>
+    <div class="controls">
+	  <% if !@task.end.nil?  %>
+        <%= f.text_field :person_in_charge,:value => @task.person_in_charge,:class => 'text_field' %>
+	  <% else %>	
+        <%= f.text_field :person_in_charge,:class => 'text_field' %>  
+      <% end %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :note, :class => 'control-label' %>
+    <div class="controls">
+	  <% if !@task.end.nil?  %>
+        <%= f.text_field :note,:value => @task.person_in_charge,:class => 'text_field' %>
+	  <% else %>
+        <%= f.text_field :note,:class => 'text_field' %>  
+      <% end %>
+    </div>
+  </div>
  
   <%= hidden_field_tag :from, 'task form' %>          
     
