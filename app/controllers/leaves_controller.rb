@@ -18,9 +18,7 @@ class LeavesController < ApplicationController
     @leave = Leave.new(leave_params)
 
     respond_to do |format|
-      if @leave.save
-        @leave.create_activity :create, owner: current_user , date: @leave.date
-        
+      if @leave.save        
         flash[:notice] = 'Leave was successfully created.'
         format.html { redirect_to(leaves_url) }
       else
