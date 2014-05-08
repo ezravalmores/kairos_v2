@@ -1,0 +1,66 @@
+
+<% if @utilization_rates %>
+<br/>
+<h4>Search Results</h4>
+<%="#{@total_count} records matched your search" %>
+<br/><br/>
+
+<div class='pull-right' style='margin-top:-60px'>
+	
+  <%= will_paginate @utilization_rates %>
+</div>
+    <div  class='pull-right' style='margin-top: -80px;margin-right:10px'>
+      <%= button_to 'Generate Spreadsheet', generate_spreadsheets_url, :class => 'btn btn-primary' if @total_count > 0 %>
+	</div>
+<table class="table table-striped" >
+  <thead>
+    <tr>
+      <th width='10%'>Shift Date</th>
+      <th>Person</th>
+      <th  width='15%'>Primary Task</th>
+      <th  width='15%'>Specific Task</th>
+      <th width='9%'>Start Time</th>
+      <th width='9%'>End Time</th>
+      <th width='9%'>Total Time</th>
+      <th  width='10%'>From or To</th>
+	  <th width='10%'>Note</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for person_task in @utilization_rates %>
+    
+       <% if person_task.is_submitted? %><tr class='warning'> <% end %>
+	   <% if person_task.is_approved? %><tr class='success'> <% end %>
+	   <% if person_task.is_disapproved? %><tr class='error'> <% end %>
+		
+		<td><%= person_task.start.strftime('%b. %e, %Y') if !person_task.start.nil? %></td>
+		<td><%= person_task.person.first_name %></td>
+        <td><%= person_task.task.name if !person_task.task_id.nil? %></td>
+        <td><%= person_task.specific_task.name if !person_task.specific_task_id.nil? %></td>
+        <td><%= person_task.start.strftime('%l:%M:%S %p') if !person_task.start.nil? %></td>
+        <td><%= person_task.end.strftime('%l:%M:%S %p') if !person_task.end.nil? %></td>
+		<td><%= person_task.total_time.strftime('%H:%M:%S') if !person_task.total_time.nil? %></td>
+		<td><%= person_task.person_in_charge %></td>
+		<td><%= person_task.note %></td>
+		
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_person_task_path(person_task), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      person_task_path(person_task),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class='pull-right' >
+  <%= will_paginate @utilization_rates %>
+</div>
+
+<% end %>

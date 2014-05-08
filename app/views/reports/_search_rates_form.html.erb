@@ -1,0 +1,34 @@
+<%= render partial: 'js' %>
+<h4><font style='color:#000'>Search Rates</h4><br/>
+
+	<%= form_for :search,:url => search_rates_url,:html => {:method => 'post', :id => "basic_search", :class => "search" } do |f| %>
+		
+		<fieldset>
+		
+			<div class='pull-left'>
+		     <label>Shift Date</label>
+		     <div class="input-group date input-append">
+		       <%= f.text_field :minimum_date, :class => 'form-control' %><span class="add-on"><i class="icon-th"></i></span>
+		     </div>
+		   </div>
+		
+			<div class='pull-left' style='margin-top: 30px;margin-left:10px;font-size:11px !important'>
+		  	  <em>through</em>
+		   </div>
+		
+		   <div class='pull-left' style='margin-left: 15px'>
+		     <label><br/></label>
+		     <div class="input-group date input-append">
+		       <%= f.text_field :maximum_date, :class => 'form-control' %><span class="add-on"><i class="icon-th"></i></span>
+		     </div>
+			</div>
+			
+			<div class='pull-left' style='margin-left: 15px'>
+			  <label>Employee Name</label>
+			  <%= f.select(:person, Person.fetch_employees(current_user.organization,current_user.role,current_user.department).collect{|p| [p.first_name + " " + p.last_name, p.id] }, :include_blank => true) %>
+					  <%= f.submit "Search" , :class => 'btn btn-primary' %>
+			</div>
+		
+			<br/>
+		 </fieldset><br/>
+<% end %>
