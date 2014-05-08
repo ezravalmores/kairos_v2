@@ -59,6 +59,22 @@ class Search
      
   end
   
+  def find_rates(*associtations)
+    associations = []
+    pids = []
+    where = Where.new
+    
+    utilization_rates_by_date(where)
+    
+    unless person.blank?
+      where.and("utilization_rates.person_id = ?",person)
+    end
+    
+    associations << [{:person => [:department, :organization]}]
+    utilization_rates = UtilizationRate.scoped({})
+    utilization_rates.all(:include => associations.uniq,:conditions => where.to_s, :order => order || 'utilization_rates.shift_date DESC, utilization_rates.person_id')
+  end  
+  
   def initialize(params=nil)
      params ||= {}
      params.reject! { |key,value| value.blank? }
@@ -132,7 +148,20 @@ class Search
      where
   end
 
-  
+  def utilization_rates_by_date(where)
+     if !minimum_date.blank? && maximum_date.blank?
+       where.and("utilization_rates.shift_date >= ?", minimum_date.to_date.beginning_of_day)  
+     end      
+     
+     if !maximum_date.blank? && minimum_date.blank?
+       where.and("utilization_rates.shift_date <= ?", maximum_date.to_date.end_of_day)
+     end
+     
+     if !minimum_date.blank? && !maximum_date.blank?
+       where.and("utilization_rates.shift_date >= ? AND utilization_rates.shift_date <= ?",minimum_date.to_date.beginning_of_day, maximum_date.to_date.end_of_day)
+     end
+     where
+  end
   
   def fix_date(date)
     date = Date.parse(date)
