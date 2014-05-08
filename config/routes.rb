@@ -92,6 +92,7 @@ Kairos::Application.routes.draw do
   match "tasks_report" => 'reports#tasks_report', :via => [:get,:post]
   match "utilization_rates" => 'reports#utilization_rates', :via => [:get,:post]
   match "search_tasks" => 'reports#search_tasks', :via => [:get,:post]
+  match "search_rates" => 'reports#search_rates', :via => [:get,:post]
   
   match "add_tasks_to_role" => "manage#add_tasks_to_role", :via => [:get, :post]
   match "get_specific_tasks_assignments" => 'specific_tasks#get_specific_tasks_assignments', :via => [:get]
@@ -113,6 +114,5 @@ Kairos::Application.routes.draw do
   
   match "end_task" => 'person_tasks#end_task', :via => [:put]
   match "generate_spreadsheets" => "reports#generate_spreadsheets", :as => :generate_spreadsheets, :via => [:get, :post]
-  
   
 end
