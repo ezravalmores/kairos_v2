@@ -75,8 +75,52 @@ require 'will_paginate/array'
    end        
    
    def utilization_rates
-     @utilization_rates = UtilizationRate.find_rates(params[:person],{:person => [:department, :organization]},current_user)
-     @total_count = @utilization_rates.length 
-     @utilization_rates = @utilization_rates.paginate(:page => params[:page],:per_page => 100)
-   end   
+      @search = Search.new
+      session[:search_rate_search_cache] = nil
+      session[:search_rate_search_results] = nil
+
+      respond_to do |format|
+        format.html { render :layout => 'application' } # index.html.erb
+      end
+   end
+   
+   def search_rates
+     @search = fetch_search(:utilization_rate)
+      if @search.is_cached?
+        # Search from the search cache
+        @utilization_rates = session[:utilization_rate_search_results].nil? ?
+         @search.find_rates([{:person => [:department, :organization]}]) :
+          UtilizationRate.find(session[:utilization_rate_search_results],
+            :include => [{:person => [:department, :organization]}],
+            :order => 'utilization_rates.shift_date DESC,utilization_rates.person_id')
+        @total_count = @person_tasks.length    
+        #@person_tasks = @person_tasks.collect
+        @utilization_rates = @utilization_rates.paginate(:page => params[:page],:per_page => 100)   
+
+      elsif @search.is_active?
+        # Search from scratch
+        @utilization_rates = @search.find_rates([{:person => [:department, :organization]}])
+        if @utilization_rates.length >=1 && @utilization_rates.length <= 1000
+          session[:utilization_rates_search_cache] = params[:search]
+          #ids = @person_tasks.collect.map {|p| p.id}
+          #session[:person_task_search_results] = ids
+        else
+          session[:utilization_rates_search_cache] = nil
+          session[:utlization_rates_search_results] = nil
+        end
+        @total_count = @utilization_rates.length 
+       #person_tasks = @person_tasks.collect
+
+       @utilization_rates = @utilization_rates.paginate(:page => params[:page],:per_page => 100)    
+      else
+        # Nothing to search
+        flash[:warning] = "You must enter something to search for" if request.post?
+      end
+
+      respond_to do |format|
+        format.html {
+            render :layout => 'application'
+        }
+      end   
+   end  
 end  
