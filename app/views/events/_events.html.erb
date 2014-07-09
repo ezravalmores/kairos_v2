@@ -1,7 +1,7 @@
 <div style='padding:5px;overflow:auto;border-bottom: 1px solid #dddddd'>
   
   <div style='padding:5px;width: 30px;float:left'>
-	<%= check_box_tag("master",1,false,{ :id => "select_all", :onclick => "toggleItems(this,'events')" }) %>
+	<% check_box_tag("master",1,false,{ :id => "select_all", :onclick => "toggleItems(this,'events')" }) %>
   </div>
 </div>
 
@@ -9,9 +9,7 @@
 <% for event in @events %>
 <div style='padding:5px;overflow:auto;border-bottom: 1px solid #dddddd'>
   
-  <div style='padding:5px;width: 30px;float:left' id='cb_events'>
-    <%= check_box_tag("events[]",event.id,false,{ :class => "events"}) if event.is_submitted == false %>
-  </div>
+ 
   <div style='padding:5px;width: 600px;float:left;margin-left:10px'>
     <div style='font-size:20px;font-weight:bold;color: #437927'>
       <%= event.title %><br/>

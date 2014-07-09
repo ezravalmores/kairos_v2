@@ -26,9 +26,22 @@
 <br/>	
 </div>
 
-<div class="span3 side_layout" style='padding:10px'>
 
-        <%= link_to "Cancel and Delete this event",event_path(@event),
-                      :method => :delete, :class => 'btn btn-danger' %>
+
+<div class="span3 side_layout">
+  <div class="sidebar-nav">
+    <div id='forms'>
+      <div class='details2'>
+        <%= render :partial => 'details2' %>  	
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="span3">
+     <div id='red_link' style='padding:10px'>
+        <%= link_to "Delete this event",event_path(@event),
+                      :method => :delete %>
+     </div>
 <br/>
 </div>
