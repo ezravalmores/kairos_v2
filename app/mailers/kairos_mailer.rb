@@ -18,6 +18,14 @@ class KairosMailer < ActionMailer::Base
     mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "Leave(s) Approvals") 
   end
   
+  def create_event(person,created_by,events,people)
+    @created_by = created_by
+    @events = events
+    @people = people
+    
+    mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "New Event") 
+  end
+  
   def cancel_leave(person,submitted_by,leave)
     @submitted_by = submitted_by
     @leave = leave
