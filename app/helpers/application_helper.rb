@@ -47,5 +47,8 @@ module ApplicationHelper
     user.image_url
   end
   
+  def creator_name(creator)
+    creator.short_name
+  end
 end
 
