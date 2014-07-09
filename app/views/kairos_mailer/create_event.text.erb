@@ -1,0 +1,19 @@
+Hi,
+
+Events have been created.
+
+<% for event in @events %>
+
+Date: <%= event.date %>
+Title: <%= event.title %>
+Description: <%= event.description %>
+
+People who will join this event
+
+<% for person in @people %>
+  <%= person.name %>
+<% end %>
+
+<% end %>
+
+Go To: <%= events_url(:host => "http://www.kairos.ncmmanila.org") %>

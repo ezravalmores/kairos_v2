@@ -44,8 +44,13 @@ class LeavesController < ApplicationController
   
   def destroy
     @leave = Leave.find(params[:id])
+    
+    @activities = PublicActivity::Activity.all
+    
+    @activities = @activities.all(:conditions => ['trackable_id =? AND trackable_type =?',@leave.id,'Leave'])
+    @activities.each{ |a| a.destroy }
     @leave.destroy
-
+    
     flash[:notice] = "Leave request has been deleted"
 
     respond_to do |format|
@@ -87,11 +92,15 @@ class LeavesController < ApplicationController
     
     @people = Person.where(:id => ids.split(','))
     
+    @activities = PublicActivity::Activity.all
+    
+    @activities = @activities.all(:conditions => ['trackable_id =? AND trackable_type =?',@leave.id,'Leave'])
+    @activities.each{ |a| a.destroy }
+    
     for person in @people
       KairosMailer.cancel_leave(person,current_user,@leave).deliver
         
-      @leave.create_activity :cancel_leave, owner: current_user, recipient: person, date: @leave.date
-
+      #@leave.create_activity :cancel_leave, owner: current_user, recipient: person, date: @leave.date
     end
     
     flash[:notice] = @people.count

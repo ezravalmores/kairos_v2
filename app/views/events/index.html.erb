@@ -1,0 +1,24 @@
+<div class="span9 body_layout">
+ <div class='own_page_header'>		
+   <h3>Events</h3>
+
+	<div class='pull-right' style='margin-top:-40px'>
+	  <%= link_to 'Create Event',
+	            new_event_path, :class => 'btn' %>
+	</div>
+ </div>
+ 
+ <div style='padding:10px' id='events_list'>
+   <%= render partial: 'events' %>
+ </div>
+ <br/><br/>
+</div>
+<div class="span3 side_layout">
+  <div class="sidebar-nav">
+    <div id='forms'>
+      <div class='details2'>
+        <%= render :partial => 'details2' %>  	
+      </div>
+    </div>
+  </div>
+</div>

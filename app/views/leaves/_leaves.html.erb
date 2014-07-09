@@ -15,11 +15,8 @@
 <% for leave in @leaves %>
   <% if leave.is_canceled? %>	
     <tr id='leave_<%= leave.id %>' class='error'>
-    
   <% else %>
-	
     <tr id='leave_<%= leave.id %>'>
-	
   <% end %>
 	
 	<td><%= check_box_tag("leaves[]",leave.id,false,{ :class => "leaves"}) unless leave.is_submitted? %></td>

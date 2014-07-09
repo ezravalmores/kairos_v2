@@ -1,0 +1,39 @@
+<script>
+   $(document).ready(function() {
+	$('#event_date').datepicker({
+	  format: "yyyy-mm-dd",
+	  autoclose: true		
+	});
+  });	
+</script>
+<div class="span8 body_layout">
+   <div class='own_page_header'>		
+     <h3>New Event</h3>
+   </div>
+ 	
+   <div style='padding:20px' id='calendar'>
+	<%= form_for @event, :html => { :class => 'form-horizontal' } do |f| %>
+	  <div class="control-group">
+	    <%= f.label :date, :class => 'control-label' %>
+	    <div class="controls">
+	      <%= f.text_field :date, :class => 'text_field' %>
+	    </div>
+	  </div>
+	
+	  <div class="control-group">
+	    <%= f.label :title, :class => 'control-label' %>
+	    <div class="controls">
+	      <%= f.text_field :title, :class => 'text_field' %>
+	    </div>
+	  </div>
+
+	  <div class="control-group">
+	    <%= f.label :description, :class => 'control-label' %>
+	    <div class="controls">
+	      <%= f.text_area :description, :class => 'text_field' ,:size => '20x10' %>
+	    </div>
+	  </div>
+	  <%= f.submit nil, :class => 'btn btn-primary' %>
+   </div>
+</div>
+<% end %>

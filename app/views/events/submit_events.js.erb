@@ -1,0 +1,2 @@
+$('#events_list').html("<%= escape_javascript(render("events")) %>");
+<%= flash_notice(flash.first[1], flash.first[0]) unless flash.blank? %>
