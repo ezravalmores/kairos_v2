@@ -90,7 +90,7 @@ class EventsController < ApplicationController
     for event in @submitted_events
       event.event_people = event.event_people + "," + people_ids
       event.save
-      event.create_activity :submit_events, owner: current_user, date: event.date
+      #event.create_activity :submit_events, owner: current_user, date: event.date
     end  
     @events = Event.all
 
