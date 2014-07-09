@@ -20,7 +20,12 @@
 		 <ul>
 		   <% for activity in activities %>
 		     <% if activity.trackable_type == 'Leave' %>
-		       <li><span class="label label-info"><%= activity.owner.name + "'s Leave" if activity.owner %></span></li>
+			   <div style='background-color:#D7F2FF;padding:5px'>	
+		         <li><span  >*<%= activity.owner.name + "'s Leave" if activity.owner %></span></li>
+		       </div>
+		     <% elsif activity.trackable_type == 'Event'  %>
+			   <div style='background-color:#D8EECF;padding:5px'>	
+			   <li><span id='cl_events'>* <%= link_to activity.trackable.title, activity.trackable %></span></li></div>
 		     <% end %>
 		   <% end %>
 		 </ul>
