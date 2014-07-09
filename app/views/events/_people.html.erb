@@ -6,10 +6,11 @@
 	  <div style='margin-left:20px !important'> 
 	    <%= person.name %>
 	  </div>  
+	  <% if current_user.id == @event.created_by %>
 	  <div style='float:right;margin-top:-10px'>
 	    <div class='icon-remove' id='<%= person.id %>'></div>	
 	  </div>
 	  <div id='spin_small2' class='spin_<%= person.id %>'> <%= image_tag 'spin.gif' %> </div>
-		
+	  <% end %>	
 </div>	
 <% end %>

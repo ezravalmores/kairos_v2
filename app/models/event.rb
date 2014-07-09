@@ -4,6 +4,6 @@ class Event < ActiveRecord::Base
   belongs_to :creator, :class_name => "Person", :foreign_key => "created_by"
   
   
-  validates_presence_of :description
+  validates_presence_of :description, :from, :to
   
 end  

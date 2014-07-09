@@ -26,8 +26,28 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.created_by = current_user.id
     @event.event_people = current_user.id
+    
     respond_to do |format|
       if @event.save
+        
+        dt1 = @event.from.to_date
+        dt2 = @event.to.to_date
+        
+        days_ctr = dt2 - dt1
+        event_date = @event.from
+        i = 1
+        if days_ctr.to_i > 1
+          days_ctr.to_i.times do
+          #while i <= days_ctr.to_i
+            @event.create_activity :submit_events, owner: current_user, date: event_date 
+            event_date = event_date + 1.day 
+            #i = i + 1  
+          end
+          @event.create_activity :submit_events, owner: current_user, date: @event.to 
+        else
+          @event.create_activity :submit_events, owner: current_user, date: event_date      
+        end  
+        
         flash[:notice] = 'Event was successfully created and emailed people that you have selected.'
         format.html { redirect_to(events_url) }
       else
@@ -104,6 +124,6 @@ class EventsController < ApplicationController
   private
   
   def event_params 
-    params.require(:event).permit(:date,:description, :title, :is_submitted, :event_people)
+    params.require(:event).permit(:from,:to,:date,:description, :title, :is_submitted, :event_people)
   end
 end  

@@ -5,9 +5,13 @@
      <h3><%= @event.title %></h3>
 	 created by <%= creator_name(@event.creator) %>
    </div>
-   <br/>
 
-   <div style='padding:20px'>	
+
+   <div style='padding:20px'>
+	 <b>From:</b> <%= @event.from.strftime('%B %d, %Y') %> <br/>
+	 <b>To:</b> <%= @event.to.strftime('%B %d, %Y') %> 
+	 <br/><br/>
+		
      <%= @event.description %> 
      <%= hidden_field_tag :event_id, @event.id %>
 	 <br/><br/><br/>

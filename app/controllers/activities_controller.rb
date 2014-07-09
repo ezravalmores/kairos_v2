@@ -5,7 +5,9 @@ class ActivitiesController < ApplicationController
   end
   
   def calendar
-    @activities = PublicActivity::Activity.all.group("trackable_id") 
+    @leaves = PublicActivity::Activity.where('trackable_type =?',"Leave").group("trackable_id") 
+    @events = PublicActivity::Activity.where('trackable_type =?',"Event") 
+    @activities = @leaves + @events
     @date = params[:month] ? Date.parse(params[:month]) : Date.today
   end  
   
