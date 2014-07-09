@@ -26,6 +26,13 @@ class KairosMailer < ActionMailer::Base
     mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "New Event") 
   end
   
+  def remove_person(person,removed_by,event)
+    @removed_by = removed_by
+    @event = event
+    
+    mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "New Event") 
+  end
+  
   def cancel_leave(person,submitted_by,leave)
     @submitted_by = submitted_by
     @leave = leave

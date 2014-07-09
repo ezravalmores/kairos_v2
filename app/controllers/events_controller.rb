@@ -81,6 +81,26 @@ class EventsController < ApplicationController
     end
   end
   
+  def remove_person
+    @event = Event.find(params[:id])
+    ids = @event.event_people
+    remove = params[:person]
+    ids = ids.gsub(remove.to_s,'')    
+    
+    @event.event_people = ids
+    @event.save
+    
+    @people = Person.where(:id => ids.split(','))
+    
+    @person = Person.find(remove)
+    KairosMailer.remove_person(@person,current_user,@event).deliver
+    
+    respond_to do |format|
+      flash[:notice] = "Person was successfully removed."
+      format.js {} 
+    end
+  end
+  
   private
   
   def event_params 

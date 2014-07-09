@@ -279,11 +279,19 @@ padding: 13px 30px 13px 24px;
  margin-left:-45px;
  display:none;
 }
+#spin_small2{
+ float:right;
+ margin-left:-50px;
+ margin-top:-10px;
+ display:none;
+}
 #spin_small img{
  width: 40px;
 }
 
-
+#spin_small2 img{
+ width: 30px;
+}
 #create_form_spin{
  display:none;
  float:left;
@@ -319,7 +327,8 @@ box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 
 #cl_events a{
- color: #000000;	
+ color: #000000;
+ text-decoration: underline;	
 }
 #cl_events a:hover{
  background: none;	

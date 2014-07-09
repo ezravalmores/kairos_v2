@@ -1,3 +1,5 @@
+<%= render partial: 'show_js' %>
+
 <div class="span8 body_layout">
    <div class='own_page_header'>		
      <h3><%= @event.title %></h3>
@@ -7,20 +9,14 @@
 
    <div style='padding:20px'>	
      <%= @event.description %> 
+     <%= hidden_field_tag :event_id, @event.id %>
 	 <br/><br/><br/>
 	  
 	 <b>People who will join this event</b><br/><br/> 
 	
-	 <% for person in @people %>
-	 <div style='width:500px;overflow:auto;margin-bottom:10px'>
-	   	  <div class='noti_pic' style='margin-right:10px'>
-		    <%= image_tag avatar_url_normal(person), :class => 'img-rounded' %>  	
-		  </div>
-		  <div style='margin-left:20px !important'> 
-		    <%= person.name %>
-		  </div>  
-	 </div>	
-	 <% end %>
+     <div id='people_list'>
+	   <%= render partial: 'people' %>
+	 </div> 
    </div>	
 
 <br/>	
