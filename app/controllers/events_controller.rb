@@ -38,14 +38,13 @@ class EventsController < ApplicationController
         i = 1
         if days_ctr.to_i > 1
           days_ctr.to_i.times do
-          #while i <= days_ctr.to_i
             @event.create_activity :submit_events, owner: current_user, date: event_date 
             event_date = event_date + 1.day 
-            #i = i + 1  
           end
           @event.create_activity :submit_events, owner: current_user, date: @event.to 
         else
-          @event.create_activity :submit_events, owner: current_user, date: event_date      
+          @event.create_activity :submit_events, owner: current_user, date: event_date  
+          @event.create_activity :submit_events, owner: current_user, date: @event.to     
         end  
         
         flash[:notice] = 'Event was successfully created and emailed people that you have selected.'
