@@ -14,13 +14,15 @@
   </div>
   <div style='padding:5px;width: 600px;float:left;margin-left:10px'>
     <div style='font-size:20px;font-weight:bold;color: #437927'>
-      <%= event.title %>
+      <%= event.title %><br/>
 	  <div style='float:right;font-size:10px'>
         <%= link_to 'more info', event_path(event) %> |
         <%= link_to 'edit', "#" %>
 	  </div>		
     </div>
-	<div style='font-size:10px;margin-top:5px'>created by <%= creator_name(event.creator) %></div>
+	<div style='font-size:10px;margin-top:5px'>created by <%= creator_name(event.creator) %></div><br/>
+	<%= event.from.strftime('%B %d, %Y') %> <b><em>to</em></b> <%= event.to.strftime('%B %d, %Y') %><br/>
+	
 	<div style='margin-top:10px'><%= event.description %></div>
   </div>	
 </div>	
