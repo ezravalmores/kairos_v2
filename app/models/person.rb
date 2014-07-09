@@ -31,6 +31,10 @@ class Person < ActiveRecord::Base
     end  
   end
   
+  def short_name
+    "#{self.first_name} #{self.last_name[0,1].upcase}"
+  end
+  
   # Boolean methods
   def has_right?(action,context)
     role.has_right?(action,context)
