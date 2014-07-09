@@ -73,6 +73,10 @@ Kairos::Application.routes.draw do
     
   resources :people
   resources :rights
+  resources :events
+  
+  match "submit_events" => "events#submit_events", :via => [:put]
+  
   
   #get "/" => "application#index", as: :application, via: [:get,:post]
   match 'login', to: 'login#login', as: :login ,via: [:get, :post]
