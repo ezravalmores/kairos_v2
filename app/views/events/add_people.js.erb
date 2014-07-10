@@ -1,4 +1,4 @@
-$("#person_<%= @person.id %>").remove();
+$('#people_list').replaceWith("<%= escape_javascript(render("people")) %>");
 $(".details2").replaceWith("<%= escape_javascript(render(:partial => "details2")) %>");
 $(".end_form").replaceWith("<%= escape_javascript(render(:partial => "details2")) %>");
 

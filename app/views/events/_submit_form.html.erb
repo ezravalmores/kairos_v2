@@ -24,9 +24,9 @@
 
 <div style='padding-left:20px;padding-bottom:20px' id='test'>
 
-	<% for person in Person.all do %>
+	<% for person in @people do %>
 	  <% if person.id != current_user.id  %>
-	  <%= check_box_tag("people[]",person.id,false,{}) %>&nbsp;<span><%= person.first_name + " " + person.last_name %></span></br>
+	  <%= check_box_tag("people[]",person.id,false,{:class => person.id }) %>&nbsp;<span><%= person.first_name + " " + person.last_name %></span></br>
 	  <% end %> 
 	<% end %>
 	

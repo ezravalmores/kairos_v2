@@ -1,11 +1,8 @@
-<%= render partial: 'show_js' %>
-
 <div class="span8 body_layout">
    <div class='own_page_header'>		
      <h3><%= @event.title %></h3>
 	 created by <%= creator_name(@event.creator) %>
    </div>
-
 
    <div style='padding:20px'>
 	 <b>From:</b> <%= @event.from.strftime('%B %d, %Y') %> <br/>
@@ -26,17 +23,15 @@
 <br/>	
 </div>
 
-
-
-<div class="span3 side_layout">
-  <div class="sidebar-nav">
-    <div id='forms'>
-      <div class='details2'>
-        <%= render :partial => 'details2' %>  	
-      </div>
-    </div>
-  </div>
-</div>
+	<div class="span3 side_layout">
+	  <div class="sidebar-nav">
+	    <div id='forms'>
+	      <div class='details2'>
+	        <%= render :partial => 'details2' %>  	
+	      </div>	
+	</div>
+	</div>
+	</div>	
 
 <div class="span3">
      <div id='red_link' style='padding:10px'>
@@ -44,4 +39,5 @@
                       :method => :delete %>
      </div>
 <br/>
-</div>
+</div>	
+	

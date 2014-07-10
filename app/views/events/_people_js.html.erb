@@ -1,0 +1,32 @@
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $('.icon-remove').popover(
+	  {
+	     trigger: 'hover',
+	     html: true,
+	     placement: 'right',
+	     content: '<div style="background: blue;color:white;padding:5px"><b>Are you sure you want to remove this person from this event?</b></div> <br/> This will remove the person from this event.<br/><br/> Click <font style="color:red">x</font> to cancel.'
+	  });    
+
+	$(".icon-remove").click(function(){
+	  	var id = $('#event_id').val();
+		var person = $(this).attr('id');
+		$.ajax({
+		  type: "PUT",
+		  dataType: "script",
+		  url: "http://"+location.host+"/remove_person/",
+		  data: {id: id, person: person},
+	      beforeSend: function(data)
+		  {
+		    $('.spin_' + person).show();
+		  },
+		  success: function(response)
+		  {
+			$(this).hide(); 
+		    $('.spin_'+ person).hide();
+		  }
+	    });
+		return false;
+    });
+});
+</script>

@@ -11,7 +11,8 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     ids = @event.event_people
-    @people = Person.where(:id => ids.split(','))
+    @added_people = Person.where(:id => ids.split(','))
+    @people = Person.where.not(id: ids.split(','))
   end  
   
   def new
@@ -100,6 +101,29 @@ class EventsController < ApplicationController
     end
   end
   
+  def add_people
+    @event = Event.find(params[:id])
+    
+    @added_people = Person.find(params[:people])
+    people_ids = @added_people.map {|p| p.id}.join(",")  
+    
+    @event.event_people = @event.event_people + "," + people_ids
+    @event.save
+        
+    for person in @added_people
+      KairosMailer.add_people(person,current_user,@event).deliver
+    end
+    
+    ids = @event.event_people
+    @added_people = Person.where(:id => ids.split(','))
+    @people = Person.where.not(id: ids.split(','))
+    
+    respond_to do |format|
+      flash[:notice] = "People was successfully added."
+      format.js {} 
+    end
+  end
+  
   def remove_person
     @event = Event.find(params[:id])
     ids = @event.event_people
@@ -108,8 +132,9 @@ class EventsController < ApplicationController
     
     @event.event_people = ids
     @event.save
-    
-    @people = Person.where(:id => ids.split(','))
+        
+    @added_people = Person.where(:id => ids.split(','))
+    @people = Person.where.not(id: ids.split(','))
     
     @person = Person.find(remove)
     KairosMailer.remove_person(@person,current_user,@event).deliver

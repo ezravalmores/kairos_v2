@@ -1,29 +1,23 @@
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
-	
+
 	$("#submit_events").click(function(){
 
 	  var arr_people = new Array();
-	  var arr_events = new Array();
-	  
+	
 	  $('#test input[type="checkbox"]:checked').each(function() {
         arr_people.push($(this).val());
 	  });
-	  
-		
-	  $('#cb_events input[type="checkbox"]:checked').each(function() {
-	    arr_events.push($(this).val());
-	  });
-		
-	  if(arr_events.length === 0 || arr_people.length === 0){
+    		
+	  if(arr_people.length === 0){
 		$('#submit_modal').modal();
-		$('#modal-message').html("Please select event to submit OR people to notify!");
+		$('#modal-message').html("Please select people to add!");
 		$('#submit_link').hide();
 		return false;
 	  }
 	  else{
 		$('#submit_modal').modal();
-		$('#modak-message').html("Are you sure you want to approve selected?");
+		$('#modal-message').html("Are you sure you want to approve selected?");
 		$('#submit_link').show();
 		return false
 	  } 
@@ -31,60 +25,27 @@
 	
     $('#submit_link').click(function(){
 	     var arr_people = new Array();
-		 var arr_events = new Array(); 
-		 
+	     var id = $('#event_id').val();
+	   
 		 $('#test input[type="checkbox"]:checked').each(function() {
 		   arr_people.push($(this).val());
-		 });
-		
-		 $('#cb_events input[type="checkbox"]:checked').each(function() {
-		   arr_events.push($(this).val());
 		 });
 		
 	  	 $.ajax({
 		      type: "PUT",
 		      dataType: "script",
-		      url: "http://"+location.host+"/submit_events/",
-		      data: {people: arr_people, events: arr_events},
+		      url: "http://"+location.host+"/add_people/",
+		      data: {people: arr_people, id: id},
 		      beforeSend: function(data)
 		      {
-			   $('#spin').show();
+			    $('#spin').show();
 		      },
 		      success: function(response)
 		      {
 			    $('#spin').hide();
-				$('#submit_modal').modal('toggle'); 
+				$('#submit_modal').modal('hide'); 				
 		      }
 		 });
-		return false;
-    });
-
-    $('.icon-remove').popover(
-	  {
-	     trigger: 'hover',
-	     html: true,
-	     placement: 'right',
-	     content: '<div style="background: blue;color:white;padding:5px"><b>Are you sure you want to cancel this request?</b></div> <br/> This will cancel the request for event and will notify the people you selected during your submission.<br/><br/> Click <font style="color:red">x</font> to cancel.'
-	  });    
-
-	$(".icon-remove").click(function(){
-	  	var id = $(this).attr('id');
-
-		$.ajax({
-		  type: "PUT",
-		  dataType: "script",
-		  url: "cancel_event/",
-		  data: {id: id},
-	      beforeSend: function(data)
-		  {
-		    $('.spin_' + id).show();
-		  },
-		  success: function(response)
-		  {
-			$(this).hide(); 
-		    $('.spin_'+ id).hide();
-		  }
-	    });
 		return false;
     });
   });

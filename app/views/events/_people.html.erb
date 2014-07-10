@@ -1,5 +1,7 @@
-<% for person in @people %>
-<div style='width:500px;overflow:auto;margin-bottom:10px'>
+<%= render partial: 'people_js' %>
+
+<% for person in @added_people %>
+<div style='width:500px;overflow:auto;margin-bottom:10px' id='person_<%= person.id %>'>
   	  <div class='noti_pic' style='margin-right:10px'>
 	    <%= image_tag avatar_url_normal(person), :class => 'img-rounded' %>  	
 	  </div>
