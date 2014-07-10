@@ -1,7 +1,8 @@
 <div class="span8 body_layout">
    <div class='own_page_header'>		
      <h3><%= @event.title %></h3>
-	 created by <%= creator_name(@event.creator) %>
+	 created by <%= creator_name(@event.creator) %><br/>
+	 <%= link_to 'edit this event', edit_event_path(@event) %>
    </div>
 
    <div style='padding:20px'>
@@ -36,7 +37,7 @@
 <div class="span3">
      <div id='red_link' style='padding:10px'>
         <%= link_to "Delete this event",event_path(@event),
-                      :method => :delete %>
+                      :method => :delete,  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } %>
      </div>
 <br/>
 </div>	

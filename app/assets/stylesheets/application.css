@@ -175,7 +175,14 @@ background:#D8EECF;
 margin: 0 0 5px 0;
 padding: 13px 30px 13px 24px;
 }
-
+.own_page_header a {
+ color: #0000FF !important;
+ text-decoration: underline;	
+}	
+.own_page_header a:hover {
+ background:none;
+ text-decoration: underline;	
+}
 .link_blue{
  color: blue !important;	
 }

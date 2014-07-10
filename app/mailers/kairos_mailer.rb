@@ -33,6 +33,13 @@ class KairosMailer < ActionMailer::Base
     mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "Removed from event") 
   end
   
+  def update_event(person,updated_by,event)
+    @updated_by = updated_by
+    @event = event
+    
+    mail(:to => person.email_address, :from => "Kairos <no-reply@ncm.org>", :subject => "Event Updated") 
+  end
+  
   def add_people(person,added_by,event)
     @added_by = added_by
     @event = event

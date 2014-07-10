@@ -20,7 +20,7 @@ class EventsController < ApplicationController
   end
   
   def edit
-    
+    @event = Event.find(params[:id])
   end
   
   def create
@@ -40,16 +40,18 @@ class EventsController < ApplicationController
         if days_ctr.to_i > 1
           days_ctr.to_i.times do
             @event.create_activity :submit_events, owner: current_user, date: event_date 
-            event_date = event_date + 1.day 
+            event_date = event_date + 1.day
           end
           @event.create_activity :submit_events, owner: current_user, date: @event.to 
-        else
+        elsif days_ctr.to_i == 1
           @event.create_activity :submit_events, owner: current_user, date: event_date  
-          @event.create_activity :submit_events, owner: current_user, date: @event.to     
+          @event.create_activity :submit_events, owner: current_user, date: @event.to 
+        else
+          @event.create_activity :submit_events, owner: current_user, date: event_date        
         end  
         
         flash[:notice] = 'Event was successfully created and emailed people that you have selected.'
-        format.html { redirect_to(events_url) }
+        format.html { redirect_to(event_url(@event)) }
       else
         flash[:warning] = 'warning.'
         format.html { render :new }
@@ -58,6 +60,47 @@ class EventsController < ApplicationController
   end
   
   def update
+    @event = Event.find(params[:id])
+    @activities = PublicActivity::Activity.all
+    
+    @activities = @activities.all(:conditions => ['trackable_id =? AND trackable_type =?',@event.id,'Event'])
+    @activities.each{ |a| a.destroy }
+    
+    respond_to do |format|
+      if @event.update_attributes(event_params)
+        
+        dt1 = @event.from.to_date
+        dt2 = @event.to.to_date
+        
+        days_ctr = dt2 - dt1
+        event_date = @event.from
+        i = 1
+        if days_ctr.to_i > 1
+          days_ctr.to_i.times do
+            @event.create_activity :submit_events, owner: current_user, date: event_date 
+            event_date = event_date + 1.day
+          end
+          @event.create_activity :submit_events, owner: current_user, date: @event.to 
+        elsif days_ctr.to_i == 1
+          @event.create_activity :submit_events, owner: current_user, date: event_date  
+          @event.create_activity :submit_events, owner: current_user, date: @event.to 
+        else
+          @event.create_activity :submit_events, owner: current_user, date: event_date        
+        end
+        
+         ids = @event.event_people
+         @people = Person.where(:id => ids.split(','))
+        
+         for person in @people
+           KairosMailer.update_event(person,current_user,@event).deliver
+         end
+        
+         flash[:notice] = 'Event was successfully updated.'
+         format.html { redirect_to(event_url(@event)) }
+      else
+        format.html { render :edit }                
+      end  
+    end    
     
   end
   

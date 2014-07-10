@@ -43,7 +43,9 @@
 		      success: function(response)
 		      {
 			    $('#spin').hide();
-				$('#submit_modal').modal('hide'); 				
+				$('#submit_modal').modal('hide'); 
+				$('.modal-backdrop').hide(); 
+								
 		      }
 		 });
 		return false;

@@ -15,7 +15,7 @@
       <%= event.title %><br/>
 	  <div style='float:right;font-size:10px'>
         <%= link_to 'more info', event_path(event) %> |
-        <%= link_to 'edit', "#" %>
+        <%= link_to 'edit', edit_event_path(event) %>
 	  </div>		
     </div>
 	<div style='font-size:10px;margin-top:5px'>created by <%= creator_name(event.creator) %></div><br/>
