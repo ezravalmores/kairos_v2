@@ -101,7 +101,6 @@ class EventsController < ApplicationController
         format.html { render :edit }                
       end  
     end    
-    
   end
   
   def destroy
@@ -152,7 +151,7 @@ class EventsController < ApplicationController
     
     @event.event_people = @event.event_people + "," + people_ids
     @event.save
-        
+    
     for person in @added_people
       KairosMailer.add_people(person,current_user,@event).deliver
     end
