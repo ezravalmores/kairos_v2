@@ -21,9 +21,15 @@
 		   <% for activity in activities %>
 		     <% if activity.trackable_type == 'Leave' %>
 			   <% if activity.trackable.is_approved?  %>	
-			   <div style='background-color:#D7F2FF;padding:5px;margin-bottom:5px'>	
+			   <% if activity.trackable.leave_type_id == 1 || activity.trackable.leave_type_id == 2  %>
+			    <div style='background-color:#D7F2FF;padding:5px;margin-bottom:5px'>	
+		          <li><span  >*<%= activity.owner.name + "'s Leave" if activity.owner %></span></li>
+		        </div>
+			   <% else %>
+				<div style='background-color:#FF0033;padding:5px;margin-bottom:5px;color: #ffffff'>	
 		         <li><span  >*<%= activity.owner.name + "'s Leave" if activity.owner %></span></li>
-		       </div>
+		        </div>
+			   <% end %>	
 			   <% end %>
 		     <% elsif activity.trackable_type == 'Event'  %>
 			   <div style='background-color:#D8EECF;padding:5px;margin-bottom:5px'>	
