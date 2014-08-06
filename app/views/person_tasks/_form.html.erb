@@ -3,13 +3,13 @@
   <div class="control-group">
     <%= f.label :task_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.collection_select :task_id, role_tasks, :task_id, :name, :include_blank => true  %><br/>
+      <%= f.collection_select :task_id, RoleTask.all, :task_id, :name, :include_blank => true  %><br/>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :specific_task_id, :class => 'control-label' %>
     <div class="controls">
-	  <%= f.grouped_collection_select :specific_task_id, role_tasks, :role_specific_tasks, :name ,:specific_task_id, :name, :include_blank => true  %><br/><br/>
+	  <%= f.grouped_collection_select :specific_task_id, RoleTask.all, :role_specific_tasks, :name ,:specific_task_id, :name, :include_blank => true  %><br/><br/>
     </div>
   </div>
 

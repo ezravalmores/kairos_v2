@@ -18,8 +18,8 @@
 	 <div id='basic' style='<%= @style_basic %>'>	
        <%= render partial: 'basic_search_tasks_form' %>
      </div>
-     
+   <% if current_user.role.name == 'Administrator' || current_user.role.name == '1st Level User' %> 
      <div id='advance' style='<%= @style_advance %>'>
        <%= render partial: 'advance_search_tasks_form' %>
      </div>
-
+   <% end %>

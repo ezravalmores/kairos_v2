@@ -13,6 +13,8 @@
     </div>
   </fieldset><br/>
 
- <div id = 'basic_link' class='btn btn-danger'>show advance form</div>  
+ <% if current_user.role.name == 'Administrator' || current_user.role.name == '1st Level User' %> 
+   <div id = 'basic_link' class='btn btn-danger'>show advance form</div>  
+ <% end %>
 <% end %>
 

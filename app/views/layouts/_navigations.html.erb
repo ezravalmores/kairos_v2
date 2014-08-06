@@ -29,6 +29,7 @@
       <li><%= link_to ' Calendar', calendar_url %></li>
       <li><%= link_to ' Leave', leaves_url %></li>
       <li><%= link_to ' Events', events_url %></li>
+	  <li><%= link_to ' Search', tasks_report_path %></li>
 
    </ul>
       <% if current_user.role.name == 'Administrator' || current_user.role.name == '1st Level User' %>  
